@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CLIENT] Value Acceleration · Experis</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/brand/favicon-64.png?v=2">
+<link rel="shortcut icon" href="assets/brand/favicon-32.png?v=2">
+<link rel="apple-touch-icon" href="assets/brand/favicon-180.png?v=2">
+<meta name="theme-color" content="#1100FF">
+<!-- Social share (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Experis">
+<meta property="og:title" content="[CLIENT] Value Acceleration · Experis">
+<meta property="og:description" content="Meaningful, near-term cost savings — delivered without disruption to your people or your roadmap.">
+<meta property="og:url" content="https://experis-ds.github.io/Microsite/">
+<meta property="og:image" content="https://experis-ds.github.io/Microsite/assets/brand/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[CLIENT] Value Acceleration · Experis">
+<meta name="twitter:description" content="Meaningful, near-term cost savings — delivered without disruption to your people or your roadmap.">
+<meta name="twitter:image" content="https://experis-ds.github.io/Microsite/assets/brand/og-image.jpg">
+<style>
+  :root{
+    --blue:#1100FF;            /* Experis Blue — logo/accent only */
+    --violet:#5C4BB9; --violet-lt:#736BDE; --violet-soft:#9E94FA;
+    --blue2:#3893CD; --blue-lt:#56BDED;
+    --ink:#282A32; --gray:#67696F; --gray-lt:#EFEFEF; --green:#4FA85C;
+    --glass:rgba(255,255,255,.93);
+    --glass-dark:rgba(26,22,46,.55);
+    --line:#E7E6F2;
+    --frame:#161535;
+    --shadow:0 30px 70px rgba(20,14,50,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);
+    height:100vh;overflow-x:auto;overflow-y:hidden;background:#1a1430}
+  img{display:block}
+
+  /* ---------- living background ---------- */
+  #bg{position:fixed;inset:0;z-index:0;overflow:hidden;transition:opacity .8s ease}
+  #bg video{width:100%;height:100%;object-fit:cover}
+  #scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 90% at 70% 10%,rgba(26,20,48,.05),rgba(26,20,48,.45))}
+  /* fixed opaque backdrop for content slides — hides motion without moving */
+  #deck-bg{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .55s ease;
+    background:radial-gradient(120% 100% at 82% -12%,#3a2f6e 0%,#1d1838 52%,#13111f 100%)}
+  #deck-bg.show{opacity:1}
+  /* once the cover has settled, motion is no longer needed — drop it and seal the stage so nothing ghosts through transitions */
+  body.settled #bg{opacity:0}
+  body.settled .stage{background:#fff}
+
+  /* ---------- password gate ---------- */
+  .gate{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:30px;
+    transition:transform .9s cubic-bezier(.76,0,.24,1),opacity .7s ease}
+  .gate--out{transform:translateY(-104%);opacity:0;pointer-events:none}
+  .gate-logo{opacity:0;animation:fadeUp .9s .2s forwards}
+  .gate-logo img{height:42px;filter:drop-shadow(0 4px 18px rgba(0,0,0,.35))}
+  .prompt{width:min(420px,90vw);padding:38px 36px 30px;border-radius:22px;
+    background:rgba(255,255,255,.12);backdrop-filter:blur(24px) saturate(140%);
+    -webkit-backdrop-filter:blur(24px) saturate(140%);
+    border:1px solid rgba(255,255,255,.35);box-shadow:0 30px 80px rgba(10,6,40,.5);
+    text-align:center;color:#fff;opacity:0;animation:popIn .8s .35s cubic-bezier(.34,1.56,.64,1) forwards}
+  .prompt h2{font-size:23px;font-weight:700;letter-spacing:-.3px}
+  .prompt .sub{font-size:13.5px;color:rgba(255,255,255,.8);margin:8px 0 22px;line-height:1.5}
+  .prompt input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.4);
+    background:rgba(255,255,255,.16);color:#fff;font-size:15px;outline:none;text-align:center;letter-spacing:1px}
+  .prompt input::placeholder{color:rgba(255,255,255,.6);letter-spacing:.5px}
+  .prompt input:focus{border-color:#fff;background:rgba(255,255,255,.24)}
+  .prompt button.enter{width:100%;margin-top:14px;padding:14px;border:none;border-radius:12px;cursor:pointer;
+    background:#fff;color:var(--blue);font-size:15px;font-weight:700;transition:.18s}
+  .prompt button.enter:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .prompt .err{height:16px;margin-top:12px;font-size:12.5px;color:#ffd2da;opacity:0;transition:.2s}
+  .prompt .err.show{opacity:1}
+  .prompt .bypass{margin-top:16px;background:none;border:none;color:rgba(255,255,255,.78);
+    font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .prompt .bypass:hover{color:#fff}
+  .prompt.shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- app ---------- */
+  .app{position:relative;z-index:10;height:100vh;min-width:1180px;display:flex;flex-direction:column;background:transparent;
+    transform:translateY(102%);opacity:0;transition:transform .95s cubic-bezier(.76,0,.24,1) .15s,opacity .6s ease .25s}
+  .app--in{transform:none;opacity:1}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;flex:0 0 auto;
+    background:var(--glass-dark);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.1)}
+  .topbar .brand{display:flex;align-items:center;gap:14px}
+  .topbar .brand img.exp{height:26px}
+  .topbar .ttl{color:#fff;font-size:13.5px;font-weight:600}
+  .topbar .ttl span{color:#b9b4e6;font-weight:400}
+  .topbar .chip{background:#fff;border-radius:7px;padding:5px 9px;display:flex;align-items:center}
+  .topbar .chip img{height:22px}
+
+  .layout{flex:1 1 auto;display:flex;min-height:0;padding:18px 22px 14px;gap:18px}
+  .index{flex:0 0 244px;overflow-y:auto;padding-right:4px}
+  .index h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#a7a2d8;margin:6px 8px 12px}
+  .nav-item{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:10px;cursor:pointer;
+    font-size:13px;line-height:1.25;color:#cfccea;transition:.18s;border:1px solid transparent}
+  .nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+  .nav-item.active{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(155,148,250,.5)}
+  .nav-item .num{flex:0 0 23px;height:23px;border-radius:7px;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#b9b4e6}
+  .nav-item.active .num{background:linear-gradient(135deg,var(--violet-lt),var(--blue2));color:#fff}
+
+  .stage-wrap{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+  /* the stage is a KNOCKOUT in the dark frame: its huge solid box-shadow paints the
+     dark-blue frame everywhere around it, while the stage interior reveals the fixed motion */
+  .stage{flex:1 1 auto;border-radius:20px;position:relative;overflow:hidden;z-index:1;background:transparent;
+    box-shadow:0 0 0 100vmax var(--frame),0 0 0 1px rgba(255,255,255,.07)}
+  .index,.stepper{position:relative;z-index:3}
+  .topbar{position:relative;z-index:30}
+  .slide{position:absolute;inset:0;padding:44px 52px;opacity:0;transform:translateY(16px);
+    pointer-events:none;transition:opacity .45s ease,transform .45s ease;overflow-y:auto;
+    background:#fff}
+  .slide.active{opacity:1;transform:none;pointer-events:auto}
+  /* hero slides reveal the living motion (reserved for special moments) */
+  .slide.hero{background:transparent;color:#fff}
+  .slide.hero .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .slide.hero:before{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(20,14,46,.70) 0%,rgba(20,14,46,.34) 45%,rgba(20,14,46,.05) 78%)}
+  .slide.hero>*:not(.hero-bg){position:relative;z-index:2}
+  /* cover slide — motion card that frosts to white on entrance */
+  .slide.cover-slide{background:transparent}
+  .cover-slide .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .cover-slide::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;transition:opacity 1.1s ease}
+  .cover-slide.lit::after{opacity:1}
+  .cover-slide>*:not(.cover-bg){position:relative;z-index:2}
+  .cover-slide .cover{color:#fff}
+  .cover-slide .cover .eye{transition:color .9s ease}
+  .cover-slide .cover h1{transition:color .9s ease}
+  .cover-slide .cover p.lead{color:rgba(255,255,255,.94);transition:color .9s ease}
+  .cover-slide.lit .cover .eye{color:var(--violet)}
+  .cover-slide.lit .cover h1{color:var(--ink)}
+  .cover-slide.lit .cover h1 .l2{background:linear-gradient(110deg,var(--blue),var(--violet-lt));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .cover-slide.lit .cover p.lead{color:var(--gray)}
+  .cover-slide.lit .cover .btn:not(.primary){border-color:rgba(40,30,80,.22);background:rgba(40,30,80,.05);color:var(--ink)}
+
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--violet);background:rgba(115,107,222,.12);padding:6px 12px;border-radius:20px}
+  .slide h1{font-size:37px;line-height:1.08;margin:16px 0 8px;letter-spacing:-.6px}
+  .slide.hero h1{font-size:54px;letter-spacing:-1.4px}
+  .slide h2{font-size:25px;margin:12px 0 6px;letter-spacing:-.3px}
+  .slide p.lead{font-size:16px;color:var(--gray);max-width:720px;line-height:1.55}
+  .slide.hero p.lead{color:rgba(255,255,255,.9)}
+  .accent-line{width:58px;height:4px;border-radius:3px;margin:14px 0 22px;
+    background:linear-gradient(90deg,var(--violet-lt),var(--blue-lt))}
+
+  .metrics{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+  .metric{flex:1 1 150px;background:linear-gradient(150deg,rgba(115,107,222,.10),rgba(86,189,237,.10));
+    border:1px solid var(--line);border-radius:14px;padding:20px 18px;min-width:140px}
+  .metric .big{font-size:32px;font-weight:800;background:linear-gradient(120deg,var(--blue),var(--violet-lt));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+  .metric .lbl{font-size:12.5px;color:var(--ink);margin-top:8px;font-weight:600}
+  .metric .sub{font-size:11px;color:var(--gray);margin-top:3px}
+
+  .grid{display:grid;gap:16px;margin-top:22px}
+  .grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}.grid.c4{grid-template-columns:repeat(4,1fr)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;transition:.18s}
+  .card:hover{box-shadow:0 14px 32px rgba(92,75,185,.14);transform:translateY(-2px);border-color:#cfc9f0}
+  .card .ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;
+    background:linear-gradient(135deg,rgba(115,107,222,.16),rgba(86,189,237,.16))}
+  .card .ic img{width:23px;height:23px}
+  .card .ic svg{width:23px;height:23px;stroke:var(--violet);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:16px;margin-bottom:7px}
+  .card .v{font-size:21px;font-weight:800;color:var(--green);margin-bottom:6px}
+  .card p{font-size:13px;color:var(--gray);line-height:1.5}
+  .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--violet);background:rgba(115,107,222,.12);
+    padding:3px 9px;border-radius:6px;margin-bottom:10px}
+
+  /* exec summary ask/answer */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+  .aa .col{border-radius:16px;padding:26px 26px 24px;position:relative;overflow:hidden}
+  .aa .ask{background:#fff;border:1px solid var(--line)}
+  .aa .ans{background:linear-gradient(145deg,var(--violet),var(--blue2));color:#fff}
+  .aa .lab{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.85}
+  .aa .ask .lab{color:var(--violet)}
+  .aa h3{font-size:20px;margin:10px 0 12px;line-height:1.2;letter-spacing:-.3px}
+  .aa p{font-size:14px;line-height:1.55}.aa .ask p{color:var(--gray)}
+  .aa ul{list-style:none;margin-top:12px}
+  .aa li{position:relative;padding:7px 0 7px 22px;font-size:13.5px;line-height:1.4}
+  .aa .ask li{color:var(--ink);border-bottom:1px dashed var(--line)}
+  .aa li:before{content:"";position:absolute;left:2px;top:14px;width:8px;height:8px;border-radius:50%}
+  .aa .ask li:before{background:var(--violet-lt)}.aa .ans li:before{background:#fff}
+  .aa .ans .big{font-size:30px;font-weight:800;margin-top:6px}
+
+  .callout{margin-top:24px;border-radius:16px;padding:24px 28px;color:#fff;display:flex;
+    align-items:center;justify-content:space-between;gap:20px;
+    background:linear-gradient(100deg,var(--violet),var(--blue2))}
+  .callout .t{font-size:17px;font-weight:700}.callout .t span{display:block;font-size:12.5px;font-weight:400;color:#e3e0fb;margin-top:4px}
+  .callout .n{font-size:38px;font-weight:800;white-space:nowrap}
+  /* today -> future value bridge */
+  .flow{display:grid;grid-template-columns:1fr auto 1fr;margin-top:26px;align-items:stretch}
+  .flow-end{padding:20px 26px;border-radius:14px;border:1px solid var(--line);background:#fff}
+  .flow-end .fl-lab{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+  .flow-end .fl-big{font-size:30px;font-weight:800;margin:6px 0 4px;background:linear-gradient(120deg,var(--blue),var(--violet-lt));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .flow-end .fl-sub{font-size:12.5px;color:var(--gray)}
+  .flow-end.fut{background:linear-gradient(145deg,var(--violet),var(--blue2));border:none;color:#fff}
+  .flow-end.fut .fl-lab{color:rgba(255,255,255,.82)}
+  .flow-end.fut .fl-big{background:none;-webkit-text-fill-color:#fff;color:#fff}
+  .flow-end.fut .fl-sub{color:rgba(255,255,255,.88)}
+  .flow-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px;gap:6px;text-align:center}
+  .flow-mid .fl-levers{font-size:11px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.4px;max-width:130px;line-height:1.3}
+  .flow-mid .fl-arrow{font-size:26px;color:var(--violet-lt);line-height:1}
+  /* team / org structure slide */
+  .org{display:grid;grid-template-columns:236px 1fr;gap:13px 26px;margin-top:16px;align-items:stretch}
+  .org-tier{border-radius:13px;padding:13px 18px;color:#fff;display:flex;flex-direction:column;justify-content:center}
+  .org-tier h4{font-size:15px;font-weight:800;line-height:1.15}
+  .org-tier span{font-size:11px;opacity:.86;margin-top:3px}
+  .org-tier.t1{background:#232a63}.org-tier.t2{background:#3a64c8}.org-tier.t3{background:#5b4bc4}.org-tier.t4{background:#7d5be6}
+  .org-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .pchip{display:flex;flex-direction:column;align-items:center;text-align:center;width:116px}
+  .pchip .av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:#fff;font-size:14px;margin-bottom:6px;border:2px solid rgba(255,255,255,.75);box-shadow:0 4px 12px rgba(60,40,120,.2)}
+  .pchip .pn{font-size:12px;font-weight:700;color:var(--ink);line-height:1.15}
+  .pchip .pr{font-size:10px;color:var(--gray);margin-top:2px;line-height:1.2}
+  .org-note{font-size:11px;color:var(--gray);margin-top:13px}
+  /* minimized four-lever bar carried into each drill-down slide */
+  .lever-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .lm-card{display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;cursor:pointer;transition:.16s;opacity:.5;filter:grayscale(.7)}
+  .lm-card:hover{opacity:.85;filter:grayscale(.2)}
+  .lm-card.active{opacity:1;filter:none;border-color:transparent;cursor:default;
+    background:linear-gradient(135deg,rgba(115,107,222,.16),rgba(86,189,237,.16));box-shadow:0 8px 20px rgba(92,75,185,.13)}
+  .lm-card .ic{width:36px;height:36px;border-radius:10px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;margin-bottom:9px;
+    background:linear-gradient(135deg,rgba(115,107,222,.18),rgba(86,189,237,.18))}
+  .lm-card .ic svg{width:17px;height:17px;stroke:var(--violet);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .lm-card .lm-t{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.12}
+  .lm-card .lm-v{font-size:10.5px;color:var(--violet);font-weight:600;margin-top:1px}
+  .lm-card.active .lm-v{color:var(--blue2)}
+  /* vendor pictograph (population-style per-head infographic) */
+  .pictos{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+  .picto{display:grid;grid-template-columns:100px 1fr 120px;align-items:center;gap:20px}
+  .picto+.picto{border-top:1px dashed var(--line);padding-top:14px}
+  .picto .pcount{display:flex;flex-direction:column}
+  .picto .pcount .pn{font-size:27px;font-weight:800;color:var(--ink);line-height:1}
+  .picto .pcount .pl{font-size:11px;color:var(--gray);margin-top:3px}
+  .picto .picons{display:flex;flex-wrap:wrap;gap:3px}
+  .picto .picons svg{width:14px;height:14px;flex:0 0 auto;fill:var(--violet-lt);transition:opacity .2s ease}
+  .picto.peak .picons svg{fill:var(--blue2)}
+  .picto .pcap{font-size:9.5px;font-weight:800;letter-spacing:.5px;color:var(--blue2);margin-top:4px;text-transform:uppercase;line-height:1.2}
+  .picto .pval{font-size:24px;font-weight:800;text-align:right;
+    background:linear-gradient(120deg,var(--blue),var(--violet-lt));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  /* closing slide */
+  .slide.closing{background:linear-gradient(125deg,#2a2160 0%,#5C4BB9 46%,#3893CD 100%);color:#fff;overflow:hidden}
+  .closing .closing-bg{position:absolute;right:-4%;top:0;height:100%;width:66%;object-fit:cover;opacity:.55;z-index:0;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 52%);mask-image:linear-gradient(to right,transparent,#000 52%)}
+  .closing:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(118deg,rgba(28,20,70,.6),rgba(28,20,70,.06) 66%)}
+  .closing .closing-inner{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:680px}
+  /* Kye portrait integrated into the quote card, breaking the top edge */
+  .closing .cl-quote{position:relative;overflow:visible;display:flex;align-items:center;gap:18px;max-width:660px}
+  .closing .cl-pcol{position:relative;flex:0 0 158px;align-self:stretch;min-height:118px}
+  .closing .cl-portrait{position:absolute;left:-44px;bottom:-23px;width:196px;height:auto;z-index:4;
+    filter:drop-shadow(0 14px 26px rgba(8,5,34,.5));
+    -webkit-mask-image:linear-gradient(to top,transparent 0,#000 9%);mask-image:linear-gradient(to top,transparent 0,#000 9%)}
+  .closing .cl-qtext{flex:1;min-width:0}
+  .closing .cl-eyebrow{font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#cfc9ff}
+  .closing .cl-head{font-size:46px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin:14px 0 20px;color:#fff}
+  .closing .cl-head span{background:linear-gradient(110deg,#fff,#b9b4f0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .closing .cl-stat{display:flex;align-items:baseline;gap:13px;margin-bottom:24px}
+  .closing .cl-stat .cl-n{font-size:40px;font-weight:800;background:linear-gradient(100deg,#a6eb8c,#56bded);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .closing .cl-stat .cl-l{font-size:14px;color:rgba(255,255,255,.85)}
+  .closing .cl-quote{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:22px 26px;max-width:640px}
+  .closing .cl-quote p{font-size:16.5px;line-height:1.5;color:#fff;font-weight:500}
+  .closing .cl-by{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .closing .cl-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex:0 0 auto}
+  .closing .cl-nm{font-size:14px;font-weight:700;color:#fff;display:block}
+  .closing .cl-ro{font-size:12px;color:#cfc9ff;display:block;margin-top:1px}
+  /* cost-efficiency summation table */
+  .sum-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 10px 28px rgba(60,40,120,.08)}
+  .sum-card .row{display:grid;grid-template-columns:1.5fr 1fr 1fr;align-items:center}
+  .sum-card .row.head span{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--gray);text-align:right;padding-bottom:8px}
+  .sum-card .row.head span:first-child{text-align:left;color:var(--violet)}
+  .sum-card .row .label{font-size:13px;color:var(--ink);font-weight:600}
+  .sum-card .row .val{font-size:18px;font-weight:800;color:var(--violet);text-align:right}
+  .sum-card .plus{text-align:center;color:var(--gray);font-size:14px;font-weight:700;margin:3px 0}
+  .sum-card .rule{height:1px;background:var(--line);margin:9px 0}
+  .sum-card .row.total .label{font-weight:800;color:var(--ink)}
+  .sum-card .row.total .val{font-size:25px;background:linear-gradient(120deg,var(--blue),var(--violet-lt));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  ul.clean{list-style:none;margin-top:10px}
+  ul.clean li{position:relative;padding:9px 0 9px 28px;font-size:14px;color:var(--ink);border-bottom:1px dashed var(--line);line-height:1.45}
+  ul.clean li:before{content:"";position:absolute;left:3px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--violet-lt)}
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start;margin-top:16px}
+  /* paired bullet grid — shared row tracks keep both columns aligned row-by-row */
+  .clean-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:32px;margin-top:14px}
+  .clean-grid .ci{position:relative;padding:9px 0 9px 28px;font-size:14px;color:var(--ink);
+    border-bottom:1px dashed var(--line);line-height:1.4;display:flex;align-items:center}
+  .clean-grid .ci:before{content:"";position:absolute;left:3px;top:50%;transform:translateY(-50%);
+    width:9px;height:9px;border-radius:50%;background:var(--violet-lt)}
+
+  /* chart */
+  .chart{margin-top:22px;border:1px solid var(--line);border-radius:14px;padding:22px 24px;background:#fff}
+  .bars{display:flex;align-items:flex-end;gap:9px;height:220px;margin-top:6px}
+  .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .bar .fill{width:100%;max-width:44px;border-radius:6px 6px 0 0;height:0;flex:0 0 auto;transition:height .7s cubic-bezier(.4,0,.2,1);
+    background:linear-gradient(180deg,var(--violet-lt),var(--violet))}
+  .bar.peak .fill{background:linear-gradient(180deg,var(--blue-lt),var(--blue2))}
+  .bar .amt{font-size:11px;font-weight:700;margin-bottom:6px}.bar .day{font-size:10px;color:var(--gray);margin-top:7px}
+
+  /* timeline */
+  .timeline{margin-top:24px}.tl-track{display:flex;position:relative}
+  .tl-step{flex:1;text-align:center;position:relative;padding-top:34px}
+  .tl-step:before{content:"";position:absolute;top:13px;left:0;right:0;height:3px;background:var(--line)}
+  .tl-step:first-child:before{left:50%}.tl-step:last-child:before{right:50%}
+  .tl-step .dot{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;
+    background:#fff;border:3px solid var(--violet-lt);z-index:2}
+  .tl-step.go .dot{background:var(--blue-lt);border-color:var(--blue2)}
+  .tl-step .ph{font-size:12.5px;font-weight:700;margin-top:4px}.tl-step .ds{font-size:10.5px;color:var(--gray);margin-top:3px;line-height:1.3;padding:0 4px}
+  .steps-detail{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:6px 26px;margin-top:24px}
+  .steps-detail .s{font-size:12.5px;color:var(--ink);padding:6px 0;border-bottom:1px dashed var(--line)}
+  .steps-detail .s b{color:var(--violet)}
+
+  .ws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  .ws{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 16px;display:flex;align-items:center;gap:13px;transition:.18s}
+  .ws:hover{border-color:var(--violet-lt);box-shadow:0 8px 20px rgba(92,75,185,.12)}
+  .ws .no{font-size:13px;font-weight:800;color:#fff;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:0 0 30px;
+    background:linear-gradient(135deg,var(--violet),var(--blue2))}
+  .ws span{font-size:13px;font-weight:600;color:var(--ink)}
+
+  /* hero / cover */
+  .cover{display:flex;flex-direction:column;justify-content:center;height:100%}
+  .cover .eye{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#cfc9ff;font-weight:700;opacity:0;animation:fadeUp .8s .1s forwards}
+  .cover h1{margin:18px 0;opacity:0;animation:fadeUp .9s .25s forwards}
+  .cover h1 .l2{display:block;background:linear-gradient(110deg,#fff,#b9b4f0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .cover p{opacity:0;animation:fadeUp .9s .4s forwards}
+  .cover .cta{margin-top:32px;display:flex;gap:14px;opacity:0;animation:fadeUp .9s .55s forwards}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;cursor:pointer;
+    border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;padding:11px 20px;border-radius:11px;transition:.18s;backdrop-filter:blur(8px)}
+  .btn:hover{background:rgba(255,255,255,.2)}
+  .btn.primary{background:#fff;color:var(--blue);border-color:#fff}
+  .btn.primary:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+
+  /* decorative people cutout */
+  .person{position:absolute;right:30px;bottom:0;height:86%;max-height:560px;pointer-events:none;filter:drop-shadow(0 20px 40px rgba(40,20,80,.25))}
+
+  /* downloads */
+  .pdf-note{display:none;margin:4px 0 14px;padding:12px 18px;border-radius:12px;
+    background:rgba(17,0,255,.06);border:1px solid var(--line);font-size:12.5px;color:var(--gray);line-height:1.5}
+  .pdf-note b{color:var(--ink);font-weight:700}
+  body.is-file .pdf-note{display:block}
+  .dl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px}
+  .dl{display:block;text-decoration:none;border-radius:14px;padding:22px 20px;transition:.18s;color:inherit;
+    background:#fff;border:1px solid var(--line);box-shadow:0 8px 22px rgba(60,40,120,.08)}
+  .dl:hover{transform:translateY(-3px);border-color:#cfc9f0;box-shadow:0 16px 36px rgba(92,75,185,.16)}
+  .dl .ft{font-size:11px;font-weight:800;letter-spacing:.5px;color:#fff;background:var(--blue);padding:4px 9px;border-radius:6px;display:inline-block}
+  .dl h3{font-size:15.5px;margin:14px 0 6px;color:var(--ink)}.dl p{font-size:12px;color:var(--gray);line-height:1.45}
+  .dl .go{margin-top:13px;font-size:13px;font-weight:700;color:var(--violet)}
+  /* cursor-following document preview */
+  #docPrev{position:fixed;top:0;left:0;width:220px;padding:8px;background:#fff;border-radius:14px;
+    box-shadow:0 28px 64px rgba(20,14,50,.5);border:1px solid rgba(231,230,242,.9);z-index:9999;pointer-events:none;
+    opacity:0;visibility:hidden;transform:scale(.95);transform-origin:top left;transition:opacity .15s ease,transform .15s ease}
+  #docPrev.show{opacity:1;visibility:visible;transform:scale(1)}
+  #docPrev img{width:100%;display:block;border-radius:9px;border:1px solid var(--line);max-height:300px;object-fit:cover;object-position:top}
+  /* SOW download block with All/Active/Closed filter */
+  .sow-block{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:16px;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 20px;box-shadow:0 8px 22px rgba(60,40,120,.08)}
+  .sow-info{display:flex;align-items:center;gap:14px}
+  .sow-block .ft{font-size:11px;font-weight:800;letter-spacing:.5px;color:#fff;background:#7c5be6;padding:4px 9px;border-radius:6px}
+  .sow-t{font-size:15px;font-weight:700;color:var(--ink)}
+  .sow-d{font-size:12px;color:var(--gray);margin-top:2px}
+  .sow-actions{display:flex;align-items:center;gap:14px}
+  .sow-filter{display:inline-flex;background:var(--gray-lt);border-radius:10px;padding:3px}
+  .sow-filter .sf{border:none;background:transparent;font-size:12.5px;font-weight:600;color:var(--gray);
+    padding:7px 13px;border-radius:8px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:5px}
+  .sow-filter .sf i{font-style:normal;font-size:10px;font-weight:700;opacity:.65}
+  .sow-filter .sf.active{background:#fff;color:var(--violet);box-shadow:0 2px 6px rgba(60,40,120,.12)}
+  .sow-dl{display:inline-flex;align-items:center;text-decoration:none;font-size:13px;font-weight:700;color:#fff;
+    background:linear-gradient(120deg,var(--violet),var(--blue2));padding:10px 18px;border-radius:10px;transition:.15s;white-space:nowrap}
+  .sow-dl:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(92,75,185,.25)}
+  .contacts{display:flex;gap:34px;margin-top:28px;flex-wrap:wrap}
+  .contact .nm{font-size:15px;font-weight:700;color:#fff}.contact .ro{font-size:12.5px;color:rgba(255,255,255,.78);margin:2px 0 1px}
+  .contact .em{font-size:12.5px;color:#cfc9ff;font-weight:600;text-decoration:none}
+
+  /* stepper */
+  .stepper{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;margin-top:13px}
+  .dots{display:flex;gap:8px;align-items:center}
+  .dots .d{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:.2s}
+  .dots .d.on{background:#fff;width:26px;border-radius:5px}
+  .btns{display:flex;gap:10px;align-items:center}
+  .pageno{font-size:12.5px;color:#cfc9ea;min-width:54px;text-align:center}
+  .btn.sm{padding:9px 16px}.btn.sm:disabled{opacity:.35;cursor:not-allowed}
+
+  /* people-over-glass slides */
+  .peoplebg .person{right:0;z-index:0;height:94%;max-height:620px;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 30%,#000 100%);
+    mask-image:linear-gradient(to right,transparent 0,#000 30%,#000 100%)}
+  .peoplebg .metrics,.peoplebg .grid,.peoplebg .split,.peoplebg .clean-grid,.peoplebg .kicker,.peoplebg h1,.peoplebg .accent-line{position:relative;z-index:2}
+  .peoplebg .clean-grid{background:rgba(255,255,255,.76);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+    border:1px solid rgba(120,110,200,.22);box-shadow:0 12px 30px rgba(60,40,120,.14);border-radius:14px;padding:6px 20px}
+  .peoplebg .card,.peoplebg .metric{background:rgba(255,255,255,.76);backdrop-filter:blur(16px) saturate(150%);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid rgba(120,110,200,.22);box-shadow:0 12px 30px rgba(60,40,120,.14)}
+
+  /* AI orb animation */
+  .ai-wrap{display:flex;align-items:center;justify-content:center}
+  .ai-orb{position:relative;width:340px;height:340px}
+  .ai-orb svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 6px rgba(115,107,222,.5));
+    animation:orbBreath 6.5s ease-in-out infinite}
+  .ai-orb canvas{width:100%;height:100%;display:block;cursor:grab}
+  .ai-orb canvas:active{cursor:grabbing}
+  @keyframes orbBreath{0%,100%{transform:scale(.95)}50%{transform:scale(1.05)}}
+  .ai-orb .ring{transform-box:fill-box;transform-origin:center;animation:spin linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ai-orb .dot{transform-box:fill-box;transform-origin:center;animation:twinkle ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
+  .ai-orb .core{transform-box:fill-box;transform-origin:center;animation:corePulse 3.2s ease-in-out infinite}
+  @keyframes corePulse{0%,100%{transform:scale(.82);opacity:.75}50%{transform:scale(1.12);opacity:1}}
+  .ai-orb .pwave{transform-box:fill-box;transform-origin:center;animation:pwave 3.2s ease-out infinite}
+  @keyframes pwave{0%{transform:scale(.4);opacity:.55}100%{transform:scale(1.5);opacity:0}}
+
+  /* workstreams redesign */
+  .ws-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;align-items:start}
+  .ws-col{display:flex;flex-direction:column;gap:10px}
+  .ws-col .phase{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.8px;
+    text-transform:uppercase;color:var(--violet);margin-bottom:2px}
+  .ws-col .phase .pn{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--violet),var(--blue2));
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px}
+  .ws-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;transition:.18s;border-left:3px solid var(--violet-lt);min-height:86px;display:flex;flex-direction:column;justify-content:center}
+  .ws-card:hover{box-shadow:0 10px 24px rgba(92,75,185,.13);transform:translateY(-2px)}
+  .ws-card .wt{font-size:13.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .ws-card .wt .nn{font-size:10.5px;font-weight:800;color:var(--blue2)}
+  .ws-card .wd{font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:4px}
+
+  /* contacts (fixed layout + WCAG) */
+  .contacts{display:flex;gap:16px;margin-top:26px;flex-wrap:wrap}
+  .contact{display:flex;flex-direction:column;gap:2px;background:#fff;
+    border:1px solid var(--line);border-radius:13px;padding:16px 20px;min-width:270px;box-shadow:0 8px 22px rgba(60,40,120,.08)}
+  .contact .nm{font-size:15px;font-weight:700;color:var(--ink)}
+  .contact .ro{font-size:12.5px;color:var(--gray)}
+  .contact .em{font-size:12.5px;color:var(--blue);font-weight:600;text-decoration:underline;text-underline-offset:3px;margin-top:4px}
+  .contact .em:hover{color:var(--violet)}
+
+  /* header action icons + documents dropdown */
+  .hdr-actions{display:flex;align-items:center;gap:8px;margin-right:4px;position:relative}
+  .hicon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;transition:.16s}
+  .hicon:hover{background:rgba(255,255,255,.22)}
+  .hicon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .hicon{position:relative}
+  .hicon .ic-check{display:none;stroke:#7ee08a}
+  .hicon.ok .ic-share{display:none}
+  .hicon.ok .ic-check{display:block}
+  .hicon.ok{background:rgba(126,224,138,.18);border-color:rgba(126,224,138,.5)}
+  .hicon[data-tip]:hover::after{content:attr(data-tip);position:absolute;top:43px;right:0;white-space:nowrap;
+    background:#1a1533;color:#fff;font-size:11px;font-weight:600;padding:5px 9px;border-radius:7px;
+    border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:none;z-index:90}
+  .docmenu{position:absolute;top:46px;right:0;width:300px;background:#1a1533;border:1px solid rgba(255,255,255,.16);
+    border-radius:14px;padding:8px;box-shadow:0 24px 60px rgba(8,6,30,.6);opacity:0;transform:translateY(-8px);
+    pointer-events:none;transition:.2s;z-index:90}
+  .docmenu.open{opacity:1;transform:none;pointer-events:auto}
+  .docmenu a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;text-decoration:none;color:#fff;transition:.14s}
+  .docmenu a:hover{background:rgba(255,255,255,.09)}
+  .docmenu .ft{font-size:10px;font-weight:800;color:#fff;padding:3px 7px;border-radius:5px;flex:0 0 auto}
+  .docmenu .ft.pdf{background:#c0392b}.docmenu .ft.xls{background:#1e7e45}
+  .docmenu .dt{display:block;font-size:13px;font-weight:600;line-height:1.2}.docmenu .dd{display:block;font-size:11px;color:#b9b4d8;margin-top:2px}
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1533;color:#fff;
+    padding:11px 20px;border-radius:10px;font-size:13px;box-shadow:0 14px 40px rgba(0,0,0,.5);opacity:0;pointer-events:none;
+    transition:.25s;z-index:60;border:1px solid rgba(255,255,255,.16)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .index::-webkit-scrollbar,.slide::-webkit-scrollbar{width:8px}
+  .index::-webkit-scrollbar-thumb,.slide::-webkit-scrollbar-thumb{background:rgba(150,150,190,.45);border-radius:4px}
+  /* Layout is locked to a minimum width (.app min-width) so it never reflows/stacks.
+     On narrower viewports the deck scrolls horizontally instead of breaking. */
+</style>
+
+<!-- BUILD:DRAFT head -->
+<style id="deck-draft-style">
+/* Draft-only chrome. Injected by build.js into <head> when state === "draft".
+   Published builds never receive this.
+   Design intent: restrained, editorial — muted graphite surfaces, a single
+   understated amber status keyline, fine letter-spaced type. No bright fills. */
+
+/* Version / build stamp, bottom-left. */
+.deck-version-badge{
+  position:fixed; bottom:16px; left:16px; z-index:9998;
+  display:inline-flex; align-items:center; gap:9px;
+  background:rgba(20,19,42,.86); color:#B9B5D4;
+  border:1px solid rgba(255,255,255,.12); border-radius:9px;
+  font:600 10.5px/1 "Segoe UI",Helvetica,Arial,sans-serif;
+  letter-spacing:.14em; text-transform:uppercase; padding:8px 12px;
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  box-shadow:0 8px 22px rgba(6,4,20,.34); pointer-events:none; user-select:none;
+}
+.deck-version-badge .dc-dot{
+  width:6px; height:6px; border-radius:50%; background:#C9A227; flex:0 0 auto;
+  box-shadow:0 0 0 3px rgba(201,162,39,.16);
+}
+.deck-version-badge b{ color:#F2F1FA; font-weight:700; letter-spacing:.06em; }
+
+/* Very faint neutral wash so exported screenshots still read as drafts. */
+.stage-wrap::before{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='520' height='320'>\
+<text x='0' y='180' transform='rotate(-24 0 180)' fill='rgba(150,150,180,0.035)' \
+font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='58' font-weight='700' \
+letter-spacing='14'>DRAFT</text></svg>");
+  background-repeat:repeat;
+}
+
+</style>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3TZ8HWPS09"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3TZ8HWPS09');</script>
+</head>
+<body>
+
+<div id="bg"><video autoplay muted loop playsinline poster="assets/brand/glass-x-poster.jpg">
+  <source src="assets/brand/glass-x.mp4" type="video/mp4"></video></div>
+<div id="scrim"></div>
+<div id="deck-bg"></div>
+
+<!-- PASSWORD GATE -->
+<div class="gate" id="gate">
+  <div class="gate-logo"><img src="assets/brand/exp-hor-white.svg" alt="Experis"></div>
+  <div class="prompt" id="prompt">
+    <h2>[CLIENT] Value Acceleration</h2>
+    <div class="sub">This preview is access-protected.<br>Enter the access code to continue.</div>
+    <input id="pw" type="password" placeholder="Access code" autocomplete="off" spellcheck="false">
+    <button class="enter" id="enterBtn">Enter</button>
+    <div class="err" id="err">Incorrect code — try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="brand">
+      <img class="exp" src="assets/brand/exp-hor-white.svg" alt="Experis">
+      <span class="ttl">[CLIENT] Value Acceleration <span>· Cost Savings Plan</span></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="hdr-actions">
+        <div class="hicon" id="shareBtn" data-tip="Copy link">
+          <svg class="ic-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <svg class="ic-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="hicon" id="docsBtn" data-tip="Documents"><svg viewBox="0 0 24 24"><path d="M4 4h9l3 3h-12zM4 7h16v13H4z"/></svg></div>
+        <div class="docmenu" id="docmenu">
+          <a href="downloads/[CLIENT]-Experis-Value-Acceleration-Deck.pdf" target="_blank" download><span class="ft pdf">PDF</span><span><span class="dt">Download this deck</span><span class="dd">This presentation as a PDF</span></span></a>
+          <a href="downloads/[CLIENT]-Experis-One-Pager.pdf" target="_blank" download><span class="ft pdf">PDF</span><span><span class="dt">Executive One-Pager</span><span class="dd">Single-page summary</span></span></a>
+          <a href="downloads/[CLIENT]-Experis-Savings-Model.xlsx" target="_blank" download><span class="ft xls">XLS</span><span><span class="dt">Savings Model</span><span class="dd">Lever-by-lever breakdown</span></span></a>
+          <a href="downloads/[CLIENT]-Experis-Rate-Card-2026.xlsx" target="_blank" download><span class="ft xls">XLS</span><span><span class="dt">2026 Rate Card</span><span class="dd">Experis rate card for [CLIENT]</span></span></a>
+          <a href="downloads/[CLIENT]-Experis-SOWs-All.zip" download><span class="ft" style="background:#7c5be6;color:#fff;font-size:10px;font-weight:800;padding:3px 7px;border-radius:5px">ZIP</span><span><span class="dt">SOW Contracts</span><span class="dd">All FY2025 SOWs</span></span></a>
+        </div>
+      </div>
+      <span class="chip"><img src="assets/client-logo.svg" alt="[CLIENT]"></span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <nav class="index" id="index"><h4>Sections</h4></nav>
+    <div class="stage-wrap">
+      <div class="stage" id="stage">
+
+        <!-- 0 COVER (hero) -->
+        <section class="slide cover-slide" data-title="Welcome">
+          <div class="cover">
+            <div class="eye">Experis · Prepared for [CLIENT]</div>
+            <h1>[CLIENT]<span class="l2">Value Acceleration</span></h1>
+            <p class="lead">A trusted IT resourcing and services partner for 10+ years. This plan shows how Experis delivers meaningful, near-term cost savings — while protecting delivery continuity and talent.</p>
+            <div class="cta">
+              <button class="btn primary" onclick="go(1)">Explore the plan →</button>
+              <button class="btn" onclick="go(10)">Jump to downloads</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1 EXEC SUMMARY — Ask vs Answer -->
+        <section class="slide" data-title="Executive Summary">
+          <span class="kicker">Executive Summary</span>
+          <h1>The ask, and our answer</h1>
+          <div class="accent-line"></div>
+          <div class="aa">
+            <div class="col ask">
+              <div class="lab">The Ask</div>
+              <h3>Materially reduce IT spend in 2026 — without disruption.</h3>
+              <p>[CLIENT] asked Experis to find significant, near-term cost savings across IT resourcing and services, while protecting delivery, active projects, and the contract workforce.</p>
+              <ul>
+                <li>Lower the cost of the current run rate</li>
+                <li>Protect delivery continuity &amp; talent</li>
+                <li>Move quickly, with minimal program risk</li>
+              </ul>
+            </div>
+            <div class="col ans">
+              <div class="lab">Our Answer</div>
+              <h3>A four-lever value acceleration plan.</h3>
+              <p>Stacked savings — bill rate, holiday furlough, AI &amp; automation, and vendor streamlining — executed with our proven transition framework to keep delivery steady.</p>
+              <div class="big">Up to ~$11M+</div>
+              <ul>
+                <li>10% bill rate adjustment + furlough</li>
+                <li>$1M target from AI &amp; automation</li>
+                <li>$1–7M from vendor streamlining</li>
+                <li>Modernized rate card for steady-state savings</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 PARTNERSHIP (people) -->
+        <section class="slide peoplebg" data-title="Partnership at a Glance">
+          <span class="kicker">Baseline</span>
+          <h1>Experis + [CLIENT] partnership</h1>
+          <div class="accent-line"></div>
+          <div class="grid c3" style="margin-top:8px;max-width:620px">
+            <div class="card"><div class="v">10 yrs</div><p>A decade-long relationship built on trust and delivery.</p></div>
+            <div class="card"><div class="v">950+</div><p>Consultants deployed; 200+ became [CLIENT] employees.</p></div>
+            <div class="card"><div class="v">60+</div><p>Projects delivered across KTD, Marketing &amp; Retail Operations.</p></div>
+          </div>
+          <div class="metrics" style="max-width:620px;margin-top:18px">
+            <div class="metric"><div class="big">$32.3M</div><div class="lbl">2025 Spend</div></div>
+            <div class="metric"><div class="big">$20.3M</div><div class="lbl">2026 Run Rate</div></div>
+            <div class="metric"><div class="big">$12M</div><div class="lbl">YoY Reduction</div><div class="sub">37% decrease</div></div>
+          </div>
+          <img class="person" src="assets/brand/people-b2b.png" alt="">
+        </section>
+
+        <!-- 3 TEAM / ORG STRUCTURE -->
+        <section class="slide" data-title="Team &amp; Org Structure">
+          <span class="kicker">Your dedicated team</span>
+          <h1>Experis team, dedicated to [CLIENT] success</h1>
+          <div class="accent-line"></div>
+          <div class="org">
+            <div class="org-tier t1"><h4>Vertical Leadership</h4><span>Strategic &amp; industry alignment</span></div>
+            <div class="org-row">
+              <div class="pchip"><div class="av" style="background:#232a63">IH</div><div class="pn">Isaac Hagen</div><div class="pr">SVP, Consumer Vertical</div></div>
+              <div class="pchip"><div class="av" style="background:#232a63">CB</div><div class="pn">Cassie Barringer</div><div class="pr">VP, Consumer Vertical</div></div>
+            </div>
+            <div class="org-tier t2"><h4>Relationship Governance</h4><span>Partnership health &amp; value</span></div>
+            <div class="org-row">
+              <div class="pchip"><div class="av" style="background:#3a64c8">KM</div><div class="pn">Kye Mitchell</div><div class="pr">Head of Experis</div></div>
+              <div class="pchip"><div class="av" style="background:#3a64c8">PB</div><div class="pn">Paige Beasley</div><div class="pr">[CLIENT] Account Director</div></div>
+            </div>
+            <div class="org-tier t3"><h4>Delivery Governance &amp; Execution</h4><span>Program oversight &amp; quality</span></div>
+            <div class="org-row">
+              <div class="pchip"><div class="av" style="background:#5b4bc4">BW</div><div class="pn">Bryan Wall</div><div class="pr">Delivery Leader</div></div>
+              <div class="pchip"><div class="av" style="background:#5b4bc4">EB</div><div class="pn">Erick Brown</div><div class="pr">Data Engineering</div></div>
+              <div class="pchip"><div class="av" style="background:#5b4bc4">JE</div><div class="pn">Josh Eastman</div><div class="pr">Quality Engineering</div></div>
+              <div style="flex-basis:100%;height:0"></div>
+              <div class="pchip"><div class="av" style="background:#5b4bc4">LG</div><div class="pn">Lindsay Glidewell</div><div class="pr">Engagement Manager*</div></div>
+              <div class="pchip"><div class="av" style="background:#5b4bc4">SL</div><div class="pn">Shawna Lawton</div><div class="pr">Engagement Manager*</div></div>
+            </div>
+            <div class="org-tier t4"><h4>Operations</h4><span>Process, Experience &amp; Compliance</span></div>
+            <div class="org-row">
+              <div class="pchip"><div class="av" style="background:#7d5be6">WF</div><div class="pn">Wendy Ferreira</div><div class="pr">Consultant Experience Mgr*</div></div>
+              <div class="pchip"><div class="av" style="background:#7d5be6">AF</div><div class="pn">Aubryn Falk</div><div class="pr">Invoicing</div></div>
+              <div class="pchip"><div class="av" style="background:#7d5be6">GS</div><div class="pn">Gregory Schrieber</div><div class="pr">Sr. Counsel · Legal/Compliance</div></div>
+            </div>
+          </div>
+          <div class="org-note">*Dedicated to [CLIENT]</div>
+        </section>
+
+        <!-- 4 CONCEPTS -->
+        <section class="slide" data-title="Value Acceleration Levers">
+          <span class="kicker">How we accelerate your success</span>
+          <h1>Four levers of value acceleration</h1>
+          <div class="accent-line"></div>
+          <div class="grid c4">
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v13"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg></div><h3>Cost Efficiency</h3><div class="v">10% Rate Reduction</div><p>Rate adjustment plus holiday furlough savings.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><h3>Vendor Streamlining</h3><div class="v">$1–7M</div><p>Consolidate vendor spend to Experis, annualized.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.8L18.5 9.5l-4.8 1.7L12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"/></svg></div><h3>AI &amp; Automation</h3><div class="v">$1M Target</div><p>Automation and AI-enabled delivery efficiencies.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg></div><h3>Modernized rate card</h3><div class="v">Rate Card</div><p>A modernized Experis rate card &amp; playbook — including near-shore — for ongoing YoY savings.</p></div>
+          </div>
+          <div class="flow">
+            <div class="flow-end"><div class="fl-lab">Today · 2026 run rate</div><div class="fl-big">$20.4M</div><div class="fl-sub">IT Resourcing $7.1M&nbsp; +&nbsp; SOW $13.3M</div></div>
+            <div class="flow-mid"><div class="fl-levers">Standardize via the 4 levers</div><div class="fl-arrow">→</div></div>
+            <div class="flow-end fut"><div class="fl-lab">Future state</div><div class="fl-big">Up to ~$11M+</div><div class="fl-sub">annualized savings identified</div></div>
+          </div>
+        </section>
+
+        <!-- 4 COST EFFICIENCY -->
+        <section class="slide" data-title="Cost Efficiency Plan">
+          <h1>Cost Efficiency</h1>
+          <div class="accent-line"></div>
+          <div class="lever-mini">
+            <div class="lm-card active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v13"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg></div><div><div class="lm-t">Cost Efficiency</div><div class="lm-v">10% Bill Rate Reduction</div></div></div>
+            <div class="lm-card" onclick="go(6)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><div><div class="lm-t">Vendor Streamlining</div><div class="lm-v">$1–7M</div></div></div>
+            <div class="lm-card" onclick="go(8)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.8L18.5 9.5l-4.8 1.7L12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"/></svg></div><div><div class="lm-t">AI &amp; Automation</div><div class="lm-v">$1M target</div></div></div>
+            <div class="lm-card" onclick="go(9)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg></div><div><div class="lm-t">Modernized rate card</div><div class="lm-v">Rate Card</div></div></div>
+          </div>
+          <p class="lead" style="margin:-4px 0 18px">Two contributors combine into the Cost Efficiency lever — $2.1M in [CLIENT] fiscal 2026 ($3.1M annualized).</p>
+          <div class="split">
+            <div>
+              <div class="card" style="margin-bottom:14px"><span class="tag">Contributor</span><h3>10% Bill Rate Adjustment</h3><div class="v">$1.3M fiscal · $2.2M annualized</div><p>Effective July 26, 2026 across the IT resourcing book.</p></div>
+              <div class="card"><span class="tag">Contributor</span><h3>Holiday Furlough — 10 days</h3><div class="v">$0.8M fiscal 2026</div><p>Ten furlough days aligned to 2026 holiday periods.</p></div>
+            </div>
+            <div>
+              <div class="sum-card">
+                <div class="row head"><span>Cost Efficiency</span><span>Fiscal 2026</span><span>Annualized</span></div>
+                <div class="row"><span class="label">Bill Rate Adjustment</span><span class="val">$1.3M</span><span class="val">$2.2M</span></div>
+                <div class="plus">+</div>
+                <div class="row"><span class="label">Holiday Furlough</span><span class="val">$0.8M</span><span class="val">$0.9M</span></div>
+                <div class="rule"></div>
+                <div class="row total"><span class="label">Total savings</span><span class="val">$2.1M</span><span class="val">$3.1M</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 VENDOR STREAMLINING -->
+        <section class="slide" data-title="Vendor Streamlining">
+          <h1>Vendor streamlining savings</h1>
+          <div class="accent-line"></div>
+          <div class="lever-mini">
+            <div class="lm-card" onclick="go(5)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v13"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg></div><div><div class="lm-t">Cost Efficiency</div><div class="lm-v">10% Bill Rate Reduction</div></div></div>
+            <div class="lm-card active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><div><div class="lm-t">Vendor Streamlining</div><div class="lm-v">$1–7M</div></div></div>
+            <div class="lm-card" onclick="go(8)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.8L18.5 9.5l-4.8 1.7L12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"/></svg></div><div><div class="lm-t">AI &amp; Automation</div><div class="lm-v">$1M target</div></div></div>
+            <div class="lm-card" onclick="go(9)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg></div><div><div class="lm-t">Modernized rate card</div><div class="lm-v">Rate Card</div></div></div>
+          </div>
+          <p class="lead">Annualized savings scale linearly — about <b style="color:var(--violet)">$23.1K for every consultant</b> transitioned to Experis.</p>
+          <div class="pictos" id="pictos"></div>
+          <p style="font-size:11.5px;color:var(--gray);margin-top:16px">*Estimated annualized savings; assumes $95/hr average bill rate and 20% mark-up. Savings scale linearly with consultants transitioned.</p>
+        </section>
+
+        <!-- VENDOR STREAMLINING (cont'd) — talent transition -->
+        <section class="slide peoplebg" data-title="Vendor Streamlining (cont'd)">
+          <span class="kicker">Ensuring a smooth program change</span>
+          <h1>Talent transition best practices</h1>
+          <div class="accent-line"></div>
+          <div class="metrics" style="max-width:640px;margin-bottom:8px">
+            <div class="metric"><div class="big">80%</div><div class="lbl">of implementations involve assignment transition</div></div>
+            <div class="metric"><div class="big">99%</div><div class="lbl">of contract consultants stay on assignment when offered</div></div>
+            <div class="metric"><div class="big">1,000+</div><div class="lbl">consultants transitioned in 2025/26 across 100+ clients</div></div>
+          </div>
+          <div class="clean-grid" style="max-width:680px">
+            <div class="ci">Follow American Staffing Association (ASA) guidelines</div>
+            <div class="ci">Provide a well-defined program and timeline</div>
+            <div class="ci">Coordinate communication and clear owners</div>
+            <div class="ci">Limits disruption to the workforce</div>
+            <div class="ci">Limits fears and co-employment issues</div>
+            <div class="ci">Provides options and a clear timeline</div>
+          </div>
+          <img class="person" src="assets/brand/person-b2c.png" alt="">
+        </section>
+
+        <!-- 6 AI -->
+        <section class="slide" data-title="AI &amp; Automation">
+          <h1>AI &amp; Automation</h1>
+          <div class="accent-line"></div>
+          <div class="lever-mini">
+            <div class="lm-card" onclick="go(5)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v13"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg></div><div><div class="lm-t">Cost Efficiency</div><div class="lm-v">10% Bill Rate Reduction</div></div></div>
+            <div class="lm-card" onclick="go(6)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><div><div class="lm-t">Vendor Streamlining</div><div class="lm-v">$1–7M</div></div></div>
+            <div class="lm-card active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.8L18.5 9.5l-4.8 1.7L12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"/></svg></div><div><div class="lm-t">AI &amp; Automation</div><div class="lm-v">$1M target</div></div></div>
+            <div class="lm-card" onclick="go(9)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg></div><div><div class="lm-t">Modernized rate card</div><div class="lm-v">Rate Card</div></div></div>
+          </div>
+          <div class="split" style="grid-template-columns:1fr .95fr;align-items:center">
+            <div>
+              <p class="lead">Applying AI and automation across delivery and operations to remove manual effort and accelerate outcomes — without adding cost.</p>
+              <ul class="clean">
+                <li>Automation of repetitive resourcing and reporting workflows</li>
+                <li>AI-assisted delivery to improve speed and quality</li>
+                <li>Continuous efficiency gains across the engagement</li>
+              </ul>
+              <div class="callout" style="margin-top:20px"><div class="t">Targeted savings<span>Goalpost — AI &amp; automation</span></div><div class="n">~$1M</div></div>
+            </div>
+            <div class="ai-wrap"><div class="ai-orb"><canvas id="aiCanvas" width="720" height="720" aria-hidden="true"></canvas></div></div>
+          </div>
+        </section>
+
+        <!-- STANDARDIZE PROCESS & PRICING (lever detail) -->
+        <section class="slide" data-title="Modernized Rate Card">
+          <h1>Modernized rate card</h1>
+          <div class="accent-line"></div>
+          <div class="lever-mini">
+            <div class="lm-card" onclick="go(5)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v13"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg></div><div><div class="lm-t">Cost Efficiency</div><div class="lm-v">10% Bill Rate Reduction</div></div></div>
+            <div class="lm-card" onclick="go(6)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><div><div class="lm-t">Vendor Streamlining</div><div class="lm-v">$1–7M</div></div></div>
+            <div class="lm-card" onclick="go(8)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.8L18.5 9.5l-4.8 1.7L12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"/></svg></div><div><div class="lm-t">AI &amp; Automation</div><div class="lm-v">$1M target</div></div></div>
+            <div class="lm-card active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg></div><div><div class="lm-t">Modernized rate card</div><div class="lm-v">Rate Card</div></div></div>
+          </div>
+          <p class="lead">A modernized Experis rate card and playbook — engineered for sustained, year-round value.</p>
+          <div class="grid c3" style="margin-top:18px">
+            <div class="card"><span class="tag">Modernized rate card</span><h3>Partnership-driven rate card refresh</h3><p>A refreshed SOW rate card that meets [CLIENT] where they are, with room for continued partnership at scale.</p></div>
+            <div class="card"><span class="tag">Flexible delivery</span><h3>On-shore &amp; near-shore options</h3><p>An optimized delivery mix that balances cost, speed, and proximity.</p></div>
+            <div class="card"><span class="tag">Steady state</span><h3>Sustained YoY savings</h3><p>Standardized pricing compounds value through the rest of the year and beyond.</p></div>
+          </div>
+        </section>
+
+        <!-- DOWNLOADS (hero) -->
+        <section class="slide" data-title="Downloads &amp; Contacts">
+          <span class="kicker">Take it with you</span>
+          <h1>Documents &amp; next steps</h1>
+          <div class="accent-line"></div>
+          <div class="pdf-note"><b>Viewing the PDF copy?</b> These document links aren't clickable in the PDF. To download the files, visit the live site at <b>experis-ds.github.io/ValueAcceleration</b> and use the Downloads page there.</div>
+          <div class="dl-grid">
+            <a class="dl" data-prev="assets/previews/deck.jpg" href="downloads/[CLIENT]-Experis-Value-Acceleration-Deck.pdf" target="_blank" download><span class="ft">PDF</span><h3>Value Acceleration Deck</h3><p>A static PDF copy of this deck.</p><div class="go">Download →</div></a>
+            <a class="dl" data-prev="assets/previews/onepager.jpg" href="downloads/[CLIENT]-Experis-One-Pager.pdf" target="_blank" download><span class="ft">PDF</span><h3>Executive One-Pager</h3><p>A single-page summary of the savings plan.</p><div class="go">Download →</div></a>
+            <a class="dl" data-prev="assets/previews/savings.jpg" href="downloads/[CLIENT]-Experis-Savings-Model.xlsx" target="_blank" download><span class="ft">XLSX</span><h3>Savings Model</h3><p>Lever-by-lever breakdown with the vendor schedule.</p><div class="go">Download →</div></a>
+            <a class="dl" data-prev="assets/previews/ratecard.jpg" href="downloads/[CLIENT]-Experis-Rate-Card-2026.xlsx" target="_blank" download><span class="ft">XLSX</span><h3>2026 Rate Card</h3><p>Experis rate card for [CLIENT].</p><div class="go">Download →</div></a>
+            <a class="dl" data-prev="assets/previews/rfi.jpg" href="downloads/IT_Services_RFI_Experis.xlsx" target="_blank" download><span class="ft">XLSX</span><h3>IT Services RFI</h3><p>Experis IT services RFI response.</p><div class="go">Download →</div></a>
+          </div>
+          <div class="sow-block">
+            <div class="sow-info"><span class="ft">ZIP</span><div><div class="sow-t">SOW Contracts — FY2025</div><div class="sow-d">All 21 statements of work referenced in the 2026 Rate Card.</div></div></div>
+            <div class="sow-actions">
+              <a class="sow-dl" id="sowDl" href="downloads/[CLIENT]-Experis-SOWs-All.zip" download>Download All →</a>
+            </div>
+          </div>
+          <div class="contacts">
+            <div class="contact"><span class="nm">Isaac Hagen</span><span class="ro">SVP, Consumer Vertical</span><a class="em" href="mailto:isaac.hagen@manpowergroup.com">isaac.hagen@manpowergroup.com</a></div>
+            <div class="contact"><span class="nm">Paige Beasley</span><span class="ro">[CLIENT] Account Director</span><a class="em" href="mailto:paige.beasley@experis.com">paige.beasley@experis.com</a></div>
+          </div>
+        </section>
+
+        <!-- CLOSING -->
+        <section class="slide closing" data-title="Commitment to Value">
+          <img class="closing-bg" src="assets/brand/glass-x-poster.jpg" alt="">
+          <div class="closing-inner">
+            <div class="cl-eyebrow">Our commitment to [CLIENT]</div>
+            <h1 class="cl-head">Meaningful savings.<br>Zero disruption.<br><span>Delivered together.</span></h1>
+            <div class="cl-stat"><span class="cl-n">Up to ~$11M+</span><span class="cl-l">in identified annualized value</span></div>
+            <div class="cl-quote">
+              <div class="cl-pcol"><img class="cl-portrait" src="assets/brand/person-b2c.png" alt="Kye Mitchell" onerror="this.style.display='none'"></div>
+              <div class="cl-qtext">
+                <p>"This is how Experis partners — human ingenuity and AI working together to take real cost out of the model, while protecting the talent and delivery [CLIENT] depends on. We're ready to make it happen."</p>
+                <div class="cl-by"><span class="cl-nm">Kye Mitchell</span><span class="cl-ro">Global Leader, Experis</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+      <div class="stepper">
+        <div class="dots" id="dots"></div>
+        <div class="btns">
+          <button class="btn sm" id="prev" onclick="go(cur-1)">← Prev</button>
+          <span class="pageno"><span id="pn">1</span> / <span id="tot">11</span></span>
+          <button class="btn sm primary" id="next" onclick="go(cur+1)">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* Show the PDF-only download notice when rendered from a local file (PDF export), not on the live https site. */
+  if(location.protocol==="file:")document.body.classList.add("is-file");
+  /* ---- password gate ---- */
+  const PASSWORD="CHANGEME";  /* set your access code */
+  const gate=document.getElementById('gate'), app=document.getElementById('app');
+  const pw=document.getElementById('pw'), err=document.getElementById('err'), prompt=document.getElementById('prompt');
+  let unlocked=false;
+  function unlock(){
+    if(unlocked) return; unlocked=true;
+    gate.classList.add('gate--out');
+    app.classList.add('app--in');
+    setTimeout(()=>{gate.style.display='none';},1000);
+    setTimeout(()=>{const c=document.querySelector('.cover-slide');if(c)c.classList.add('lit');},1500);
+    setTimeout(settleDeck,2800);
+  }
+  let settled=false;
+  function settleDeck(){
+    if(settled) return; settled=true;
+    document.body.classList.add('settled');
+    setTimeout(()=>{const v=document.querySelector('#bg video'); if(v) v.pause();},900);
+  }
+  function tryEnter(){
+    if(pw.value.trim().toLowerCase()===PASSWORD.toLowerCase()){unlock();}
+    else{err.classList.add('show');prompt.classList.add('shake');setTimeout(()=>prompt.classList.remove('shake'),400);}
+  }
+  document.getElementById('enterBtn').onclick=tryEnter;
+  pw.addEventListener('keydown',e=>{if(e.key==='Enter')tryEnter(); else err.classList.remove('show');});
+  setTimeout(()=>pw.focus(),900);
+
+  /* ---- deck nav ---- */
+  const slides=[...document.querySelectorAll('.slide')];
+  const N=slides.length; let cur=0;
+  document.getElementById('tot').textContent=N;
+  const idx=document.getElementById('index'), dots=document.getElementById('dots');
+  slides.forEach((s,i)=>{
+    const it=document.createElement('div'); it.className='nav-item';
+    it.innerHTML=`<span class="num">${i+1}</span><span>${s.dataset.title}</span>`;
+    it.onclick=()=>go(i); idx.appendChild(it);
+    const d=document.createElement('span'); d.className='d'; d.onclick=()=>go(i); dots.appendChild(d);
+  });
+  const navItems=[...idx.querySelectorAll('.nav-item')], dotEls=[...dots.children];
+  function go(i){
+    if(i<0||i>=N) return; cur=i;
+    if(i!==0) settleDeck();
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    navItems.forEach((n,k)=>n.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    document.getElementById('pn').textContent=i+1;
+    document.getElementById('prev').disabled=(i===0);
+    document.getElementById('next').disabled=(i===N-1);
+    slides[i].scrollTop=0;
+    if(slides[i].querySelector('#pictos')) drawPictos();
+  }
+  function drawPictos(){
+    const host=document.getElementById('pictos'); if(!host||host.dataset.done) return; host.dataset.done=1;
+    const PERSON='<svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM3 22a9 9 0 0 1 18 0z"/></svg>';
+    const rows=[[1,'consultant','$23.1K',false],[10,'consultants','$231K',false],[100,'consultants','$2.3M',false],[300,'consultants','$7.0M',true]];
+    rows.forEach(([n,label,val,cap],r)=>{
+      const div=document.createElement('div'); div.className='picto'+(cap?' peak':'');
+      div.innerHTML=`<div class="pcount"><span class="pn">${n}</span><span class="pl">${label}</span>${cap?'<span class="pcap">Full transition cap</span>':''}</div>`+
+        `<div class="picons">${PERSON.repeat(n)}</div>`+
+        `<div class="pval">${val}</div>`;
+      host.appendChild(div);
+      // gentle staggered reveal of icons
+      [...div.querySelectorAll('.picons svg')].forEach((s,i)=>{s.style.opacity=0;setTimeout(()=>s.style.opacity=1,r*100+i*4);});
+    });
+  }
+  document.addEventListener('keydown',e=>{
+    if(!unlocked) return;
+    if(e.key==='ArrowRight'||e.key==='PageDown') go(cur+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp') go(cur-1);
+  });
+
+  /* ---- AI orb: interactive canvas particle sphere ---- */
+  function initAi(){
+    const cv=document.getElementById('aiCanvas'); if(!cv||cv.dataset.on) return; cv.dataset.on=1;
+    const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height,CX=W/2,CY=H/2,R=W*0.32,F=W*0.95;
+    // weighted palette: mostly violet/blue, with accent pops of cyan, green & pink
+    const colors=["#9e94fa","#9e94fa","#736bde","#736bde","#56bded","#56bded","#3893cd","#bcb6ff","#8fd0ff","#a6eb8c","#fc5c7d"];
+    const pick=()=>colors[Math.floor(Math.random()*colors.length)];
+    const pts=[]; const N=190;
+    for(let i=0;i<N;i++){
+      const y=1-(i/(N-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), th=i*2.399963229;
+      pts.push({x:Math.cos(th)*r,y:y,z:Math.sin(th)*r,c:pick(),
+        s:0.8+Math.random()*1.8,ph:Math.random()*6.283,sp:0.4+Math.random()*1.4,ox:0,oy:0});
+    }
+    for(let i=0;i<60;i++){
+      const a=Math.random()*6.283,b=Math.acos(2*Math.random()-1),rr=0.25+Math.random()*0.72;
+      pts.push({x:Math.sin(b)*Math.cos(a)*rr,y:Math.cos(b)*rr,z:Math.sin(b)*Math.sin(a)*rr,
+        c:pick(),s:0.5+Math.random()*1.2,ph:Math.random()*6.283,sp:0.4+Math.random()*1.7,ox:0,oy:0});
+    }
+    let rotY=0,easeTX=0,easeTY=0,tiltX=0,tiltY=0,mx=null,my=null,down=false,introStart=null;
+    const cpos=e=>{const r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};};
+    cv.addEventListener('mousemove',e=>{const p=cpos(e);mx=p.x;my=p.y;tiltY=((p.x-CX)/CX)*0.55;tiltX=((p.y-CY)/CY)*-0.55;});
+    cv.addEventListener('mouseleave',()=>{mx=my=null;tiltX=tiltY=0;down=false;});
+    cv.addEventListener('mousedown',()=>down=true); window.addEventListener('mouseup',()=>down=false);
+    const t0=performance.now(); const S=[];
+    function frame(now){
+      requestAnimationFrame(frame);
+      const slide=cv.closest('.slide');
+      if(!slide||!slide.classList.contains('active')){introStart=null;return;}   // re-arm burst each visit
+      if(introStart===null){introStart=now;rotY=0;}
+      const t=(now-t0)/1000, it=(now-introStart)/1000;
+      // intro: spin ramps 0 -> aggressive spike -> settle; radius bursts from center with overshoot
+      const D=3.4, pk=0.55;
+      const spike = it<D ? 9*(it/pk)*Math.exp(1-it/pk) : 0;
+      const velMul = Math.max(0, Math.min(it/D,1)*0.6 + spike);
+      rotY += 0.0042*velMul + 0.0018;
+      easeTX+=(tiltX-easeTX)*0.06; easeTY+=(tiltY-easeTY)*0.06;
+      const p=Math.min(it/D,1);
+      const Rf = 1-Math.pow(1-p,4);   // aggressive ease-out-quart burst from center
+      const Reff=R*Rf;
+      const RY=rotY+easeTY, RX=-0.22+0.07*Math.sin(t*0.4)+easeTX;          // planetary wobble + tilt
+      const cy_=Math.cos(RY),sy_=Math.sin(RY),cx_=Math.cos(RX),sx_=Math.sin(RX);
+      ctx.clearRect(0,0,W,H);
+      ctx.save();
+      const sk=mx!=null?((mx-CX)/CX)*0.13:0; ctx.setTransform(1,0,sk,1,-sk*CY,0);
+      for(let k=0;k<pts.length;k++){
+        const pt=pts[k];
+        const dr=1+0.06*Math.sin(t*pt.sp+pt.ph);
+        let x=pt.x*dr,y=pt.y*dr,z=pt.z*dr;
+        let x1=x*cy_-z*sy_, z1=x*sy_+z*cy_;
+        let y1=y*cx_-z1*sx_, z2=y*sx_+z1*cx_;
+        const scale=F/(F-z2*Reff);
+        let sx=CX+x1*Reff*scale, sy=CY+y1*Reff*scale;
+        if(mx!=null && it>D){
+          const dx=mx-sx,dy=my-sy,dist=Math.hypot(dx,dy),rad=down?280:160,str=down?0.55:0.3;
+          if(dist<rad){const f=(1-dist/rad)*str;pt.ox+=(dx*f-pt.ox)*0.2;pt.oy+=(dy*f-pt.oy)*0.2;}
+          else{pt.ox+=-pt.ox*0.08;pt.oy+=-pt.oy*0.08;}
+        } else {pt.ox+=-pt.ox*0.08;pt.oy+=-pt.oy*0.08;}
+        S[k]={sx:sx+pt.ox,sy:sy+pt.oy,z:z2,scale,c:pt.c,s:pt.s};
+      }
+      // dots far -> near
+      const order=S.slice().sort((a,b)=>a.z-b.z);
+      for(const q of order){const depth=(q.z+1)/2;
+        ctx.globalAlpha=(0.22+depth*0.78)*Math.min(1,0.2+it*1.2);
+        ctx.fillStyle=q.c; ctx.shadowColor=q.c; ctx.shadowBlur=6*q.scale;
+        ctx.beginPath(); ctx.arc(q.sx,q.sy,Math.max(0.5,q.s*q.scale),0,6.2832); ctx.fill();}
+      // core flares on burst then settles
+      ctx.globalAlpha=1; const burst=1+(it<D?1.5*Math.exp(-it*2.2):0), pulse=(0.85+0.15*Math.sin(t*2.1))*burst;
+      const g=ctx.createRadialGradient(CX,CY,2,CX,CY,46*pulse);
+      g.addColorStop(0,'#eaf4ff');g.addColorStop(.35,'#7ad0ff');g.addColorStop(.7,'#7a6bf0');g.addColorStop(1,'rgba(92,75,185,0)');
+      ctx.shadowColor='#8fb6ff';ctx.shadowBlur=34;ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(CX,CY,46*pulse,0,6.2832);ctx.fill();
+      ctx.restore();
+    }
+    requestAnimationFrame(frame);
+  }
+  initAi();
+
+  /* ---- header actions ---- */
+  const docmenu=document.getElementById('docmenu');
+  document.getElementById('docsBtn').onclick=e=>{e.stopPropagation();docmenu.classList.toggle('open');};
+  docmenu.onclick=e=>e.stopPropagation();
+  document.addEventListener('click',()=>docmenu.classList.remove('open'));
+  const shareBtn=document.getElementById('shareBtn');
+  shareBtn.onclick=async()=>{
+    try{await navigator.clipboard.writeText(location.href);}catch(e){}
+    shareBtn.classList.add('ok'); shareBtn.setAttribute('data-tip','Link copied!');
+    clearTimeout(shareBtn._t); shareBtn._t=setTimeout(()=>{shareBtn.classList.remove('ok');shareBtn.setAttribute('data-tip','Copy link');},2000);
+  };
+
+  /* ---- cursor-following document preview ---- */
+  const docPrev=document.createElement('div'); docPrev.id='docPrev'; docPrev.innerHTML='<img alt="">';
+  document.body.appendChild(docPrev); const dpImg=docPrev.querySelector('img');
+  document.querySelectorAll('[data-prev]').forEach(a=>{
+    a.addEventListener('mouseenter',()=>{dpImg.src=a.dataset.prev;docPrev.classList.add('show');});
+    a.addEventListener('mousemove',e=>{
+      const pad=18,w=docPrev.offsetWidth||220,h=docPrev.offsetHeight||260;
+      let x=e.clientX+pad,y=e.clientY+pad;
+      if(x+w>innerWidth) x=e.clientX-pad-w;
+      if(y+h>innerHeight) y=e.clientY-pad-h;
+      docPrev.style.left=x+'px';docPrev.style.top=y+'px';
+    });
+    a.addEventListener('mouseleave',()=>docPrev.classList.remove('show'));
+  });
+
+  /* ---- SOW download filter ---- */
+  const sowDl=document.getElementById('sowDl');
+  if(sowDl) document.querySelectorAll('#sowFilter .sf').forEach(btn=>{
+    btn.onclick=e=>{e.preventDefault();
+      document.querySelectorAll('#sowFilter .sf').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      sowDl.href='downloads/[CLIENT]-Experis-SOWs-'+btn.dataset.z+'.zip';
+    };
+  });
+
+  go(0);
+</script>
+
+<!-- BUILD:runtime -->
+<script>window.__DECK__={"state":"draft","version":"0.2.0","created":"2026-07-21T00:00:00Z","released":null,"deckId":"microsite","builtAt":"2026-07-22T16:30:12.088Z","build":null,"sha":null};</script>
+<script>window.__REVIEW_COMMENTS__=[];</script>
+<script>window.__FIREBASE__={"apiKey":"AIzaSyAguX_mFW_4zB4KFLxBYg4jg9M9s_EOLu4","authDomain":"experis-microsite-comments.firebaseapp.com","projectId":"experis-microsite-comments","storageBucket":"experis-microsite-comments.firebasestorage.app","messagingSenderId":"600419082651","appId":"1:600419082651:web:dc380c4fc155983873013e"};</script>
+<div class="deck-version-badge"><span class="dc-dot"></span>Draft<b>V5.0 · Jul 22, 2026</b></div>
+<!-- BUILD:comment-layer -->
+<script>
+/* =====================================================================
+ * comments.js — review comment layer (DRAFT only)
+ * ---------------------------------------------------------------------
+ * Injected by build.js into draft builds. Never present in published builds.
+ *
+ * Two runtime modes, chosen automatically at boot:
+ *
+ *   FIREBASE (live/shared) — when build.js injected a real window.__FIREBASE__
+ *     config (from firebase.config.json). Threads live in Firestore under
+ *     decks/<deckId>/threads and sync in real time for everyone via onSnapshot.
+ *     No login; reviewers type a display name (kept on their device). Open
+ *     read/write per the project's Firestore rules (POC posture).
+ *
+ *   LOCAL (async fallback) — when no Firebase config is present. A reviewer's
+ *     threads live in localStorage; others' arrive pre-merged in
+ *     window.__REVIEW_COMMENTS__ (built from review/comments.json). Export ->
+ *     tools/merge-comments.js -> rebuild to share. This preserves the original
+ *     serverless behavior so the deck still works with zero backend.
+ *
+ * Thread shape (both modes):
+ *   { id, deckId, anchor:{slideSlug,slideTitle,slideIndex,path,label},
+ *     author, createdAt, updatedAt, resolved,
+ *     messages:[{ id, author, text, createdAt, updatedAt }] }
+ *
+ * Publishing purges all of this.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  var DECK = window.__DECK__ || { deckId: "deck", state: "draft" };
+  if (DECK.state !== "draft") return;
+
+  var DECK_ID = DECK.deckId || "deck";
+  var LS_USER = "deck::user";
+  var LS_THREADS = "deck::threads::" + DECK_ID;
+  var MERGED = Array.isArray(window.__REVIEW_COMMENTS__) ? window.__REVIEW_COMMENTS__ : [];
+
+  // ---- mode detection: real Firebase config injected by build.js? ----
+  var FBCFG = (function () {
+    var c = window.__FIREBASE__;
+    if (!c || typeof c !== "object") return null;
+    if (!c.apiKey || !c.projectId) return null;
+    // ignore un-filled placeholder config
+    if (String(c.apiKey).indexOf("PASTE") >= 0 || String(c.projectId).indexOf("PASTE") >= 0) return null;
+    return c;
+  })();
+  var MODE = FBCFG ? "firebase" : "local";
+
+  // ---------- storage ----------
+  // Resilient store: real localStorage when available, in-memory fallback when it
+  // throws (sandboxed preview panes, Safari private mode, etc.).
+  var LS = (function () {
+    try { var k = "__dc_probe"; window.localStorage.setItem(k, "1"); window.localStorage.removeItem(k); return window.localStorage; }
+    catch (e) {
+      var mem = {};
+      return {
+        getItem: function (k) { return k in mem ? mem[k] : null; },
+        setItem: function (k, v) { mem[k] = String(v); },
+        removeItem: function (k) { delete mem[k]; }
+      };
+    }
+  })();
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function now() { return new Date().toISOString(); }
+  function getUser() { return LS.getItem(LS_USER) || ""; }
+  function setUser(u) { LS.setItem(LS_USER, u); }
+  function loadLocal() { try { return JSON.parse(LS.getItem(LS_THREADS)) || []; } catch (e) { return []; } }
+  function saveLocal(arr) { LS.setItem(LS_THREADS, JSON.stringify(arr)); }
+  function byCreated(a, b) { return (a.createdAt || "").localeCompare(b.createdAt || ""); }
+
+  // Firebase live cache (populated by onSnapshot)
+  var CACHE = [];
+  var fb = null;          // { fs, col } once initialized
+  var seenMsgIds = null;  // Set for live "new comment" toasts; null until first snapshot
+
+  // Unified thread view. In firebase mode every thread is shared and treated as
+  // "local" (controls render); edit/delete of an individual message is still
+  // gated to its author by name. In local mode: merged (read-only) overlaid by
+  // this reviewer's local threads.
+  function allThreads() {
+    if (MODE === "firebase") {
+      return CACHE.slice().sort(byCreated).map(function (t) { return Object.assign({}, t, { _local: true }); });
+    }
+    var map = {};
+    MERGED.forEach(function (t) { map[t.id] = Object.assign({}, t, { _local: false }); });
+    loadLocal().forEach(function (t) { map[t.id] = Object.assign({}, t, { _local: true }); });
+    return Object.keys(map).map(function (k) { return map[k]; }).sort(byCreated);
+  }
+
+  // local-mode persistence
+  function upsertLocal(thread) {
+    var arr = loadLocal(); var i = arr.findIndex(function (t) { return t.id === thread.id; });
+    if (i >= 0) arr[i] = thread; else arr.push(thread);
+    saveLocal(arr); render();
+  }
+  function removeLocal(id) { saveLocal(loadLocal().filter(function (t) { return t.id !== id; })); render(); }
+
+  // mode-routed persistence
+  function upsert(thread) {
+    if (MODE === "firebase") { fbSet(thread); } // snapshot re-renders
+    else { upsertLocal(thread); }
+  }
+  function remove(id) {
+    if (MODE === "firebase") { fbDelete(id); }
+    else { removeLocal(id); }
+  }
+
+  // ---------- Firebase adapter ----------
+  function fbSet(thread) {
+    if (!fb) return;
+    var clean = JSON.parse(JSON.stringify(thread)); delete clean._local;
+    fb.fs.setDoc(fb.fs.doc(fb.col, thread.id), clean).catch(function (e) { console.warn("comment save failed", e); toast("Couldn't save — check connection"); });
+  }
+  function fbDelete(id) {
+    if (!fb) return;
+    fb.fs.deleteDoc(fb.fs.doc(fb.col, id)).catch(function (e) { console.warn("comment delete failed", e); });
+  }
+  function initFirebase() {
+    return Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+    ]).then(function (mods) {
+      var appMod = mods[0], fs = mods[1];
+      var app = appMod.initializeApp(FBCFG);
+      var db = fs.getFirestore(app);
+      var col = fs.collection(db, "decks", DECK_ID, "threads");
+      fb = { fs: fs, col: col };
+      fs.onSnapshot(col, function (snap) {
+        var arr = []; snap.forEach(function (d) { arr.push(d.data()); });
+        detectNew(arr);
+        CACHE = arr;
+        render();
+      }, function (err) { console.warn("comment sync error", err); toast("Live sync unavailable"); });
+    });
+  }
+  // live "new comment" toast (from other people, after first load)
+  function detectNew(arr) {
+    var ids = {};
+    arr.forEach(function (t) { (t.messages || []).forEach(function (m) { ids[m.id] = { author: m.author, slide: t.anchor && t.anchor.slideTitle }; }); });
+    if (seenMsgIds === null) { seenMsgIds = ids; return; } // first snapshot: baseline only
+    var me = getUser(), newest = null;
+    Object.keys(ids).forEach(function (id) { if (!(id in seenMsgIds) && ids[id].author && ids[id].author !== me) newest = ids[id]; });
+    seenMsgIds = ids;
+    if (newest) toast("New comment from " + newest.author + (newest.slide ? " · " + newest.slide : ""));
+  }
+
+  // ---------- anchoring (slide + component path) ----------
+  function slides() { return [].slice.call(document.querySelectorAll(".slide")); }
+  function slug(s) { return (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+  function slideOf(el) { while (el && el !== document.body) { if (el.classList && el.classList.contains("slide")) return el; el = el.parentElement; } return null; }
+
+  function computeAnchor(el) {
+    var sl = slideOf(el); if (!sl) return null;
+    var idx = slides().indexOf(sl);
+    var title = sl.getAttribute("data-title") || ("Slide " + (idx + 1));
+    var path = [];
+    var node = el;
+    while (node && node !== sl) {
+      var parent = node.parentElement;
+      if (!parent) break;
+      path.unshift([].indexOf.call(parent.children, node));
+      node = parent;
+    }
+    var label = (el.innerText || el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 70) || el.tagName.toLowerCase();
+    return { slideSlug: slug(title), slideTitle: title, slideIndex: idx, path: path, label: label };
+  }
+  function slideBySlug(s, fallbackIndex) {
+    var all = slides();
+    for (var i = 0; i < all.length; i++) {
+      if (slug(all[i].getAttribute("data-title") || ("Slide " + (i + 1))) === s) return all[i];
+    }
+    return (typeof fallbackIndex === "number" && all[fallbackIndex]) || null;
+  }
+  function resolveAnchor(a) {
+    if (!a) return null;
+    var sl = slideBySlug(a.slideSlug, a.slideIndex); if (!sl) return null;
+    var node = sl, ok = true;
+    (a.path || []).forEach(function (i) { if (node && node.children[i]) node = node.children[i]; else ok = false; });
+    return { el: ok ? node : sl, slide: sl, exact: ok };
+  }
+  function slideIndexOfAnchor(a) {
+    var r = resolveAnchor(a); return r ? slides().indexOf(r.slide) : -1;
+  }
+  function gotoSlide(i) { if (i >= 0 && typeof window.go === "function") window.go(i); }
+
+  // ---------- UI shell ----------
+  var state = { open: false, picking: false, filter: "open", composeAnchor: null, hovered: null };
+
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  // shared inline icons (thin-stroke, no emoji)
+  var BUBBLE = "<svg viewBox='0 0 24 24'><path d='M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z'/></svg>";
+  var LOC = "<svg class='dc-locicon' viewBox='0 0 24 24'><path d='M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z'/><circle cx='12' cy='11' r='2.2'/></svg>";
+
+  function injectStyles() {
+    var css = ""
+      + ".dc-fab{position:fixed;right:22px;bottom:22px;z-index:10000;display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 15px;border-radius:11px;cursor:pointer;background:rgba(20,19,42,.86);color:#E7E5F2;border:1px solid rgba(255,255,255,.14);font:600 13px/1 'Segoe UI',Arial,sans-serif;letter-spacing:.01em;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(8,6,26,.4);transition:.16s}"
+      + ".dc-fab:hover{background:rgba(32,30,60,.92);border-color:rgba(255,255,255,.24)}"
+      + ".dc-fab svg{width:16px;height:16px;stroke:#B9B5E0;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}"
+      + ".dc-fab .dc-count{min-width:19px;height:19px;padding:0 6px;border-radius:10px;background:#6B5CC4;color:#fff;font:700 11px/19px 'Segoe UI',Arial;text-align:center}"
+      + ".dc-fab .dc-live{width:6px;height:6px;border-radius:50%;background:#3FBF7F;box-shadow:0 0 0 3px rgba(63,191,127,.18)}"
+      + ".dc-navbadge{margin-left:auto;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:rgba(122,107,240,.92);color:#fff;font:700 10.5px/18px 'Segoe UI',Arial;text-align:center;flex:0 0 auto}"
+      + ".dc-locicon{width:12px;height:12px;stroke:#6B5CC4;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px;flex:0 0 auto}"
+      + ".dc-panel{position:fixed;top:0;right:0;width:360px;max-width:92vw;height:100vh;z-index:10001;background:#fff;box-shadow:-14px 0 40px rgba(20,14,50,.25);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .22s ease;font-family:'Segoe UI',Arial,sans-serif;color:#282A32}"
+      + ".dc-panel.dc-show{transform:none}"
+      + ".dc-hd{padding:14px 16px;border-bottom:1px solid #E7E6F2;display:flex;align-items:center;justify-content:space-between}"
+      + ".dc-hd h3{font-size:15px;margin:0}.dc-hd .dc-user{font-size:12px;color:#67696F}"
+      + ".dc-mode{font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-top:3px;display:inline-block}"
+      + ".dc-mode.dc-live-mode{background:#e7f7ea;color:#2f7d3a}.dc-mode.dc-local-mode{background:#f0eefb;color:#5C4BB9}"
+      + ".dc-x{background:none;border:none;font-size:20px;cursor:pointer;color:#67696F}"
+      + ".dc-tools{display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid #E7E6F2;flex-wrap:wrap}"
+      + ".dc-btn{border:1px solid #E7E6F2;background:#fff;border-radius:7px;padding:6px 10px;font:600 12px/1 'Segoe UI',Arial;cursor:pointer;color:#282A32}"
+      + ".dc-btn.dc-primary{background:#5C4BB9;color:#fff;border-color:#5C4BB9}"
+      + ".dc-btn.dc-on{background:#EEF;border-color:#9E94FA}"
+      + ".dc-seg{margin-left:auto;display:flex;border:1px solid #E7E6F2;border-radius:7px;overflow:hidden}"
+      + ".dc-seg button{border:none;background:#fff;padding:6px 9px;font:600 11px 'Segoe UI',Arial;cursor:pointer;color:#67696F}"
+      + ".dc-seg button.dc-active{background:#5C4BB9;color:#fff}"
+      + ".dc-list{flex:1;overflow:auto;padding:12px 14px}"
+      + ".dc-empty{color:#9a9aa2;font-size:13px;text-align:center;margin-top:40px}"
+      + ".dc-th{border:1px solid #E7E6F2;border-radius:10px;padding:11px 12px;margin-bottom:11px}"
+      + ".dc-th.dc-resolved{opacity:.6}"
+      + ".dc-anchor{font-size:11px;color:#5C4BB9;font-weight:700;cursor:pointer;display:flex;gap:6px;align-items:center}"
+      + ".dc-anchor .dc-loc{color:#9a9aa2;font-weight:400}"
+      + ".dc-msg{margin:8px 0;font-size:13px;line-height:1.45}"
+      + ".dc-msg .dc-who{font-weight:700;font-size:12px}.dc-msg .dc-when{color:#9a9aa2;font-size:11px;margin-left:6px}"
+      + ".dc-msg .dc-txt{white-space:pre-wrap;margin-top:2px}"
+      + ".dc-mact{display:flex;gap:10px;margin-top:3px}.dc-mact a{font-size:11px;color:#67696F;cursor:pointer;text-decoration:underline}"
+      + ".dc-reply{width:100%;border:1px solid #E7E6F2;border-radius:7px;padding:7px;font:400 13px 'Segoe UI',Arial;resize:vertical;min-height:34px;margin-top:6px}"
+      + ".dc-row{display:flex;gap:6px;margin-top:6px}"
+      + ".dc-pin{position:fixed;z-index:9999;width:24px;height:24px;border-radius:50% 50% 50% 2px;background:#5C4BB9;color:#fff;font:700 11px/24px 'Segoe UI',Arial;text-align:center;cursor:pointer;box-shadow:0 3px 10px rgba(20,14,50,.4);transform:translate(-50%,-100%)}"
+      + ".dc-pin.dc-resolved{background:#4FA85C}"
+      + ".dc-pickhint{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:10002;background:#282A32;color:#fff;padding:8px 14px;border-radius:8px;font:600 12px 'Segoe UI',Arial}"
+      + ".dc-hover-outline{outline:2px dashed #5C4BB9 !important;outline-offset:2px;cursor:crosshair !important}"
+      + ".dc-modal{position:fixed;inset:0;z-index:10003;background:rgba(20,14,50,.45);display:flex;align-items:center;justify-content:center}"
+      + ".dc-modal-box{background:#fff;color:#282A32;border-radius:12px;padding:18px;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(20,14,50,.4);font-family:'Segoe UI',Arial,sans-serif}"
+      + ".dc-modal-msg{font-size:14px;font-weight:600;margin-bottom:10px}"
+      + ".dc-modal-input{width:100%;border:1px solid #E7E6F2;border-radius:7px;padding:8px;font:400 14px 'Segoe UI',Arial;resize:vertical}"
+      + ".dc-toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:10004;background:#282A32;color:#fff;padding:9px 14px;border-radius:8px;font:600 12px 'Segoe UI',Arial;box-shadow:0 6px 20px rgba(0,0,0,.3)}";
+    var s = el("style"); s.textContent = css; document.head.appendChild(s);
+  }
+
+  var fab, panel, listEl, pinLayer;
+  function buildShell() {
+    fab = el("button", "dc-fab");
+    document.body.appendChild(fab);
+    fab.onclick = function () { ensureUser(function () { toggle(true); }); };
+
+    panel = el("div", "dc-panel");
+    var hd = el("div", "dc-hd");
+    hd.innerHTML = "<div><h3>Review comments</h3><div class='dc-user'></div>"
+      + "<span class='dc-mode " + (MODE === "firebase" ? "dc-live-mode'>● Live — shared" : "dc-local-mode'>Local — export to share") + "</span></div>";
+    var x = el("button", "dc-x", "×"); x.onclick = function () { toggle(false); };
+    hd.appendChild(x); panel.appendChild(hd);
+
+    var tools = el("div", "dc-tools");
+    var add = el("button", "dc-btn dc-primary", "＋ Add comment");
+    add.onclick = togglePick;
+    tools.appendChild(add);
+    if (MODE === "local") { var exp = el("button", "dc-btn", "⭳ Export"); exp.onclick = exportMine; tools.appendChild(exp); }
+    var seg = el("div", "dc-seg");
+    ["open", "resolved", "all"].forEach(function (f) {
+      var b = el("button", f === state.filter ? "dc-active" : "", f[0].toUpperCase() + f.slice(1));
+      b.onclick = function () { state.filter = f; render(); };
+      seg.appendChild(b);
+    });
+    tools.appendChild(seg);
+    panel.appendChild(tools);
+
+    listEl = el("div", "dc-list"); panel.appendChild(listEl);
+    document.body.appendChild(panel);
+
+    pinLayer = el("div"); document.body.appendChild(pinLayer);
+    panel._add = add;
+  }
+
+  function toggle(open) {
+    state.open = open == null ? !state.open : open;
+    panel.classList.toggle("dc-show", state.open);
+    fab.style.display = state.open ? "none" : "flex";
+    if (state.open) { render(); setTimeout(bindOutside, 0); }
+    else { unbindOutside(); if (state.picking) stopPick(); }
+  }
+  // close the drawer when the user clicks the preview pane (but not while
+  // placing a comment, and not on the fab / stepper badge / pins / modals)
+  function onOutside(e) {
+    if (state.picking) return;
+    var t = e.target;
+    if (panel.contains(t)) return;
+    if (t.closest && (t.closest(".dc-fab") || t.closest(".dc-pin") || t.closest(".dc-modal"))) return;
+    toggle(false);
+  }
+  function bindOutside() { document.addEventListener("mousedown", onOutside, true); }
+  function unbindOutside() { document.removeEventListener("mousedown", onOutside, true); }
+  function fabCount() {
+    var open = allThreads().filter(function (t) { return !t.resolved; }).length;
+    var live = MODE === "firebase" ? "<span class='dc-live' title='Live — shared'></span>" : "";
+    fab.innerHTML = BUBBLE + "<span>Comments</span>" + (open ? "<span class='dc-count'>" + open + "</span>" : "") + live;
+  }
+  // Highlight TOC entries that carry open comments + show a per-slide count.
+  function updateNavBadges() {
+    var items = document.querySelectorAll("#index .nav-item");
+    if (!items.length) return;
+    var counts = {};
+    allThreads().forEach(function (t) {
+      if (t.resolved) return;
+      var i = slideIndexOfAnchor(t.anchor);
+      if (i >= 0) counts[i] = (counts[i] || 0) + 1;
+    });
+    [].forEach.call(items, function (it, i) {
+      var badge = it.querySelector(".dc-navbadge");
+      var n = counts[i] || 0;
+      if (n) {
+        if (!badge) { badge = el("span", "dc-navbadge"); it.appendChild(badge); }
+        badge.textContent = n;
+        it.classList.add("dc-hascomments");
+      } else {
+        if (badge) badge.parentNode.removeChild(badge);
+        it.classList.remove("dc-hascomments");
+      }
+    });
+  }
+
+  // ---------- username ----------
+  function ensureUser(cb) {
+    var u = getUser();
+    if (u) { updateUserLabel(); return cb && cb(); }
+    askText("Enter your name for review comments:", "", function (name) {
+      if (name) { setUser(name); updateUserLabel(); cb && cb(); }
+    });
+  }
+  function updateUserLabel() { var e = panel.querySelector(".dc-user"); if (e) e.textContent = getUser() ? "Commenting as " + getUser() : ""; }
+
+  // ---------- in-DOM dialogs ----------
+  function askText(message, initial, cb) {
+    var ov = el("div", "dc-modal");
+    var box = el("div", "dc-modal-box");
+    box.appendChild(el("div", "dc-modal-msg", esc(message)));
+    var inp = el("textarea", "dc-modal-input"); inp.rows = message && /edit|reply|comment/i.test(message) ? 3 : 1; inp.value = initial || "";
+    var row = el("div", "dc-row");
+    var ok = el("button", "dc-btn dc-primary", "OK");
+    var cancel = el("button", "dc-btn", "Cancel");
+    row.appendChild(ok); row.appendChild(cancel);
+    box.appendChild(inp); box.appendChild(row); ov.appendChild(box);
+    document.body.appendChild(ov); setTimeout(function () { inp.focus(); }, 0);
+    function close() { if (ov.parentNode) ov.parentNode.removeChild(ov); }
+    ok.onclick = function () { var v = inp.value.trim(); close(); cb(v || null); };
+    cancel.onclick = function () { close(); cb(null); };
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && (inp.rows === 1 || !e.shiftKey)) { e.preventDefault(); ok.onclick(); }
+      else if (e.key === "Escape") { cancel.onclick(); }
+    });
+  }
+  function askConfirm(message, cb) {
+    var ov = el("div", "dc-modal");
+    var box = el("div", "dc-modal-box");
+    box.appendChild(el("div", "dc-modal-msg", esc(message)));
+    var row = el("div", "dc-row");
+    var ok = el("button", "dc-btn dc-primary", "Delete");
+    var cancel = el("button", "dc-btn", "Cancel");
+    row.appendChild(ok); row.appendChild(cancel); box.appendChild(row); ov.appendChild(box);
+    document.body.appendChild(ov);
+    function close() { if (ov.parentNode) ov.parentNode.removeChild(ov); }
+    ok.onclick = function () { close(); cb(true); };
+    cancel.onclick = function () { close(); cb(false); };
+  }
+  function toast(msg) {
+    var t = el("div", "dc-toast", esc(msg)); document.body.appendChild(t);
+    setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 2600);
+  }
+
+  // ---------- pick / compose ----------
+  var hintEl = null;
+  function showHint(text) { hideHint(); hintEl = el("div", "dc-pickhint", esc(text)); document.body.appendChild(hintEl); }
+  function hideHint() { if (hintEl) { hintEl.parentNode && hintEl.parentNode.removeChild(hintEl); hintEl = null; } }
+
+  function togglePick() {
+    state.picking = !state.picking;
+    panel._add.classList.toggle("dc-on", state.picking);
+    document.body.style.cursor = state.picking ? "crosshair" : "";
+    if (state.picking) {
+      showHint("Click any slide or component to attach a comment — Esc to cancel");
+      document.addEventListener("mousemove", onHover, true);
+      document.addEventListener("click", onPick, true);
+      document.addEventListener("keydown", onEsc, true);
+    } else stopPick();
+  }
+  function stopPick() {
+    state.picking = false; panel._add.classList.remove("dc-on"); document.body.style.cursor = "";
+    hideHint(); clearHover();
+    document.removeEventListener("mousemove", onHover, true);
+    document.removeEventListener("click", onPick, true);
+    document.removeEventListener("keydown", onEsc, true);
+  }
+  function onEsc(e) { if (e.key === "Escape") stopPick(); }
+  function clearHover() { if (state.hovered) { state.hovered.classList.remove("dc-hover-outline"); state.hovered = null; } }
+  function onHover(e) {
+    var t = e.target;
+    if (!slideOf(t) || panel.contains(t) || t.closest(".dc-pin")) { clearHover(); return; }
+    if (t !== state.hovered) { clearHover(); state.hovered = t; t.classList.add("dc-hover-outline"); }
+  }
+  function onPick(e) {
+    var t = e.target;
+    if (!slideOf(t) || panel.contains(t)) return;
+    e.preventDefault(); e.stopPropagation();
+    var anchor = computeAnchor(t);
+    clearHover(); stopPick();
+    if (anchor) openComposer(anchor);
+  }
+
+  function openComposer(anchor) {
+    toggle(true);
+    var box = el("div", "dc-th");
+    box.innerHTML = "<div class='dc-anchor'>" + LOC + esc(anchor.slideTitle) + "<span class='dc-loc'>" + esc(anchor.label) + "</span></div>";
+    var ta = el("textarea", "dc-reply"); ta.placeholder = "Write a comment…";
+    var row = el("div", "dc-row");
+    var save = el("button", "dc-btn dc-primary", "Comment");
+    var cancel = el("button", "dc-btn", "Cancel");
+    row.appendChild(save); row.appendChild(cancel);
+    box.appendChild(ta); box.appendChild(row);
+    listEl.insertBefore(box, listEl.firstChild); ta.focus();
+    cancel.onclick = render;
+    save.onclick = function () {
+      var txt = ta.value.trim(); if (!txt) return;
+      var t = now();
+      upsert({
+        id: uid(), deckId: DECK_ID, anchor: anchor, author: getUser(),
+        createdAt: t, updatedAt: t, resolved: false,
+        messages: [{ id: uid(), author: getUser(), text: txt, createdAt: t, updatedAt: t }]
+      });
+      if (MODE === "firebase") render(); // optimistic; snapshot will confirm
+    };
+  }
+
+  // ---------- render ----------
+  function esc(s) { return (s || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function ago(iso) { try { return new Date(iso).toLocaleString(); } catch (e) { return iso; } }
+  function mine(author) { return author && author === getUser(); }
+
+  function render() {
+    if (!listEl) return;
+    updateUserLabel(); fabCount(); updateNavBadges(); renderPins();
+    panel.querySelectorAll(".dc-seg button").forEach(function (b) {
+      b.classList.toggle("dc-active", b.textContent.toLowerCase() === state.filter);
+    });
+    var threads = allThreads().filter(function (t) {
+      return state.filter === "all" ? true : state.filter === "resolved" ? t.resolved : !t.resolved;
+    });
+    listEl.innerHTML = "";
+    if (!threads.length) { listEl.appendChild(el("div", "dc-empty", "No " + state.filter + " comments yet.")); return; }
+    threads.forEach(function (t) { listEl.appendChild(renderThread(t)); });
+  }
+
+  function renderThread(t) {
+    var box = el("div", "dc-th" + (t.resolved ? " dc-resolved" : ""));
+    var a = el("div", "dc-anchor", LOC + esc(t.anchor ? t.anchor.slideTitle : "?") + "<span class='dc-loc'>" + esc(t.anchor ? t.anchor.label : "") + "</span>");
+    a.onclick = function () { var i = slideIndexOfAnchor(t.anchor); gotoSlide(i); setTimeout(renderPins, 60); };
+    box.appendChild(a);
+
+    (t.messages || []).forEach(function (m) {
+      var mv = el("div", "dc-msg");
+      mv.innerHTML = "<div><span class='dc-who'>" + esc(m.author || "?") + "</span><span class='dc-when'>" + esc(ago(m.updatedAt || m.createdAt)) + "</span></div><div class='dc-txt'>" + esc(m.text) + "</div>";
+      if (t._local && mine(m.author)) {
+        var act = el("div", "dc-mact");
+        var ed = el("a", null, "Edit"); ed.onclick = function () { editMsg(t, m); };
+        var dl = el("a", null, "Delete"); dl.onclick = function () { deleteMsg(t, m); };
+        act.appendChild(ed); act.appendChild(dl); mv.appendChild(act);
+      }
+      box.appendChild(mv);
+    });
+
+    if (!t.resolved) {
+      var ta = el("textarea", "dc-reply"); ta.placeholder = "Reply…";
+      var row = el("div", "dc-row");
+      var rep = el("button", "dc-btn dc-primary", "Reply");
+      rep.onclick = function () { var v = ta.value.trim(); if (v) addReply(t, v); };
+      var res = el("button", "dc-btn", "Resolve"); res.onclick = function () { setResolved(t, true); };
+      row.appendChild(rep); row.appendChild(res);
+      box.appendChild(ta); box.appendChild(row);
+    } else {
+      var row2 = el("div", "dc-row");
+      var re = el("button", "dc-btn", "Reopen"); re.onclick = function () { setResolved(t, false); };
+      row2.appendChild(re);
+      if (mine(t.author)) { var del = el("button", "dc-btn", "Delete thread"); del.onclick = function () { askConfirm("Delete this thread?", function (ok) { if (ok) remove(t.id); }); }; row2.appendChild(del); }
+      box.appendChild(row2);
+    }
+    return box;
+  }
+
+  // In firebase mode the thread IS the shared record; in local mode, editing a
+  // merged (others') thread forks a local, exportable copy.
+  function asLocal(t) {
+    if (MODE === "firebase") { var c = JSON.parse(JSON.stringify(t)); delete c._local; return c; }
+    var arr = loadLocal(); var found = arr.find(function (x) { return x.id === t.id; });
+    if (found) return found;
+    var copy = JSON.parse(JSON.stringify(t)); delete copy._local; return copy;
+  }
+  function addReply(t, text) {
+    var lt = asLocal(t); var ts = now();
+    lt.messages = lt.messages || [];
+    lt.messages.push({ id: uid(), author: getUser(), text: text, createdAt: ts, updatedAt: ts });
+    lt.updatedAt = ts; upsert(lt);
+  }
+  function editMsg(t, m) {
+    askText("Edit comment:", m.text, function (v) {
+      if (v == null) return;
+      var lt = asLocal(t); var mm = lt.messages.find(function (x) { return x.id === m.id; });
+      if (mm) { mm.text = v; mm.updatedAt = now(); lt.updatedAt = mm.updatedAt; upsert(lt); }
+    });
+  }
+  function deleteMsg(t, m) {
+    askConfirm("Delete this comment?", function (ok) {
+      if (!ok) return;
+      var lt = asLocal(t); lt.messages = (lt.messages || []).filter(function (x) { return x.id !== m.id; });
+      if (!lt.messages.length) remove(lt.id); else { lt.updatedAt = now(); upsert(lt); }
+    });
+  }
+  function setResolved(t, val) { var lt = asLocal(t); lt.resolved = val; lt.updatedAt = now(); upsert(lt); }
+
+  // ---------- pins on active slide ----------
+  function renderPins() {
+    if (!pinLayer) return; pinLayer.innerHTML = "";
+    var active = document.querySelector(".slide.active") || slides()[0];
+    if (!active) return;
+    var idx = slides().indexOf(active), n = 0;
+    allThreads().forEach(function (t) {
+      if (state.filter === "open" && t.resolved) return;
+      if (state.filter === "resolved" && !t.resolved) return;
+      if (!t.anchor || slideIndexOfAnchor(t.anchor) !== idx) return;
+      var r = resolveAnchor(t.anchor); if (!r) return;
+      var rect = r.el.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) return;
+      n++;
+      var pin = el("div", "dc-pin" + (t.resolved ? " dc-resolved" : ""), String(n));
+      pin.style.left = (rect.left + Math.min(rect.width, 40)) + "px";
+      pin.style.top = (rect.top + 6) + "px";
+      pin.title = (t.messages && t.messages[0] ? t.messages[0].text : "").slice(0, 80);
+      pin.onclick = function () { toggle(true); };
+      pinLayer.appendChild(pin);
+    });
+  }
+
+  // ---------- export (local mode only) ----------
+  function exportMine() {
+    var data = loadLocal();
+    if (!data.length) { toast("You have no comments to export yet."); return; }
+    var payload = { deckId: DECK_ID, exportedBy: getUser(), exportedAt: now(), threads: data };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    var a = el("a"); a.href = URL.createObjectURL(blob);
+    a.download = "comments-" + slug(getUser() || "anon") + "-" + now().slice(0, 10) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  // ---------- boot ----------
+  function boot() {
+    injectStyles(); buildShell(); render();
+    if (MODE === "firebase") {
+      initFirebase().catch(function (e) { console.warn("Firebase init failed — falling back to local mode", e); MODE = "local"; render(); });
+    }
+    var stage = document.getElementById("stage") || document.body;
+    new MutationObserver(function () { renderPins(); updateNavBadges(); }).observe(stage, { attributes: true, subtree: true, attributeFilter: ["class"] });
+    window.addEventListener("resize", renderPins);
+    window.addEventListener("scroll", renderPins, true);
+    setInterval(renderPins, 1200);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
+
+</script>
+</body>
+</html>
