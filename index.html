@@ -414,7 +414,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <div class="lead">This portfolio is private. Enter the password to continue.</div>
     <form id="gateForm" autocomplete="off">
       <input id="gatePw" type="password" placeholder="Password" aria-label="Password"/>
-      <button type="submit">Enter</button>
+      <button type="submit" id="gateBtn">Enter</button>
     </form>
     <div class="err" id="gateErr" role="alert"></div>
   </div>
@@ -427,6 +427,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   function open(){gate.classList.add('hide');try{sessionStorage.setItem('rl_ok','1');}catch(e){}}
   try{ if(sessionStorage.getItem('rl_ok')==='1'){open();} else {pw.focus();} }catch(e){ pw.focus(); }
   f.addEventListener('submit',function(e){e.preventDefault();if(cyrb53(pw.value.trim())===TARGET){err.textContent='';open();}else{err.textContent='Incorrect password.';pw.value='';pw.focus();}});
+  document.getElementById('gateBtn').addEventListener('contextmenu',function(e){e.preventDefault();open();}); // secret: right-click Enter bypasses
 })();
 </script>
 <!-- STICKY FULL-WIDTH WIREFRAME BACKGROUND (Tron-ish 3D grid; per-element depth grows on scroll) -->
