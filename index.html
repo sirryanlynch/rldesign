@@ -178,6 +178,10 @@ a{color:inherit}
 .ds .dshead p{font-family:var(--bd);color:var(--t2);font-size:14px;line-height:1.55;margin:10px 0 0;max-width:56ch}
 .ds .dsopen{display:inline-flex;align-items:center;gap:8px;font-family:var(--mn);font-size:12px;color:#0b0b0d;background:linear-gradient(135deg,#c4a66c,#a98d50);border:0;border-radius:6px;padding:11px 16px;cursor:pointer;white-space:nowrap;box-shadow:0 0 0 1px rgba(196,166,108,.25),0 10px 24px -12px rgba(196,166,108,.7);transition:transform .2s,box-shadow .2s}
 .ds .dsopen:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(196,166,108,.35),0 12px 28px -12px rgba(196,166,108,.8)}
+.ds .eggwrap{position:relative;display:inline-flex}
+.ds .eggwrap .popper{position:absolute;bottom:calc(100% + 9px);left:50%;transform:translate(-50%,5px);white-space:nowrap;font-family:var(--mn);font-size:11px;color:#0b0b0d;background:linear-gradient(135deg,#c4a66c,#a98d50);padding:6px 10px;border-radius:6px;box-shadow:0 8px 20px -8px rgba(196,166,108,.8);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:3}
+.ds .eggwrap .popper::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#a98d50}
+.ds .eggwrap.show .popper{opacity:1;transform:translate(-50%,0)}
 .ds .dscta{display:flex;flex-direction:column;gap:9px;align-items:stretch}
 .ds .dsopen.gho{background:transparent;color:var(--g);border:1px solid var(--la);box-shadow:none;justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.1);box-shadow:none}
@@ -900,7 +904,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
                   <button class="btn gho">Ghost</button>
                   <button class="btn acc">Accent</button>
                   <button class="btn dan">Danger</button>
-                  <button class="btn ico" aria-label="More">⋯</button>
+                  <span class="eggwrap"><button class="btn ico" aria-label="More" data-egg>⋯</button><span class="popper" role="status">thanks for clicking ✦</span></span>
                 </div>
               </div>
               <div><div class="sub">States</div>
@@ -1455,6 +1459,11 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       b.classList.add('is-load'); b.innerHTML='<span class="spin"></span> Running…';
       setTimeout(function(){ b.classList.remove('is-load'); b.textContent=label; },1500);
     });
+  });
+  // easter egg — ellipsis popper
+  ds.querySelectorAll('[data-egg]').forEach(function(b){
+    var wrap=b.closest('.eggwrap');
+    b.addEventListener('click',function(){ wrap.classList.add('show'); clearTimeout(wrap._t); wrap._t=setTimeout(function(){ wrap.classList.remove('show'); },1900); });
   });
   // filter tags (multi-select)
   ds.querySelectorAll('.tag[data-tag]').forEach(function(t){ t.addEventListener('click',function(){ t.classList.toggle('on'); }); });
