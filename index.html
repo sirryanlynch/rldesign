@@ -203,19 +203,19 @@ section{padding:104px 0}
 /* logo wall (post-quote) — uniform cells so every lockup reads at a consistent optical size */
 .logowall{text-align:center}
 .logowall .eyebrow{display:block}
-.logowall .clients{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));align-items:center;justify-items:center;gap:36px 20px;max-width:840px;margin:36px auto 0}
-.logowall .clients img{width:auto;height:20px;max-width:108px;object-fit:contain}
+/* fixed 7-up row so it never orphans a single logo; balanced counts on smaller screens */
+.logowall .clients{display:grid;grid-template-columns:repeat(7,1fr);align-items:center;justify-items:center;gap:34px 16px;max-width:1000px;margin:36px auto 0}
+@media(max-width:900px){.logowall .clients{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.logowall .clients{grid-template-columns:repeat(3,1fr)}}
+.logowall .clients img{width:auto;height:20px;max-width:112px;object-fit:contain}
 /* per-logo optical sizing so each mark reads at a consistent visual weight */
 .logowall .clients img[alt="Tesla"]{height:13px}
-.logowall .clients img[alt="Experis"]{height:30px}
-.logowall .clients img[alt="Cruz Foam"]{height:23px}
+.logowall .clients img[alt="Experis"]{height:14px}
+.logowall .clients img[alt="Cruz Foam"]{height:22px}
 .logowall .clients img[alt="Orange"]{height:19px}
 .logowall .clients img[alt="Timber"]{height:23px}
-.logowall .clients img[alt="Aalto"]{height:27px}
-.logowall .clients img[alt="DMG"]{height:31px}
-/* Experis bug is a blue mark on transparent — recolor to light gray to match the row */
-.logowall .clients img.exp{filter:brightness(0) invert(.68)}
-.logowall .clients img.exp:hover{filter:brightness(0) invert(.9)}
+.logowall .clients img[alt="Aalto"]{height:26px}
+.logowall .clients img[alt="DMG"]{height:30px}
 .logowall .honors{max-width:940px;margin-left:auto;margin-right:auto}
 .honors{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:4px;overflow:hidden}
 @media(max-width:900px){.honors{grid-template-columns:repeat(2,1fr)}.honor:nth-child(2n){border-right:0}}
@@ -530,7 +530,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   <div class="eyebrow">Where I've worked &amp; what it earned</div>
   <div class="clients">
     <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67f98e47f17ddb7f61789239_Tesla%20Lockup.svg" alt="Tesla" title="Tesla"/>
-    <img class="exp" src="assets/img/experis-icon.png" alt="Experis" title="Experis"/>
+    <img src="assets/img/experis-logo.svg" alt="Experis" title="Experis"/>
     <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67f98fe18f2a097341a66593_CF%20Lockup_50g.svg" alt="Cruz Foam" title="Cruz Foam"/>
     <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67f98f3746abadc92161a4b5_orange%20lockup_50g.svg" alt="Orange" title="Orange"/>
     <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67f6b83626caedd4b92be93f_Timber%20Logo_50G.png" alt="Timber" title="Timber"/>
@@ -538,7 +538,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67f6b9101c6a09a08df72bb5_DMG%20Logo_50G.png" alt="DMG" title="DMG"/>
   </div>
   <div class="honors">
-    <div class="honor"><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67fd77281484410d66f02924_TIME_IOY2023.svg" alt="TIME"/><div><div class="t">TIME</div><div class="s">Best Inventions</div><div class="c">Cruz Foam · 2023</div></div></div>
+    <div class="honor"><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67fd77281484410d66f02924_TIME_IOY2023.svg" alt="TIME"/><div><div class="t">TIME</div><div class="s">Best Inventions</div><div class="c">Cruz Foam</div></div></div>
     <div class="honor"><img src="assets/img/award-medal.svg" alt="Motor Trend Car of the Year"/><div><div class="t">Motor Trend</div><div class="s">Car of the Year · 2×</div><div class="c">Tesla</div></div></div>
     <div class="honor"><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67fd76ed0dc0cb50553bb64b_Fast%20Company%20MIC_2023-02.svg" alt="Fast Company"/><div><div class="t">Fast Company</div><div class="s">Most Innovative</div><div class="c">Cruz Foam</div></div></div>
     <div class="honor"><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67fd76ed99cf6d012587fc0b_Penta%20Awards%20Logo.svg" alt="Penta"/><div><div class="t">Penta Awards</div><div class="s">Bronze</div><div class="c">Cruz Foam</div></div></div>
