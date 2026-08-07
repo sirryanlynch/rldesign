@@ -178,6 +178,9 @@ a{color:inherit}
 .ds .dshead p{font-family:var(--bd);color:var(--t2);font-size:14px;line-height:1.55;margin:10px 0 0;max-width:56ch}
 .ds .dsopen{display:inline-flex;align-items:center;gap:8px;font-family:var(--mn);font-size:12px;color:#0b0b0d;background:linear-gradient(135deg,#c4a66c,#a98d50);border:0;border-radius:6px;padding:11px 16px;cursor:pointer;white-space:nowrap;box-shadow:0 0 0 1px rgba(196,166,108,.25),0 10px 24px -12px rgba(196,166,108,.7);transition:transform .2s,box-shadow .2s}
 .ds .dsopen:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(196,166,108,.35),0 12px 28px -12px rgba(196,166,108,.8)}
+.ds .dscta{display:flex;flex-direction:column;gap:9px;align-items:stretch}
+.ds .dsopen.gho{background:transparent;color:var(--g);border:1px solid var(--la);box-shadow:none;justify-content:center}
+.ds .dsopen.gho:hover{background:rgba(196,166,108,.1);box-shadow:none}
 .dswall{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;font-family:var(--bd)}
 .dswall .story{grid-column:span 6;background:var(--b1);border:1px solid var(--l0);border-radius:11px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(0,0,0,.5)}
 .dswall .story.wide{grid-column:span 12}.dswall .story.third{grid-column:span 4}
@@ -264,6 +267,42 @@ a{color:inherit}
 .ds .type i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--g);margin:0 1px;animation:dsblink 1.2s infinite}
 .ds .type i:nth-child(2){animation-delay:.2s}.ds .type i:nth-child(3){animation-delay:.4s}
 @keyframes dsblink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+/* handoff: spec tables, state matrix, data table, semantic tokens */
+.ds .sub{font-family:var(--mn);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.ds .specwrap{border:1px solid var(--l0);border-radius:8px;overflow:hidden;background:var(--b2)}
+.ds .spechd{font-family:var(--mn);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:8px 11px;border-bottom:1px solid var(--l0);background:var(--b1)}
+.ds table.spec{width:100%;border-collapse:collapse;font-family:var(--mn);font-size:11px}
+.ds table.spec th,.ds table.spec td{text-align:left;padding:6px 11px;border-bottom:1px solid var(--l0);vertical-align:top}
+.ds table.spec tr:last-child td{border-bottom:0}
+.ds table.spec th{color:var(--t3);font-weight:400;letter-spacing:.06em;text-transform:uppercase;font-size:9px}
+.ds .spec .k{color:var(--g)}.ds .spec .ty{color:#8b8cf5}.ds .spec .df{color:var(--t3)}.ds .spec .dd{color:var(--t2)}
+.ds .states{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px}
+.ds .st{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ds .st .sl{font-family:var(--mn);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}
+.ds .btn.s-hover.pri{box-shadow:0 0 14px rgba(196,166,108,.3),0 2px 8px rgba(0,0,0,.5)}
+.ds .btn.s-focus{box-shadow:0 0 0 3px rgba(196,166,108,.4)}
+.ds .btn.s-dis{opacity:.4;cursor:not-allowed;box-shadow:none}
+.ds table.tbl{width:100%;border-collapse:collapse;font-family:var(--bd);font-size:12px}
+.ds table.tbl th{font-family:var(--mn);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--l1)}
+.ds table.tbl th[data-sort]{cursor:pointer;user-select:none}.ds table.tbl th .ar{color:var(--g);font-size:9px;margin-left:3px}
+.ds table.tbl td{padding:9px 10px;border-bottom:1px solid var(--l0);color:var(--t1);font-variant-numeric:tabular-nums}
+.ds table.tbl tbody tr{cursor:pointer;transition:background .15s,opacity .15s}
+.ds table.tbl tbody tr:hover{background:rgba(255,255,255,.02)}
+.ds table.tbl tbody tr.sel{background:rgba(196,166,108,.08);box-shadow:inset 2px 0 0 var(--g)}
+.ds table.tbl.hassel tbody tr:not(.sel){opacity:.4}
+.ds table.tbl td .nm{color:var(--t0);font-weight:500}
+.ds .tok{display:flex;flex-direction:column}
+.ds .tok .tr{display:grid;grid-template-columns:66px 1fr 46px;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--l0)}
+.ds .tok .tr:last-child{border-bottom:0}
+.ds .tok .tn{font-family:var(--mn);font-size:11px;color:var(--g)}
+.ds .tok .tb{height:10px;border-radius:2px;background:rgba(196,166,108,.5)}
+.ds .tok .tv{font-family:var(--mn);font-size:10px;color:var(--t3);text-align:right}
+.ds .note{font-family:var(--bd);font-size:11px;color:var(--t3);line-height:1.55}
+.ds .note b{color:var(--t1);font-weight:600}
+.ds .field.err input{border-color:rgba(239,68,68,.5);box-shadow:0 0 0 3px rgba(239,68,68,.1)}
+.ds .field .msg{font-family:var(--mn);font-size:10px;color:#ef8a8a}
+.ds .field.dis input{opacity:.45}
+.ds .tgl:focus-visible{outline:2px solid var(--la);outline-offset:3px;border-radius:4px}
 /* entrance stagger */
 .dswall .story{opacity:0;transform:translateY(16px)}
 .ds.in .dswall .story{animation:dsrise .6s cubic-bezier(.2,.8,.2,1) both}
@@ -481,8 +520,10 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .launch{display:inline-flex;align-items:center;gap:9px;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:#0d0d0d;background:var(--accent);border:0;border-radius:3px;padding:11px 16px;cursor:pointer;text-decoration:none;transition:filter .18s,transform .18s}
 .launch:hover{filter:brightness(1.07);transform:translateY(-1px)}
 .launch .hint{color:rgba(13,13,13,.6);font-size:10px}
-.modal{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.94);backdrop-filter:blur(8px);display:none;flex-direction:column;padding:20px}
+.modal{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:26px}
 .modal.open{display:flex}
+.modal .mcard{display:flex;flex-direction:column;width:100%;max-width:1480px;height:92vh;max-height:960px}
+@media(max-width:640px){.modal{padding:12px}.modal .mcard{height:94vh}}
 .modal .mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:14px}
 .modal .mt{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
 .modal .mt b{color:var(--ink)}
@@ -839,113 +880,184 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         <div class="dshead">
           <div>
             <div class="eyebrow">Design System · BankIQ</div>
-            <h3>A precision instrument, not a paint job.</h3>
-            <p>Tokens, components, and states engineering builds against. Below is a live slice of the real system — poke at it. The full 25-section reference opens in one click.</p>
+            <h3>Components, specs &amp; states — built for handoff.</h3>
+            <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
           </div>
-          <button class="dsopen" data-launch="tools/bankiq-design-system/index.html" data-label="BankIQ · Design System" data-note="Live design-system reference">Open the full system ↗</button>
+          <div class="dscta">
+            <button class="dsopen" data-launch="tools/bankiq-design-system/index.html" data-label="BankIQ · Design System" data-note="Live design-system reference · opens in-page">Open the full system ↗</button>
+            <button class="dsopen gho" data-launch="tools/bankiq-rationale/index.html" data-label="BankIQ · Design Rationale" data-note="Foundational work — the decisions, tradeoffs, and the why behind the system">Foundational work →</button>
+          </div>
         </div>
         <div class="dswall">
 
           <div class="story wide">
-            <div class="lab"><span class="dot"></span><span class="n">Foundations · Color</span><span class="live">tokens</span></div>
-            <div class="stage"><div class="row" style="gap:12px">
-              <div class="sw"><div class="blk" style="background:#c4a66c"></div><div class="nm">Accent</div><div class="vl">#C4A66C</div></div>
-              <div class="sw"><div class="blk" style="background:#6366f1"></div><div class="nm">Indigo</div><div class="vl">#6366F1</div></div>
-              <div class="sw"><div class="blk" style="background:#10b981"></div><div class="nm">Success</div><div class="vl">#10B981</div></div>
-              <div class="sw"><div class="blk" style="background:#f59e0b"></div><div class="nm">Warning</div><div class="vl">#F59E0B</div></div>
-              <div class="sw"><div class="blk" style="background:#ef4444"></div><div class="nm">Danger</div><div class="vl">#EF4444</div></div>
-              <div class="sw"><div class="blk" style="background:#232427"></div><div class="nm">Surface</div><div class="vl">#232427</div></div>
-              <div class="sw"><div class="blk" style="background:#111214"></div><div class="nm">Panel</div><div class="vl">#111214</div></div>
-              <div class="sw"><div class="blk" style="background:#0a0a0b"></div><div class="nm">Base</div><div class="vl">#0A0A0B</div></div>
-            </div></div>
-          </div>
-
-          <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Foundations · Type</span></div>
+            <div class="lab"><span class="dot"></span><span class="n">Button</span><span class="live">interactive · spec</span></div>
             <div class="stage">
-              <div class="ty-row"><span class="ty-d">Aa</span><span class="meta">Exo 2 · Display 600</span></div>
-              <div class="ty-row"><span class="ty-h">Governed by tokens</span><span class="meta">Exo 2 · 500</span></div>
-              <div class="ty-row"><span class="ty-b">Body stays legible at 14px in DM Sans.</span><span class="meta">DM Sans · 400</span></div>
-              <div class="ty-row"><span class="ty-m">deposit_flight → 318</span><span class="meta">DM Mono · 500</span></div>
-            </div>
-          </div>
-
-          <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Buttons</span><span class="live">interactive</span></div>
-            <div class="stage">
-              <div class="row">
-                <button class="btn pri" data-load>Run insight</button>
-                <button class="btn sec">Secondary</button>
-                <button class="btn gho">Ghost</button>
+              <div><div class="sub">Variants</div>
+                <div class="row" style="margin-top:8px">
+                  <button class="btn pri" data-load>Primary</button>
+                  <button class="btn sec">Secondary</button>
+                  <button class="btn gho">Ghost</button>
+                  <button class="btn acc">Accent</button>
+                  <button class="btn dan">Danger</button>
+                  <button class="btn ico" aria-label="More">⋯</button>
+                </div>
               </div>
-              <div class="row">
-                <button class="btn acc sm">Accent</button>
-                <button class="btn dan sm">Delete</button>
-                <button class="btn ico" aria-label="More">⋯</button>
-                <span style="font-family:var(--mn);font-size:10px;color:var(--t3)">click “Run insight” →</span>
+              <div><div class="sub">States</div>
+                <div class="states" style="margin-top:10px">
+                  <div class="st"><button class="btn pri">Default</button><span class="sl">default</span></div>
+                  <div class="st"><button class="btn pri s-hover">Hover</button><span class="sl">hover</span></div>
+                  <div class="st"><button class="btn pri s-focus">Focus</button><span class="sl">focus</span></div>
+                  <div class="st"><button class="btn pri s-dis">Disabled</button><span class="sl">disabled</span></div>
+                  <div class="st"><button class="btn pri is-load"><span class="spin"></span> Loading</button><span class="sl">loading</span></div>
+                </div>
+              </div>
+              <div class="specwrap">
+                <div class="spechd">&lt;Button /&gt; · props</div>
+                <table class="spec">
+                  <tr><th>Prop</th><th>Type</th><th>Default</th><th>Notes</th></tr>
+                  <tr><td class="k">variant</td><td class="ty">primary · secondary · ghost · accent · danger</td><td class="df">primary</td><td class="dd">weight &amp; intent</td></tr>
+                  <tr><td class="k">size</td><td class="ty">sm · md · lg</td><td class="df">md</td><td class="dd">32 / 36 / 44px height</td></tr>
+                  <tr><td class="k">loading</td><td class="ty">boolean</td><td class="df">false</td><td class="dd">spinner, blocks input</td></tr>
+                  <tr><td class="k">disabled</td><td class="ty">boolean</td><td class="df">false</td><td class="dd">aria-disabled, no events</td></tr>
+                  <tr><td class="k">iconOnly</td><td class="ty">boolean</td><td class="df">false</td><td class="dd">square, needs aria-label</td></tr>
+                </table>
               </div>
             </div>
           </div>
 
           <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Chips &amp; Status</span><span class="live">interactive</span></div>
+            <div class="lab"><span class="dot"></span><span class="n">Field</span><span class="live">interactive · spec</span></div>
+            <div class="stage">
+              <div class="field"><label>Account</label><input placeholder="Search accounts…"/></div>
+              <div class="field err"><label>Routing number</label><input value="0219"/><span class="msg">Must be 9 digits</span></div>
+              <div class="field dis"><label>Tenant ID</label><input value="fm-bank-242" readonly/></div>
+              <div class="note">Error state sets <b>aria-invalid</b>; the label is tied to the input via <b>for/id</b>.</div>
+              <div class="specwrap">
+                <div class="spechd">&lt;Field /&gt; · props</div>
+                <table class="spec">
+                  <tr><td class="k">state</td><td class="ty">default · focus · error · disabled</td><td class="df">default</td></tr>
+                  <tr><td class="k">label</td><td class="ty">string</td><td class="df">—</td></tr>
+                  <tr><td class="k">helpText</td><td class="ty">string</td><td class="df">—</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="story">
+            <div class="lab"><span class="dot"></span><span class="n">Status</span><span class="live">interactive · map</span></div>
             <div class="stage">
               <div class="row">
-                <span class="chip c-g"><span class="cd"></span>Priority</span>
-                <span class="chip c-i"><span class="cd"></span>Growth</span>
                 <span class="chip c-ok"><span class="cd"></span>Active</span>
                 <span class="chip c-w"><span class="cd"></span>At risk</span>
-                <span class="chip c-b"><span class="cd"></span>Dormant</span>
+                <span class="chip c-b"><span class="cd"></span>Flight risk</span>
+                <span class="chip c-i"><span class="cd"></span>Growth</span>
               </div>
-              <div class="row">
-                <span class="tag" data-tag>Dormant</span><span class="tag on" data-tag>Flight risk</span><span class="tag" data-tag>Cross-sell</span><span class="tag" data-tag>Relationship gap</span>
+              <div><div class="sub" style="margin-bottom:7px">Filter tags · multi-select</div>
+                <div class="row"><span class="tag" data-tag>Dormant</span><span class="tag on" data-tag>Flight risk</span><span class="tag" data-tag>Cross-sell</span><span class="tag" data-tag>Relationship gap</span></div>
               </div>
-            </div>
-          </div>
-
-          <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Inputs</span><span class="live">interactive</span></div>
-            <div class="stage">
-              <div class="row" style="align-items:flex-end">
-                <div class="field"><label>Account</label><input placeholder="Search accounts…"/></div>
-                <div class="field" style="max-width:130px;flex:0 1 130px"><label>Segment</label><select><option>Commercial</option><option>Retail</option><option>Wealth</option></select></div>
+              <div class="specwrap">
+                <div class="spechd">status → semantic token</div>
+                <table class="spec">
+                  <tr><td class="k">active</td><td class="ty">--status-success</td><td class="dd">on-track relationship</td></tr>
+                  <tr><td class="k">at_risk</td><td class="ty">--status-warning</td><td class="dd">early warning signal</td></tr>
+                  <tr><td class="k">flight_risk</td><td class="ty">--status-danger</td><td class="dd">action required</td></tr>
+                  <tr><td class="k">growth</td><td class="ty">--status-info</td><td class="dd">expansion opening</td></tr>
+                </table>
               </div>
-              <div class="tgl" data-tgl><span class="tk"></span> Governed AI · explainable output</div>
             </div>
           </div>
 
           <div class="story wide">
-            <div class="lab"><span class="dot"></span><span class="n">Data · Metric cards</span></div>
-            <div class="stage"><div class="mgrid">
-              <div class="metric" style="--ma:#ef4444"><div class="ml">Deposit-flight risk</div><div class="mv">318</div><div class="mc dn">▲ 12% vs last wk</div></div>
-              <div class="metric" style="--ma:#c4a66c"><div class="ml">Assets under mgmt</div><div class="mv">$4.28B</div><div class="mc up">▲ 2.1%</div></div>
-              <div class="metric" style="--ma:#10b981"><div class="ml">Cross-sell rate</div><div class="mv">31.4%</div><div class="mc up">▲ 4.6 pts</div></div>
-            </div></div>
+            <div class="lab"><span class="dot"></span><span class="n">Data table · Ledger</span><span class="live">sortable · selectable</span></div>
+            <div class="stage">
+              <table class="tbl" data-table>
+                <thead><tr>
+                  <th>Account</th>
+                  <th data-sort="1">Balance <span class="ar"></span></th>
+                  <th data-sort="2">Flight risk <span class="ar"></span></th>
+                  <th>Status</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td><span class="nm">Meridian Freight</span></td><td data-v="1840000">$1.84M</td><td data-v="82">82</td><td><span class="chip c-b"><span class="cd"></span>Flight</span></td></tr>
+                  <tr><td><span class="nm">Coastal Ag Co-op</span></td><td data-v="920000">$0.92M</td><td data-v="34">34</td><td><span class="chip c-w"><span class="cd"></span>Watch</span></td></tr>
+                  <tr><td><span class="nm">Vela Robotics</span></td><td data-v="3410000">$3.41M</td><td data-v="12">12</td><td><span class="chip c-ok"><span class="cd"></span>Active</span></td></tr>
+                  <tr><td><span class="nm">Harbor Dental</span></td><td data-v="410000">$0.41M</td><td data-v="58">58</td><td><span class="chip c-w"><span class="cd"></span>Watch</span></td></tr>
+                </tbody>
+              </table>
+              <div class="note">Click a header to sort; click a row to select — <b>peers mute</b> to hold focus on the selection. Single-row model; multi-select adds a checkbox column.</div>
+            </div>
           </div>
 
           <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Tabs</span><span class="live">interactive</span></div>
+            <div class="lab"><span class="dot"></span><span class="n">Metric card</span><span class="live">spec</span></div>
             <div class="stage">
-              <div class="tabs" data-tabs>
-                <button class="t on" data-t="a">Overview</button>
-                <button class="t" data-t="b">Signals</button>
-                <button class="t" data-t="c">Actions</button>
+              <div class="mgrid" style="grid-template-columns:1fr 1fr">
+                <div class="metric" style="--ma:#ef4444"><div class="ml">Deposit-flight risk</div><div class="mv">318</div><div class="mc dn">▲ 12% wk</div></div>
+                <div class="metric" style="--ma:#10b981"><div class="ml">Cross-sell rate</div><div class="mv">31.4%</div><div class="mc up">▲ 4.6 pts</div></div>
               </div>
-              <div class="tbody">
-                <div data-tp="a" class="on">A single account view: balances, product mix, and the relationship’s trajectory.</div>
-                <div data-tp="b">Insight engines flag dormant funds, flight risk, and growth openings in real time.</div>
-                <div data-tp="c">Every signal becomes governed, one-click outreach — traceable end to end.</div>
+              <div class="specwrap">
+                <div class="spechd">&lt;MetricCard /&gt; · props</div>
+                <table class="spec">
+                  <tr><td class="k">accent</td><td class="ty">status token</td><td class="dd">drives top-border + wash</td></tr>
+                  <tr><td class="k">delta</td><td class="ty">number</td><td class="dd">sign-aware · up green, down red</td></tr>
+                  <tr><td class="k">format</td><td class="ty">currency · percent · int</td><td class="dd">tabular-nums</td></tr>
+                </table>
               </div>
             </div>
           </div>
 
           <div class="story">
-            <div class="lab"><span class="dot"></span><span class="n">Ask BankIQ · NLQ</span><span class="live">interactive</span></div>
+            <div class="lab"><span class="dot"></span><span class="n">Switch</span><span class="live">interactive · a11y</span></div>
             <div class="stage">
-              <div class="nlq" data-nlq>
-                <div class="q">Which accounts are at deposit-flight risk?</div>
-                <div class="a"><b>318 accounts</b> flagged this week. Top driver: balance draw-downs over 40%. Draft outreach is ready.</div>
-                <div class="askbar"><input placeholder="Ask a question…" data-ask/><button class="btn pri sm" data-asksend>Ask</button></div>
+              <div class="tgl on" data-tgl role="switch" aria-checked="true" tabindex="0"><span class="tk"></span> Governed AI · explainable</div>
+              <div class="tgl" data-tgl role="switch" aria-checked="false" tabindex="0"><span class="tk"></span> Auto-approve outreach</div>
+              <div class="specwrap">
+                <div class="spechd">&lt;Switch /&gt; · behavior</div>
+                <table class="spec">
+                  <tr><td class="k">role</td><td class="ty">switch</td><td class="dd">announces on / off</td></tr>
+                  <tr><td class="k">aria-checked</td><td class="ty">boolean</td><td class="dd">reflects state</td></tr>
+                  <tr><td class="k">keys</td><td class="ty">Space · Enter</td><td class="dd">toggles, focus ring</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="story">
+            <div class="lab"><span class="dot"></span><span class="n">Tabs</span><span class="live">interactive · a11y</span></div>
+            <div class="stage">
+              <div class="tabs" data-tabs role="tablist">
+                <button class="t on" data-t="a" role="tab" aria-selected="true">Overview</button>
+                <button class="t" data-t="b" role="tab" aria-selected="false">Signals</button>
+                <button class="t" data-t="c" role="tab" aria-selected="false">Actions</button>
+              </div>
+              <div class="tbody">
+                <div data-tp="a" class="on">Account snapshot: balances, product mix, trajectory.</div>
+                <div data-tp="b">Insight engines flag dormant funds, flight risk, and growth openings.</div>
+                <div data-tp="c">Signals become governed, one-click outreach — traceable end to end.</div>
+              </div>
+              <div class="note"><b>role=tablist</b> · arrow keys move focus · aria-selected reflects the active tab.</div>
+            </div>
+          </div>
+
+          <div class="story">
+            <div class="lab"><span class="dot"></span><span class="n">Tokens · Spacing &amp; Radius</span></div>
+            <div class="stage">
+              <div><div class="sub" style="margin-bottom:4px">Spacing scale · 4px base</div>
+                <div class="tok">
+                  <div class="tr"><span class="tn">space-1</span><span class="tb" style="width:4px"></span><span class="tv">4px</span></div>
+                  <div class="tr"><span class="tn">space-2</span><span class="tb" style="width:8px"></span><span class="tv">8px</span></div>
+                  <div class="tr"><span class="tn">space-3</span><span class="tb" style="width:12px"></span><span class="tv">12px</span></div>
+                  <div class="tr"><span class="tn">space-4</span><span class="tb" style="width:16px"></span><span class="tv">16px</span></div>
+                  <div class="tr"><span class="tn">space-6</span><span class="tb" style="width:24px"></span><span class="tv">24px</span></div>
+                </div>
+              </div>
+              <div><div class="sub" style="margin-bottom:4px">Radius</div>
+                <div class="tok">
+                  <div class="tr"><span class="tn">r-sm</span><span class="tb" style="width:26px;height:14px;background:none;border:1px solid var(--la);border-radius:3px"></span><span class="tv">3px</span></div>
+                  <div class="tr"><span class="tn">r-md</span><span class="tb" style="width:26px;height:14px;background:none;border:1px solid var(--la);border-radius:6px"></span><span class="tv">6px</span></div>
+                  <div class="tr"><span class="tn">r-lg</span><span class="tb" style="width:26px;height:14px;background:none;border:1px solid var(--la);border-radius:10px"></span><span class="tv">10px</span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1038,9 +1150,11 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 
 <!-- full-build modal -->
 <div class="modal" id="toolModal" aria-hidden="true">
-  <div class="mhead"><div class="mt" id="mTitle"></div><button class="mclose" id="mClose">close ✕</button></div>
-  <div class="mframe"><div class="loading">loading the full build…</div><iframe id="mIframe" title="Full tool build" allow="fullscreen"></iframe></div>
-  <div class="mnote" id="mNote"></div>
+  <div class="mcard">
+    <div class="mhead"><div class="mt" id="mTitle"></div><button class="mclose" id="mClose">close ✕</button></div>
+    <div class="mframe"><div class="loading">loading the full build…</div><iframe id="mIframe" title="Full tool build" allow="fullscreen"></iframe></div>
+    <div class="mnote" id="mNote"></div>
+  </div>
 </div>
 
 <script>
@@ -1333,7 +1447,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   var ds=document.getElementById('ds'); if(!ds) return;
   new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) ds.classList.add('in'); });},{threshold:.08}).observe(ds);
 
-  ds.querySelectorAll('.btn[data-load]').forEach(function(b){
+  // button loading demo
+  ds.querySelectorAll('.dswall .btn[data-load]').forEach(function(b){
     var label=b.textContent;
     b.addEventListener('click',function(){
       if(b.classList.contains('is-load')) return;
@@ -1341,26 +1456,48 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       setTimeout(function(){ b.classList.remove('is-load'); b.textContent=label; },1500);
     });
   });
+  // filter tags (multi-select)
   ds.querySelectorAll('.tag[data-tag]').forEach(function(t){ t.addEventListener('click',function(){ t.classList.toggle('on'); }); });
-  ds.querySelectorAll('[data-tgl]').forEach(function(t){ t.addEventListener('click',function(){ t.classList.toggle('on'); }); });
+  // switches — click + Space/Enter, aria-checked
+  ds.querySelectorAll('[data-tgl]').forEach(function(t){
+    function flip(){ var on=!t.classList.contains('on'); t.classList.toggle('on',on); t.setAttribute('aria-checked',on?'true':'false'); }
+    t.addEventListener('click',flip);
+    t.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); flip(); } });
+  });
+  // tabs — click + arrow keys, aria-selected
   ds.querySelectorAll('[data-tabs]').forEach(function(tabs){
     var body=tabs.parentNode.querySelector('.tbody');
-    tabs.querySelectorAll('.t').forEach(function(btn){ btn.addEventListener('click',function(){
-      tabs.querySelectorAll('.t').forEach(function(x){ x.classList.remove('on'); }); btn.classList.add('on');
+    var btns=[].slice.call(tabs.querySelectorAll('.t'));
+    function activate(btn){
+      btns.forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+      btn.classList.add('on'); btn.setAttribute('aria-selected','true');
       body.querySelectorAll('[data-tp]').forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-tp')===btn.getAttribute('data-t')); });
-    }); });
-  });
-  ds.querySelectorAll('[data-nlq]').forEach(function(n){
-    var input=n.querySelector('[data-ask]'), send=n.querySelector('[data-asksend]'), bar=n.querySelector('.askbar');
-    function ask(){
-      var q=(input.value||'').trim(); if(!q) return; input.value='';
-      var qd=document.createElement('div'); qd.className='q'; qd.textContent=q; n.insertBefore(qd,bar);
-      var a=document.createElement('div'); a.className='a type'; a.innerHTML='<i></i><i></i><i></i>'; n.insertBefore(a,bar);
-      bar.scrollIntoView&&0;
-      setTimeout(function(){ a.classList.remove('type'); a.innerHTML='A governed answer: the accounts, the driver, and a one-click <b>draft outreach</b> — every step traceable.'; },1150);
     }
-    send.addEventListener('click',ask);
-    input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); ask(); } });
+    btns.forEach(function(btn,i){
+      btn.addEventListener('click',function(){ activate(btn); });
+      btn.addEventListener('keydown',function(e){
+        if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault(); var n=(i+(e.key==='ArrowRight'?1:-1)+btns.length)%btns.length; btns[n].focus(); activate(btns[n]); }
+      });
+    });
+  });
+  // data table — sort + single-row select with muted peers
+  ds.querySelectorAll('[data-table]').forEach(function(tbl){
+    var tb=tbl.querySelector('tbody');
+    tb.querySelectorAll('tr').forEach(function(r){ r.addEventListener('click',function(){
+      var was=r.classList.contains('sel');
+      tb.querySelectorAll('tr').forEach(function(x){ x.classList.remove('sel'); });
+      if(!was){ r.classList.add('sel'); tbl.classList.add('hassel'); } else { tbl.classList.remove('hassel'); }
+    }); });
+    tbl.querySelectorAll('th[data-sort]').forEach(function(th){
+      th.addEventListener('click',function(){
+        var idx=+th.getAttribute('data-sort'), dir=th.getAttribute('data-dir')==='asc'?'desc':'asc'; th.setAttribute('data-dir',dir);
+        var rows=[].slice.call(tb.querySelectorAll('tr'));
+        rows.sort(function(a,b){ var av=parseFloat(a.children[idx].getAttribute('data-v')), bv=parseFloat(b.children[idx].getAttribute('data-v')); return dir==='asc'?av-bv:bv-av; });
+        rows.forEach(function(r){ tb.appendChild(r); });
+        tbl.querySelectorAll('th .ar').forEach(function(a){ a.textContent=''; });
+        var ar=th.querySelector('.ar'); if(ar) ar.textContent=dir==='asc'?'▲':'▼';
+      });
+    });
   });
 })();
 </script>
