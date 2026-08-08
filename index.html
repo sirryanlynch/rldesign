@@ -657,7 +657,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <div class="meta reveal"><span>Santa Cruz, CA</span><span>UX &amp; Creative Direction</span><span><b>Available for work</b></span></div>
     <h1 class="reveal">Ryan Lynch,<br/><em>designer &amp; maker.</em></h1>
     <div class="statement">
-      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch — scribble over the portrait to reveal the photo" title="scribble to reveal"></canvas></div>
+      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch — scribble over the portrait to reveal the photo" title="scribble to reveal · right-click to swap"></canvas><img id="heroBackup" src="assets/img/hero-ryan.png" alt="Ryan Lynch" title="right-click to swap back" hidden/></div>
       <div class="fxpanel reveal"><canvas class="fx" id="heroFX"></canvas></div>
     </div>
   </div>
@@ -1516,6 +1516,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 (function(){
   var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
   var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+  // right-click swaps between the halftone-reveal (primary) and the colorful-shirt backup
+  var backup=document.getElementById('heroBackup'), portrait=cv.parentNode;
+  portrait.addEventListener('contextmenu',function(e){ e.preventDefault();
+    var toBackup=!cv.hasAttribute('hidden');
+    if(backup) backup.hidden=!toBackup;
+    if(toBackup) cv.setAttribute('hidden',''); else cv.removeAttribute('hidden');
+  });
   function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
   var htL=mk(), hx=htL.getContext('2d');      // halftone with holes punched
   var ogL=mk(), ox=ogL.getContext('2d');      // original clipped to reveal mask
