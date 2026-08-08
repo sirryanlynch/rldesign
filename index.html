@@ -13,11 +13,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Ryan Lynch // Designer // Creative" />
 <meta property="og:description" content="UX leader and Creative Director. Case studies, internal tools, and the systems behind them." />
-<meta property="og:image" content="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/68080f1c70b769bf84d5b501_Social%20Share.png" />
+<meta property="og:image" content="https://sirryanlynch.github.io/rldesign/assets/img/og-cover.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Ryan Lynch // Designer // Creative" />
 <meta name="twitter:description" content="UX leader and Creative Director. Case studies, internal tools, and the systems behind them." />
-<meta name="twitter:image" content="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/68080f1c70b769bf84d5b501_Social%20Share.png" />
+<meta name="twitter:image" content="https://sirryanlynch.github.io/rldesign/assets/img/og-cover.png" />
 <style>
 :root{
   --bg:#0e0e0e; --bg-2:#161616; --panel:#1b1b1b; --line:#262626; --line-2:#333;
@@ -94,7 +94,8 @@ a{color:inherit}
 @media(max-width:820px){.hero .statement{grid-template-columns:1fr;gap:34px}}
 .hero .portrait{position:relative;height:clamp(320px,42vw,440px);align-self:end}
 .hero .portrait::before{content:"";position:absolute;inset:-8% -12% -2%;z-index:0;background:radial-gradient(58% 66% at 50% 62%,rgba(12,12,14,.9),rgba(12,12,14,.35) 60%,transparent 78%)}
-.hero .portrait img{position:absolute;bottom:-4%;left:50%;transform:translateX(-50%);height:118%;width:auto;max-width:none;z-index:2}
+.hero .portrait img,.hero .portrait canvas{position:absolute;bottom:-4%;left:50%;transform:translateX(-50%);height:118%;width:auto;max-width:none;z-index:2}
+.hero .portrait canvas{cursor:crosshair;touch-action:pan-y}
 .hero .fxpanel{position:relative;min-height:220px}
 .hero .fxpanel canvas.fx{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;
   -webkit-mask:radial-gradient(95% 82% at 50% 52%,#000 74%,transparent 100%);mask:radial-gradient(95% 82% at 50% 52%,#000 74%,transparent 100%)}
@@ -656,7 +657,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <div class="meta reveal"><span>Santa Cruz, CA</span><span>UX &amp; Creative Direction</span><span><b>Available for work</b></span></div>
     <h1 class="reveal">Ryan Lynch,<br/><em>designer &amp; maker.</em></h1>
     <div class="statement">
-      <div class="portrait reveal"><img id="heroPortrait" src="assets/img/hero-ryan.png" data-alt="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ee0914c32d7fa45f66a4dc_RL%202-3%20Headshot.png" alt="Ryan Lynch" title="right-click to swap"/></div>
+      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch — scribble over the portrait to reveal the photo" title="scribble to reveal"></canvas></div>
       <div class="fxpanel reveal"><canvas class="fx" id="heroFX"></canvas></div>
     </div>
   </div>
@@ -1510,12 +1511,53 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   });
 })();
 </script>
-<!-- hero portrait: right-click to swap between the new shot and the previous one -->
+<!-- hero portrait: halftone by default; scrub the cursor to dissolve dots and reveal the photo, fading back ~1s -->
 <script>
 (function(){
-  var img=document.getElementById('heroPortrait'); if(!img) return;
-  var a='assets/img/hero-ryan.png', b=img.getAttribute('data-alt'), showNew=true;
-  img.addEventListener('contextmenu',function(e){ e.preventDefault(); showNew=!showNew; img.setAttribute('src', showNew?a:b); });
+  var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+  function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
+  var htL=mk(), hx=htL.getContext('2d');      // halftone with holes punched
+  var ogL=mk(), ox=ogL.getContext('2d');      // original clipped to reveal mask
+  var msk=mk(), mx=msk.getContext('2d');      // reveal mask (decays over time)
+  var ht=new Image(), og=new Image(), n=0;
+  var R=Math.round(W*0.11);                    // ~50px brush at display size
+  var last=null, lastPaint=0, idleDrawn=false;
+
+  function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width*W, y:(e.clientY-r.top)/r.height*H}; }
+  function stamp(x,y){
+    var g=mx.createRadialGradient(x,y,0,x,y,R);
+    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.55,'rgba(255,255,255,.95)'); g.addColorStop(1,'rgba(255,255,255,0)');
+    mx.fillStyle=g; mx.beginPath(); mx.arc(x,y,R,0,Math.PI*2); mx.fill();
+  }
+  function paint(p){
+    if(last){ var d=Math.hypot(p.x-last.x,p.y-last.y), s=Math.max(1,Math.floor(d/(R*0.33)));
+      for(var i=1;i<=s;i++) stamp(last.x+(p.x-last.x)*i/s, last.y+(p.y-last.y)*i/s);
+    } else stamp(p.x,p.y);
+    last=p; lastPaint=performance.now(); idleDrawn=false;
+  }
+  cv.addEventListener('mousemove',function(e){ paint(pos(e)); });
+  cv.addEventListener('mouseleave',function(){ last=null; });
+  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) paint(pos(t)); },{passive:true});
+  cv.addEventListener('touchend',function(){ last=null; });
+
+  function draw(){
+    // decay reveals (~1s)
+    mx.globalCompositeOperation='destination-out'; mx.fillStyle='rgba(0,0,0,.05)'; mx.fillRect(0,0,W,H); mx.globalCompositeOperation='source-over';
+    // original clipped to the reveal mask
+    ox.clearRect(0,0,W,H); ox.globalCompositeOperation='source-over'; ox.drawImage(og,0,0,W,H);
+    ox.globalCompositeOperation='destination-in'; ox.drawImage(msk,0,0); ox.globalCompositeOperation='source-over';
+    // composite: halftone under, revealed photo on top
+    ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); ctx.drawImage(ogL,0,0);
+  }
+  function loop(){
+    if(performance.now()-lastPaint < 1400){ draw(); idleDrawn=false; }
+    else if(!idleDrawn){ ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); idleDrawn=true; }
+    requestAnimationFrame(loop);
+  }
+  function ready(){ if(++n<2) return; ctx.drawImage(ht,0,0,W,H); requestAnimationFrame(loop); }
+  ht.onload=ready; og.onload=ready;
+  ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
 })();
 </script>
 </body>
