@@ -1512,60 +1512,76 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   });
 })();
 </script>
-<!-- hero portrait: halftone by default; scrub the cursor to dissolve dots and reveal the photo, fading back ~1s -->
+<!-- hero portrait: split-flap halftone — cursor flips each dot over (Solari board) to reveal the photo, then flips back -->
 <script>
 (function(){
   var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
-  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
-  // right-click swaps between the halftone-reveal (primary) and the colorful-shirt backup
+  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height, TWOPI=Math.PI*2;
+  // right-click swaps between the halftone (primary) and the colorful-shirt backup
   var backup=document.getElementById('heroBackup'), portrait=cv.parentNode;
   portrait.addEventListener('contextmenu',function(e){ e.preventDefault();
     var toBackup=!cv.hasAttribute('hidden');
     if(backup) backup.hidden=!toBackup;
     if(toBackup) cv.setAttribute('hidden',''); else cv.removeAttribute('hidden');
   });
-  function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
-  var htL=mk(), hx=htL.getContext('2d');      // halftone with holes punched
-  var ogL=mk(), ox=ogL.getContext('2d');      // original clipped to reveal mask
-  var msk=mk(), mx=msk.getContext('2d');      // reveal mask (decays over time)
-  var ht=new Image(), og=new Image(), n=0;
-  var R=Math.round(W*0.11);                    // ~50px brush at display size
-  var last=null, lastPaint=0, idleDrawn=false;
 
-  function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width*W, y:(e.clientY-r.top)/r.height*H}; }
-  function stamp(x,y){
-    var g=mx.createRadialGradient(x,y,0,x,y,R);
-    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.55,'rgba(255,255,255,.95)'); g.addColorStop(1,'rgba(255,255,255,0)');
-    mx.fillStyle=g; mx.beginPath(); mx.arc(x,y,R,0,Math.PI*2); mx.fill();
+  var CELL=14, COLS=Math.ceil(W/CELL), ROWS=Math.ceil(H/CELL);
+  var photo=document.createElement('canvas'); photo.width=W; photo.height=H; var pc=photo.getContext('2d');
+  var baked=document.createElement('canvas'); baked.width=W; baked.height=H; var bc=baked.getContext('2d');
+  var grid={}, active={}, R=Math.round(W*0.11), last=null, HOLD=650;
+  var og=new Image();
+  og.onload=function(){
+    pc.drawImage(og,0,0,W,H);
+    var d;
+    try{ d=pc.getImageData(0,0,W,H).data; }
+    catch(err){ var ht=new Image(); ht.onload=function(){ ctx.drawImage(ht,0,0,W,H); }; ht.src='assets/img/hero-halftone.png'; return; } // file:// fallback
+    for(var gy=0;gy<ROWS;gy++){ for(var gx=0;gx<COLS;gx++){
+      var x0=gx*CELL,y0=gy*CELL,r=0,g=0,b=0,a=0,n=0;
+      for(var yy=0;yy<CELL;yy++){ var py=y0+yy; if(py>=H)break; var row=py*W;
+        for(var xx=0;xx<CELL;xx++){ var px=x0+xx; if(px>=W)break; var i=(row+px)*4; r+=d[i];g+=d[i+1];b+=d[i+2];a+=d[i+3];n++; } }
+      if(!n)continue; r/=n;g/=n;b/=n;a/=n; var cov=a/255; if(cov<0.25)continue;
+      var lum=(0.299*r+0.587*g+0.114*b)/255, rad=(0.4+0.55*Math.pow(lum,0.8))*(CELL*0.5);
+      var c={x:x0,y:y0,cx:x0+CELL/2,cy:y0+CELL/2,col:'rgba('+(r|0)+','+(g|0)+','+(b|0)+','+Math.min(1,cov).toFixed(3)+')',r:rad,p:0,target:0,t:0,k:gy*COLS+gx};
+      grid[c.k]=c; bc.fillStyle=c.col; bc.beginPath(); bc.arc(c.cx,c.cy,c.r,0,TWOPI); bc.fill();
+    }}
+    ctx.drawImage(baked,0,0); requestAnimationFrame(loop);
+  };
+  og.src='assets/img/hero-og.png';
+
+  function P(e){ var rr=cv.getBoundingClientRect(); return {x:(e.clientX-rr.left)/rr.width*W, y:(e.clientY-rr.top)/rr.height*H}; }
+  function touch(x,y){
+    var now=performance.now(), R2=R*R;
+    var gx0=Math.max(0,((x-R)/CELL)|0), gx1=Math.min(COLS-1,((x+R)/CELL)|0);
+    var gy0=Math.max(0,((y-R)/CELL)|0), gy1=Math.min(ROWS-1,((y+R)/CELL)|0);
+    for(var gy=gy0;gy<=gy1;gy++) for(var gx=gx0;gx<=gx1;gx++){
+      var c=grid[gy*COLS+gx]; if(!c)continue; var dx=c.cx-x, dy=c.cy-y;
+      if(dx*dx+dy*dy>R2)continue; c.target=1; c.t=now; active[c.k]=c;
+    }
   }
-  function paint(p){
-    if(last){ var d=Math.hypot(p.x-last.x,p.y-last.y), s=Math.max(1,Math.floor(d/(R*0.33)));
-      for(var i=1;i<=s;i++) stamp(last.x+(p.x-last.x)*i/s, last.y+(p.y-last.y)*i/s);
-    } else stamp(p.x,p.y);
-    last=p; lastPaint=performance.now(); idleDrawn=false;
+  function move(p){
+    if(last){ var dx=p.x-last.x,dy=p.y-last.y,dist=Math.hypot(dx,dy),s=Math.max(1,(dist/(R*0.5))|0);
+      for(var i=1;i<=s;i++) touch(last.x+dx*i/s, last.y+dy*i/s); } else touch(p.x,p.y);
+    last=p;
   }
-  cv.addEventListener('mousemove',function(e){ paint(pos(e)); });
+  cv.addEventListener('mousemove',function(e){ move(P(e)); });
   cv.addEventListener('mouseleave',function(){ last=null; });
-  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) paint(pos(t)); },{passive:true});
+  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) move(P(t)); },{passive:true});
   cv.addEventListener('touchend',function(){ last=null; });
 
-  function draw(){
-    // decay reveals (~1s)
-    mx.globalCompositeOperation='destination-out'; mx.fillStyle='rgba(0,0,0,.05)'; mx.fillRect(0,0,W,H); mx.globalCompositeOperation='source-over';
-    // original clipped to the reveal mask
-    ox.clearRect(0,0,W,H); ox.globalCompositeOperation='source-over'; ox.drawImage(og,0,0,W,H);
-    ox.globalCompositeOperation='destination-in'; ox.drawImage(msk,0,0); ox.globalCompositeOperation='source-over';
-    // composite: halftone under, revealed photo on top
-    ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); ctx.drawImage(ogL,0,0);
-  }
   function loop(){
-    if(performance.now()-lastPaint < 1400){ draw(); idleDrawn=false; }
-    else if(!idleDrawn){ ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); idleDrawn=true; }
     requestAnimationFrame(loop);
+    if(cv.hasAttribute('hidden')) return;
+    var now=performance.now();
+    ctx.clearRect(0,0,W,H); ctx.drawImage(baked,0,0);
+    for(var k in active){ var c=active[k];
+      if(now-c.t>HOLD) c.target=0;
+      c.p += (c.target-c.p)*0.3;
+      if(c.target===0 && c.p<0.02){ delete active[k]; continue; }
+      ctx.clearRect(c.x,c.y,CELL,CELL);
+      if(c.p<0.5){ var sy=1-c.p*2; if(sy>0.02){ ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,sy); ctx.fillStyle=c.col; ctx.beginPath(); ctx.arc(0,0,c.r,0,TWOPI); ctx.fill(); ctx.restore(); } }
+      else { var s2=(c.p-0.5)*2; ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,s2); ctx.drawImage(photo,c.x,c.y,CELL,CELL,-CELL/2,-CELL/2,CELL,CELL); ctx.restore(); }
+    }
   }
-  function ready(){ if(++n<2) return; ctx.drawImage(ht,0,0,W,H); requestAnimationFrame(loop); }
-  ht.onload=ready; og.onload=ready;
-  ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
 })();
 </script>
 </body>
