@@ -557,17 +557,20 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.heat .cell{transform:none;opacity:1}}
 
-/* ── mobile hero: compact, centered, no oversized word cloud (authoritative override) ── */
+/* ── mobile hero: name top · word cloud middle · headshot docked bottom · snap to anchors ── */
 @media(max-width:820px){
-  .hero{min-height:100svh;padding:24px 0 26px;justify-content:center;text-align:center}
+  .hero{position:relative;min-height:100svh;justify-content:flex-start;text-align:center;padding:26px 0 0}
   .hero .meta{justify-content:center;font-size:10px;gap:8px 14px}
-  .hero h1{font-size:clamp(30px,9.2vw,50px);line-height:1.04;margin-top:16px}
-  .hero .statement{grid-template-columns:1fr;gap:18px;margin-top:24px}
-  .hero .portrait{height:auto}
+  .hero h1{font-size:clamp(30px,9.2vw,50px);line-height:1.04;margin-top:16px;position:relative;z-index:3}
+  .hero .statement{display:block;margin:0}                       /* children position absolutely vs .hero */
+  .hero .fxpanel{display:block;position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);width:90%;height:32vh;min-height:0;z-index:1}
+  .hero .portrait{position:absolute;left:0;right:0;bottom:0;height:auto;z-index:2}
   .hero .portrait::before{display:none}
-  .hero .portrait img,.hero .portrait canvas{position:relative;bottom:auto;left:auto;transform:none;height:auto;width:min(58vw,240px);margin:0 auto;display:block}
-  .hero .fxpanel{display:none}
-  .scrollcue{margin-top:24px}
+  .hero .portrait img,.hero .portrait canvas{position:relative;bottom:auto;left:auto;transform:none;height:auto;width:min(74vw,300px);margin:0 auto;display:block}
+  .scrollcue{position:absolute;left:0;right:0;bottom:12px;margin:0;z-index:4}
+  /* gentle docking to the main anchors */
+  html{scroll-snap-type:y proximity;scroll-padding-top:54px}
+  .hero,.quotestage,#work,#contact{scroll-snap-align:start}
 }
 </style>
 </head>
