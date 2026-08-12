@@ -565,8 +565,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   .hero .meta{justify-content:center;font-size:10px;gap:8px 14px}
   .hero h1{font-size:clamp(30px,9.2vw,50px);line-height:1.04;margin-top:14px}
   .hero .statement{display:block;margin:0}
-  .hero .fxpanel{display:block;position:static;transform:none;width:92%;max-width:420px;height:24vh;min-height:0;margin:56px auto 0}   /* tight under the name */
-  .hero .portrait{position:absolute;right:-2%;bottom:0;left:auto;width:72%;max-width:370px;height:auto;margin:0;z-index:2}             /* big, docked bottom-right */
+  .hero .fxpanel{display:block;position:relative;z-index:1;transform:none;width:92%;max-width:420px;height:44vh;min-height:0;margin:22px auto 0;padding-bottom:8vh}   /* up near the name, extends down behind the headshot */
+  .hero .portrait{position:absolute;right:-2%;bottom:0;left:auto;width:72%;max-width:370px;height:auto;margin:0;z-index:2}             /* big, docked bottom-right, sits over the word cloud */
   .hero .portrait::before{display:none}
   .hero .portrait img,.hero .portrait canvas{position:static;height:auto;width:100%;margin:0;display:block}
   .scrollcue{display:block;position:absolute;left:22px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);margin:0;z-index:3;font-size:10px}
@@ -731,13 +731,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 <section id="work" class="wrap worktabs">
   <div class="reveal"><div class="eyebrow">02 · Work</div><h2 class="htitle">Streams of work.</h2></div>
   <div class="tabbar" role="tablist" aria-label="Work categories">
-    <button class="tab is-on" id="tab-tools" data-panel="panel-tools" role="tab" aria-selected="true">Tool Development</button>
-    <button class="tab" id="tab-ux" data-panel="panel-ux" role="tab" aria-selected="false">UX &amp; Product</button>
+    <button class="tab is-on" id="tab-ux" data-panel="panel-ux" role="tab" aria-selected="true">UX &amp; Product</button>
+    <button class="tab" id="tab-tools" data-panel="panel-tools" role="tab" aria-selected="false">Tool Development</button>
     <button class="tab" id="tab-brand" data-panel="panel-brand" role="tab" aria-selected="false">Brand</button>
     <button class="tab" id="tab-bunker" data-panel="panel-bunker" role="tab" aria-selected="false">The Bunker</button>
   </div>
   <div class="tabpanels">
-    <div class="tabpanel is-on" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools">
+    <div class="tabpanel" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools" hidden>
       <p class="paneltext">Internal software I built to kill a team's daily headache, turning manual process into fast tools people actually use. Each snapshot is a working, sanitized rebuild. Launch the full build to explore it.</p>
       <div class="tool reveal" data-snap style="margin-top:44px">
     <div class="ghost">01</div>
@@ -895,7 +895,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     </div>
   </div>
     </div>
-    <div class="tabpanel" id="panel-ux" role="tabpanel" aria-labelledby="tab-ux" hidden>
+    <div class="tabpanel is-on" id="panel-ux" role="tabpanel" aria-labelledby="tab-ux">
       <p class="paneltext">Product and interface design, from a facilities-maintenance SaaS to vehicle interiors and flight hardware. It starts with the system underneath.</p>
 
       <div class="piece">
