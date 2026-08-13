@@ -173,7 +173,7 @@ a{color:inherit}
 @keyframes tabin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .paneltext{color:var(--muted);max-width:60ch;font-size:16px;margin:6px 0 22px}
 
-/* ══ Design System storybook wall (leads Product/UX) — faithful to the BankIQ system ══ */
+/* ══ Design System storybook wall (leads Product/UX) — faithful to the B2B banking system ══ */
 .ds{--g:#c4a66c;--ind:#6366f1;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--b1:#0a0a0b;--b2:#111214;--b3:#1a1b1e;--b4:#232427;--t0:#f5f5f5;--t1:#bdbdbd;--t2:#a0a0a0;--t3:#8e8e8e;--l0:rgba(255,255,255,.06);--l1:rgba(255,255,255,.12);--l2:rgba(255,255,255,.24);--la:rgba(196,166,108,.3);--disp:'Exo 2',system-ui,sans-serif;--bd:'DM Sans',system-ui,sans-serif;--mn:'DM Mono',ui-monospace,monospace}
 .ds .dshead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;margin:2px 0 22px}
 .ds .dshead .eyebrow{color:var(--g)}
@@ -404,6 +404,35 @@ details.more .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px 40px;mar
 @media(max-width:680px){details.more .grid2{grid-template-columns:1fr}}
 details.more h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
 details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
+
+/* DMG expanded case: hero prototype · scroll-through · FigJam UX artifacts */
+.casesub{color:var(--ink-2);font-size:16px;line-height:1.6;max-width:66ch;margin:18px 0 24px}
+.casehero{margin:0 0 22px}
+.casehero img{width:100%;max-height:560px;object-fit:contain;background:#0d0d0d;border:1px solid var(--line);border-radius:10px;padding:18px;display:block}
+.casehero figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+.scrollwrap{margin:0 0 8px}
+.scrollrow{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 14px;-webkit-overflow-scrolling:touch}
+.scrollrow figure{flex:0 0 82%;max-width:540px;scroll-snap-align:center;margin:0}
+@media(min-width:760px){.scrollrow figure{flex:0 0 47%}}
+.scrollrow img{width:100%;aspect-ratio:16/10;object-fit:contain;background:#0f0f0f;border:1px solid var(--line);border-radius:6px;padding:14px;display:block}
+.scrollrow figcaption{font-family:var(--mono);font-size:10px;color:var(--muted-2);margin-top:8px}
+.scrollrow::-webkit-scrollbar{height:6px}
+.scrollrow::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.scrollrow::-webkit-scrollbar-track{background:transparent}
+.scrollcap{font-family:var(--mono);font-size:10px;color:var(--muted-2);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.scrollcap::before{content:"";width:22px;height:1px;background:var(--line-2)}
+.uxprocess{margin-top:34px}
+.uxprocess>.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.uxprocess>.pintro{color:var(--muted);font-size:13px;line-height:1.55;max-width:62ch;margin:0 0 16px}
+.fjgrid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.fjgrid{grid-template-columns:1fr 1fr}.fjgrid .fj.full{grid-column:1 / -1}}
+.fj{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0b0b0d}
+.fj .fjhead{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line);background:#131316;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--muted-2)}
+.fj .fjhead .d{width:8px;height:8px;border-radius:2px}
+.fj .board{background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);background-size:22px 22px;padding:8px}
+.fj svg{display:block;width:100%;height:auto}
+.fj .note{color:var(--ink-2);font-size:14px;line-height:1.55;padding:16px 18px}
+.fj .note b{color:var(--ink);font-weight:600}
 
 /* special projects tag + throughline */
 .sptag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(200,255,61,.34);border-radius:999px;padding:3px 11px;margin-top:12px}
@@ -857,25 +886,25 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="tool reveal" data-snap>
     <div class="ghost">04</div>
     <div class="txt">
-      <div class="tag-lab">BankIQ · B2B banking martech</div>
-      <h3 id="bankiq">Data that acts on itself.</h3>
-      <p class="sub">Community banks sit on rich customer data they can't move on. BankIQ reads it, spots who's dormant or leaving, and turns that into a campaign you can send.</p>
+      <div class="tag-lab">B2B Banking app · martech platform</div>
+      <h3 id="bankapp">Data that acts on itself.</h3>
+      <p class="sub">Community banks sit on rich customer data they can't move on. The platform reads it, spots who's dormant or leaving, and turns that into a campaign you can send.</p>
       <div class="caps">
         <div class="cap"><span class="i">01</span><span class="d"><b>Insight engines</b> for dormant accounts, flight risk, growth, and relationship gaps</span></div>
         <div class="cap"><span class="i">02</span><span class="d"><b>Audience → content → export</b>, one clean lifecycle</span></div>
-        <div class="cap"><span class="i">03</span><span class="d"><b>Ask BankIQ</b> answers plain-language questions for executives</span></div>
+        <div class="cap"><span class="i">03</span><span class="d"><b>Plain-language Q&amp;A</b> answers questions for executives</span></div>
         <div class="cap"><span class="i">04</span><span class="d"><b>Governed AI</b>: explainable, auditable, role-scoped</span></div>
       </div>
       <p class="result">An insight stops being a chart nobody reads and becomes <span class="hl">outreach that ships</span>, with every step traceable.</p>
     </div>
     <div>
       <div class="browser">
-        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">bankiq · intelligence → campaigns</span></div>
+        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">b2b-banking · intelligence → campaigns</span></div>
         <div class="ui" style="padding:0;--sp-panel:#111111;--sp-line:#232323;--sp-muted:#8b8b8b;--sp-accent:#C4A66C;background:#000;color:#f4f4f4">
           <div class="appshell" style="grid-template-columns:132px 1fr">
             <div class="side" style="background:#080808">
-              <div class="brand2" style="color:#C4A66C">BankIQ</div>
-              <div class="nav2"><a>Dashboard</a><a class="on">Intelligence</a><a>Recommendations</a><a>Campaigns</a><a>Ask BankIQ</a></div>
+              <div class="brand2" style="color:#C4A66C">B2B Banking</div>
+              <div class="nav2"><a>Dashboard</a><a class="on">Intelligence</a><a>Recommendations</a><a>Campaigns</a><a>Ask AI</a></div>
             </div>
             <div class="main">
               <div class="topline"><span class="t">Insights → Campaign</span><span class="pill" style="border-color:#C4A66C;color:#C4A66C">AI gateway</span></div>
@@ -891,7 +920,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         </div>
       </div>
       <div class="snapcap">Synthetic data · watch a question answer itself</div>
-      <button class="launch" data-launch="tools/bankiq/index.html" data-label="BankIQ · prototype" data-note="Full interactive prototype · synthetic data">Launch the full prototype <span class="hint">↗ live build</span></button>
+      <button class="launch" data-launch="tools/bankiq/index.html" data-label="B2B Banking app · prototype" data-note="Full interactive prototype · synthetic data">Launch the full prototype <span class="hint">↗ live build</span></button>
     </div>
   </div>
     </div>
@@ -903,13 +932,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="pc ds" id="ds">
         <div class="dshead">
           <div>
-            <div class="eyebrow">Design System · BankIQ</div>
+            <div class="eyebrow">Design System · B2B Banking app</div>
             <h3>Components, specs &amp; states — built for handoff.</h3>
             <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
           </div>
           <div class="dscta">
-            <button class="dsopen" data-launch="tools/bankiq-design-system/index.html" data-label="BankIQ · Design System" data-note="Live design-system reference · opens in-page">Open the full system ↗</button>
-            <button class="dsopen gho" data-launch="tools/bankiq-rationale/index.html" data-label="BankIQ · Design Rationale" data-note="Foundational work — the decisions, tradeoffs, and the why behind the system">Foundational work →</button>
+            <button class="dsopen" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Live design-system reference · opens in-page">Open the full system ↗</button>
+            <button class="dsopen gho" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="Foundational work — the decisions, tradeoffs, and the why behind the system">Foundational work →</button>
           </div>
         </div>
         <div class="dswall">
@@ -1094,11 +1123,71 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="no">02</div>
       <div class="pc">
         <div class="ph" id="dmg"><div><h3>DMG</h3><div class="role">Sr. Product Designer on a facilities-maintenance SaaS platform: work orders, service lines, licensing, and technician dispatch for commercial properties.</div></div></div>
-        <div class="gallery feature">
-          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c22b3e6f0e700693822_ezgif.com-animated-gif-maker.gif" alt="DMG work order flow" loading="lazy"/>
-          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c7c1f2100603b58fd1d_uiux.png" alt="DMG platform UI" loading="lazy"/>
-          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff44f7ae87be81ac3a6223_DMGScreenCap-ezgif.com-resize.gif" alt="DMG job dispatch" loading="lazy"/>
-          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/680061620697547c510124ee_ezgif.com-animated-gif-maker%20(1).gif" alt="DMG service lines" loading="lazy"/>
+        <p class="casesub">DMG ran on spreadsheets, email, and phone calls. As Sr. Product Designer I owned it end to end — the research, the flows, and a component system the team could keep extending. Below: the shipped product, and the thinking that got there.</p>
+
+        <figure class="casehero">
+          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff44f7ae87be81ac3a6223_DMGScreenCap-ezgif.com-resize.gif" alt="DMG prototype — work order to dispatch" loading="lazy"/>
+          <figcaption>Interactive prototype — raise a work order, match a licensed provider, dispatch, and track it to done.</figcaption>
+        </figure>
+
+        <div class="scrollwrap">
+          <div class="scrollrow">
+            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c22b3e6f0e700693822_ezgif.com-animated-gif-maker.gif" alt="Work-order flow" loading="lazy"/><figcaption>Work-order intake &amp; flow</figcaption></figure>
+            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c7c1f2100603b58fd1d_uiux.png" alt="Platform UI" loading="lazy"/><figcaption>Dispatch board · platform UI</figcaption></figure>
+            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/680061620697547c510124ee_ezgif.com-animated-gif-maker%20(1).gif" alt="Service lines" loading="lazy"/><figcaption>Service lines &amp; licensing</figcaption></figure>
+          </div>
+          <div class="scrollcap">swipe for more screens</div>
+        </div>
+
+        <div class="uxprocess">
+          <div class="lbl">UX process</div>
+          <p class="pintro">A slice of the research and systems thinking behind the build — synthesized from dispatcher interviews and ride-alongs with field techs.</p>
+          <div class="fjgrid">
+            <div class="fj full">
+              <div class="fjhead"><span class="d" style="background:#c8ff3d"></span>work-order-flow.fig · request → resolved</div>
+              <div class="board"><svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
+                <defs><marker id="fa" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#5a5a66"/></marker></defs>
+                <g transform="rotate(-3 95 40)"><rect x="20" y="16" width="152" height="48" rx="3" fill="#e6b8bf"/><text x="30" y="35" font-size="10" fill="#3a1e22">Today: phones,</text><text x="30" y="49" font-size="10" fill="#3a1e22">email &amp; spreadsheets</text></g>
+                <g transform="rotate(2 448 34)"><rect x="360" y="12" width="186" height="46" rx="3" fill="#efd67a"/><text x="370" y="31" font-size="10" fill="#3a331a">Idea: auto-match by</text><text x="370" y="45" font-size="10" fill="#3a331a">service line + license + zone</text></g>
+                <g fill="#16161a" stroke="#34343e"><rect x="14" y="104" width="104" height="46" rx="8"/><rect x="140" y="104" width="104" height="46" rx="8"/><rect x="426" y="104" width="120" height="46" rx="8" fill="#1b2410" stroke="#4d6a1f"/><rect x="568" y="104" width="104" height="46" rx="8"/><rect x="286" y="176" width="130" height="40" rx="8"/></g>
+                <polygon points="330,100 386,127 330,154 274,127" fill="#16161a" stroke="#34343e"/>
+                <g fill="#cbcbd2" font-size="12" text-anchor="middle"><text x="66" y="131">New request</text><text x="192" y="131">Triage + SLA</text><text x="330" y="131" font-size="10.5">Licensed?</text><text x="486" y="131" fill="#c8ff3d">Match + dispatch</text><text x="620" y="131">Track to done</text><text x="351" y="200">Flag + re-route</text></g>
+                <g stroke="#4a4a55" fill="none" marker-end="url(#fa)"><line x1="118" y1="127" x2="138" y2="127"/><line x1="244" y1="127" x2="272" y2="127"/><line x1="386" y1="127" x2="424" y2="127"/><line x1="546" y1="127" x2="566" y2="127"/><line x1="330" y1="154" x2="330" y2="174"/><path d="M416,196 L472,196 L484,152"/></g>
+                <text x="402" y="120" font-size="9" fill="#7fae3a">yes</text><text x="338" y="169" font-size="9" fill="#8a8a92">no</text>
+              </svg></div>
+            </div>
+
+            <div class="fj full">
+              <div class="fjhead"><span class="d" style="background:#8ab4e8"></span>research-synthesis.fig · affinity map</div>
+              <div class="board"><svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
+                <g font-size="10" letter-spacing="1.5" fill="#8a8a92" text-anchor="middle"><text x="130" y="24">PAIN POINTS</text><text x="380" y="24">BEHAVIORS</text><text x="630" y="24">OPPORTUNITIES</text></g>
+                <g fill="#e6b8bf"><rect x="28" y="40" width="204" height="46" rx="3"/><rect x="28" y="96" width="204" height="46" rx="3"/><rect x="28" y="152" width="204" height="46" rx="3"/></g>
+                <g fill="#3a1e22" font-size="11"><text x="40" y="68">Status is always stale</text><text x="40" y="124">Wrong tech shows up</text><text x="40" y="180">Licenses live in email</text></g>
+                <g fill="#a9c5ea"><rect x="278" y="40" width="204" height="46" rx="3"/><rect x="278" y="96" width="204" height="46" rx="3"/><rect x="278" y="152" width="204" height="46" rx="3"/></g>
+                <g fill="#1c2c3e" font-size="11"><text x="290" y="68">Calls to confirm status</text><text x="290" y="124">Re-keys across 3 tools</text><text x="290" y="180">Dispatches on gut feel</text></g>
+                <g fill="#b3dcb6"><rect x="528" y="40" width="204" height="46" rx="3"/><rect x="528" y="96" width="204" height="46" rx="3"/><rect x="528" y="152" width="204" height="46" rx="3"/></g>
+                <g fill="#1f3320" font-size="11"><text x="540" y="68">One live source of truth</text><text x="540" y="124">Match on license + zone</text><text x="540" y="180">Ship modules in hours</text></g>
+              </svg></div>
+            </div>
+
+            <div class="fj">
+              <div class="fjhead"><span class="d" style="background:#efd67a"></span>prioritization.fig · effort × impact</div>
+              <div class="board"><svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
+                <g stroke="#2a2a32"><line x1="40" y1="20" x2="40" y2="220"/><line x1="40" y1="220" x2="340" y2="220"/><line x1="40" y1="120" x2="340" y2="120" stroke-dasharray="3 4"/><line x1="190" y1="20" x2="190" y2="220" stroke-dasharray="3 4"/></g>
+                <g font-size="9" fill="#6b6b74"><text x="46" y="34">IMPACT ↑</text><text x="252" y="236">EFFORT →</text></g>
+                <circle cx="95" cy="60" r="7" fill="#c8ff3d"/><text x="108" y="63" font-size="10" fill="#cbcbd2">Live status</text>
+                <circle cx="150" cy="82" r="7" fill="#9bd6a0"/><text x="163" y="85" font-size="10" fill="#cbcbd2">Auto-match</text>
+                <circle cx="272" cy="70" r="7" fill="#8ab4e8"/><text x="214" y="54" font-size="10" fill="#cbcbd2">Mobile dispatch</text>
+                <circle cx="120" cy="175" r="6" fill="#6a6a72"/><text x="132" y="178" font-size="10" fill="#8a8a92">Bulk import</text>
+                <circle cx="292" cy="182" r="6" fill="#6a6a72"/><text x="232" y="202" font-size="10" fill="#8a8a92">Custom reports</text>
+              </svg></div>
+            </div>
+
+            <div class="fj">
+              <div class="fjhead"><span class="d" style="background:#c8ff3d"></span>principles.md</div>
+              <div class="note"><b>Status before everything.</b> Every screen answers "where is this job?" at a glance.<br/><br/><b>Match, don't make them think.</b> The system proposes the right licensed provider; the dispatcher just confirms.<br/><br/><b>Build to extend.</b> New service lines and modules drop into the same component system.</div>
+            </div>
+          </div>
         </div>
         <details class="more"><summary><span class="mk">+</span> The story behind it</summary>
           <div class="grid2">
@@ -1128,13 +1217,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="systemgrid">
         <div class="syscard reveal">
           <div class="swatches"><span style="background:#C4A66C"></span><span style="background:#8B7340"></span><span style="background:#232323"></span><span style="background:#6366F1"></span><span style="background:#EDEDED"></span></div>
-          <div class="sysmeta"><div class="kicker">Design System</div><h3>BankIQ</h3><p>Tokens, components, and states for a multi-tenant banking platform. This is what engineering builds against.</p></div>
-          <button class="launch" data-launch="tools/bankiq-design-system/index.html" data-label="BankIQ · Design System" data-note="Live design-system reference">Open the design system <span class="hint">↗ live</span></button>
+          <div class="sysmeta"><div class="kicker">Design System</div><h3>B2B Banking app</h3><p>Tokens, components, and states for a multi-tenant banking platform. This is what engineering builds against.</p></div>
+          <button class="launch" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Live design-system reference">Open the design system <span class="hint">↗ live</span></button>
         </div>
         <div class="syscard reveal">
           <div class="swatches"><span style="background:#1E2030"></span><span style="background:#3893CD"></span><span style="background:#5C4BB9"></span><span style="background:#56BDED"></span><span style="background:#F4F5F7"></span></div>
           <div class="sysmeta"><div class="kicker">Rationale</div><h3>Design Rationale Deck</h3><p>The clickable case for the system. Decisions, tradeoffs, information architecture, and the reasoning behind each pattern.</p></div>
-          <button class="launch" data-launch="tools/bankiq-rationale/index.html" data-label="BankIQ · Design Rationale" data-note="Rationale microsite">Open the rationale <span class="hint">↗ live</span></button>
+          <button class="launch" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="Rationale microsite">Open the rationale <span class="hint">↗ live</span></button>
         </div>
       </div>
       <div class="piece reveal">
@@ -1531,57 +1620,81 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   });
 })();
 </script>
-<!-- hero portrait: halftone by default; scrub the cursor to dissolve dots and reveal the photo, fading back ~1s -->
+<!-- hero portrait: each halftone dot flips like a coin (independent timing) to reveal the photo when the cursor is near -->
 <script>
 (function(){
   var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
-  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
-  // right-click swaps between the halftone-reveal (primary) and the colorful-shirt backup
+  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height, TWOPI=Math.PI*2;
   var backup=document.getElementById('heroBackup'), portrait=cv.parentNode;
   portrait.addEventListener('contextmenu',function(e){ e.preventDefault();
     var toBackup=!cv.hasAttribute('hidden');
     if(backup) backup.hidden=!toBackup;
     if(toBackup) cv.setAttribute('hidden',''); else cv.removeAttribute('hidden');
   });
-  function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
-  var htL=mk(), hx=htL.getContext('2d');      // halftone with holes punched
-  var ogL=mk(), ox=ogL.getContext('2d');      // original clipped to reveal mask
-  var msk=mk(), mx=msk.getContext('2d');      // reveal mask (decays over time)
-  var ht=new Image(), og=new Image(), n=0;
-  var R=Math.round(W*0.11);                    // ~50px brush at display size
-  var last=null, lastPaint=0, idleDrawn=false;
 
-  function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width*W, y:(e.clientY-r.top)/r.height*H}; }
-  function stamp(x,y){
-    var g=mx.createRadialGradient(x,y,0,x,y,R);
-    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.55,'rgba(255,255,255,.95)'); g.addColorStop(1,'rgba(255,255,255,0)');
-    mx.fillStyle=g; mx.beginPath(); mx.arc(x,y,R,0,Math.PI*2); mx.fill();
+  var CELL=14, COLS=Math.ceil(W/CELL), ROWS=Math.ceil(H/CELL);
+  var photo=document.createElement('canvas'); photo.width=W; photo.height=H; var pc=photo.getContext('2d');
+  var baked=document.createElement('canvas'); baked.width=W; baked.height=H; var bc=baked.getContext('2d');
+  var grid={}, active={}, R=Math.round(W*0.12), last=null, HOLD=1000, FLOOR=54;
+  var og=new Image();
+  og.onload=function(){
+    pc.drawImage(og,0,0,W,H);
+    var d;
+    try{ d=pc.getImageData(0,0,W,H).data; }
+    catch(err){ var ht=new Image(); ht.onload=function(){ ctx.drawImage(ht,0,0,W,H); }; ht.src='assets/img/hero-halftone.png'; return; } // file:// fallback
+    for(var gy=0;gy<ROWS;gy++){ for(var gx=0;gx<COLS;gx++){
+      var x0=gx*CELL,y0=gy*CELL,r=0,g=0,b=0,a=0,n=0;
+      for(var yy=0;yy<CELL;yy++){ var py=y0+yy; if(py>=H)break; var row=py*W;
+        for(var xx=0;xx<CELL;xx++){ var px=x0+xx; if(px>=W)break; var i=(row+px)*4; r+=d[i];g+=d[i+1];b+=d[i+2];a+=d[i+3];n++; } }
+      if(!n)continue; r/=n;g/=n;b/=n;a/=n; var cov=a/255; if(cov<0.25)continue;
+      r=Math.max(r,FLOOR); g=Math.max(g,FLOOR); b=Math.max(b,FLOOR);   // lift the darkest dots (no "missing tooth")
+      var lum=(0.299*r+0.587*g+0.114*b)/255, rad=(0.42+0.55*Math.pow(lum,0.8))*(CELL*0.5);
+      var c={x:x0,y:y0,cx:x0+CELL/2,cy:y0+CELL/2,col:'rgb('+(r|0)+','+(g|0)+','+(b|0)+')',r:rad,cov:Math.min(1,cov),p:0,target:0,trig:0,t:0,k:gy*COLS+gx};
+      grid[c.k]=c; bc.globalAlpha=c.cov; bc.fillStyle=c.col; bc.beginPath(); bc.arc(c.cx,c.cy,c.r,0,TWOPI); bc.fill();
+    }}
+    bc.globalAlpha=1; ctx.drawImage(baked,0,0); requestAnimationFrame(loop);
+  };
+  og.src='assets/img/hero-og.png';
+
+  function P(e){ var rr=cv.getBoundingClientRect(); return {x:(e.clientX-rr.left)/rr.width*W, y:(e.clientY-rr.top)/rr.height*H}; }
+  function touch(x,y){
+    var now=performance.now(), R2=R*R;
+    var gx0=Math.max(0,((x-R)/CELL)|0), gx1=Math.min(COLS-1,((x+R)/CELL)|0);
+    var gy0=Math.max(0,((y-R)/CELL)|0), gy1=Math.min(ROWS-1,((y+R)/CELL)|0);
+    for(var gy=gy0;gy<=gy1;gy++) for(var gx=gx0;gx<=gx1;gx++){
+      var c=grid[gy*COLS+gx]; if(!c)continue; var dx=c.cx-x, dy=c.cy-y;
+      if(dx*dx+dy*dy>R2)continue;
+      if(c.p<=0 && c.target===0) c.trig=now + Math.random()*240;    // each dot starts its flip at its own moment
+      c.target=1; c.t=now; active[c.k]=c;
+    }
   }
-  function paint(p){
-    if(last){ var d=Math.hypot(p.x-last.x,p.y-last.y), s=Math.max(1,Math.floor(d/(R*0.33)));
-      for(var i=1;i<=s;i++) stamp(last.x+(p.x-last.x)*i/s, last.y+(p.y-last.y)*i/s);
-    } else stamp(p.x,p.y);
-    last=p; lastPaint=performance.now(); idleDrawn=false;
+  function move(p){
+    if(last){ var dx=p.x-last.x,dy=p.y-last.y,dist=Math.hypot(dx,dy),s=Math.max(1,(dist/(R*0.5))|0);
+      for(var i=1;i<=s;i++) touch(last.x+dx*i/s, last.y+dy*i/s); } else touch(p.x,p.y);
+    last=p;
   }
-  cv.addEventListener('mousemove',function(e){ paint(pos(e)); });
+  cv.addEventListener('mousemove',function(e){ move(P(e)); });
   cv.addEventListener('mouseleave',function(){ last=null; });
-  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) paint(pos(t)); },{passive:true});
+  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) move(P(t)); },{passive:true});
   cv.addEventListener('touchend',function(){ last=null; });
 
-  function draw(){
-    mx.globalCompositeOperation='destination-out'; mx.fillStyle='rgba(0,0,0,.05)'; mx.fillRect(0,0,W,H); mx.globalCompositeOperation='source-over';
-    ox.clearRect(0,0,W,H); ox.globalCompositeOperation='source-over'; ox.drawImage(og,0,0,W,H);
-    ox.globalCompositeOperation='destination-in'; ox.drawImage(msk,0,0); ox.globalCompositeOperation='source-over';
-    ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); ctx.drawImage(ogL,0,0);
-  }
   function loop(){
-    if(performance.now()-lastPaint < 1400){ draw(); idleDrawn=false; }
-    else if(!idleDrawn){ ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); idleDrawn=true; }
     requestAnimationFrame(loop);
+    if(cv.hasAttribute('hidden')) return;
+    var now=performance.now();
+    ctx.clearRect(0,0,W,H); ctx.drawImage(baked,0,0);
+    for(var k in active){ var c=active[k];
+      if(c.target===1 && now-c.t>HOLD) c.target=0;                  // flip back after the hold
+      if(now>=c.trig) c.p += (c.target - c.p) * 0.32;               // fast coin-flip
+      if(c.target===0 && c.p<0.02){ delete active[k]; continue; }
+      ctx.clearRect(c.x,c.y,CELL,CELL);
+      if(c.p<0.5){ var sy=1-c.p*2;                                  // face A: the dot, edge-on
+        if(sy>0.02){ ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,sy); ctx.globalAlpha=c.cov; ctx.fillStyle=c.col; ctx.beginPath(); ctx.arc(0,0,c.r,0,TWOPI); ctx.fill(); ctx.globalAlpha=1; ctx.restore(); }
+      } else { var s2=(c.p-0.5)*2;                                  // face B: the photo tile
+        ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,s2); ctx.drawImage(photo,c.x,c.y,CELL,CELL,-CELL/2,-CELL/2,CELL,CELL); ctx.restore();
+      }
+    }
   }
-  function ready(){ if(++n<2) return; ctx.drawImage(ht,0,0,W,H); requestAnimationFrame(loop); }
-  ht.onload=ready; og.onload=ready;
-  ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
 })();
 </script>
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  BankIQ — App Shell (interactive prototype)
+  B2B Banking — App Shell (interactive prototype)
   ============================================================================
   Single self-contained file. No build step, no external JS deps (fonts via CDN).
   Open in any modern browser. See README.md + DEVELOPER-HANDOFF.md for context.
@@ -46,7 +46,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BankIQ — App Shell</title>
+<title>B2B Banking — App Shell</title>
 
 <!-- Google Fonts: Design System Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,7 @@
 
 <style>
 /* ═══════════════════════════════════════════════════
-   BankIQ Design Tokens v0.1 (inlined for preview)
+   B2B Banking Design Tokens v0.1 (inlined for preview)
    Source of truth: tokens/tokens.css
    Light-first · Gold accent · Exo 2 / DM Sans / DM Mono
 ═══════════════════════════════════════════════════ */
@@ -9061,8 +9061,8 @@ select:focus-visible {
       Dashboard
     </a>
 
-    <!-- Platform Admin (BankIQ / Intersect IT) — customer bank management only -->
-    <div class="side-nav__section" data-roles="Platform Admin">BankIQ Admin</div>
+    <!-- Platform Admin (B2B Banking / Intersect IT) — customer bank management only -->
+    <div class="side-nav__section" data-roles="Platform Admin">B2B Banking Admin</div>
 
     <a class="side-nav__item" href="javascript:void(0)" data-page="customer-dashboard" data-roles="Platform Admin" onclick="navigateTo(this)">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
@@ -9103,14 +9103,14 @@ select:focus-visible {
       Vault
     </a>
 
-    <!-- Ask BankIQ (Bank Executive only) -->
+    <!-- Ask AI (Bank Executive only) -->
     <a class="side-nav__item" href="javascript:void(0)" data-page="ask-bankiq" data-roles="Bank Executive" onclick="navigateTo(this)">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
         <path d="M2.5 2.5H13.5C13.5 2.5 14.5 2.5 14.5 3.5V9.5C14.5 10.5 13.5 10.5 13.5 10.5H6.5L3 13.5V3.5C3 2.5 2.5 2.5 2.5 2.5Z"/>
         <line x1="5.5" y1="5.25" x2="11.5" y2="5.25"/>
         <line x1="5.5" y1="7.75" x2="9.5" y2="7.75"/>
       </svg>
-      Ask BankIQ
+      Ask AI
     </a>
 
     <!-- Customer Dashboard (Teller-specific) — customer ledger + profile, no campaign affordances -->
@@ -9212,7 +9212,7 @@ const PAGE_DATA = {
   },
   'customer-dashboard': {
     title: 'Customers',
-    subtitle: 'BankIQ customer banks — onboarding, profiles & per-bank setup',
+    subtitle: 'B2B Banking customer banks — onboarding, profiles & per-bank setup',
     placeholder: 'Account management, onboarding flows, and usage metrics will render here',
     icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="7" y2="17"/><line x1="11" y1="11" x2="11" y2="17"/><line x1="15" y1="6" x2="15" y2="17"/>'
   },
@@ -9229,7 +9229,7 @@ const PAGE_DATA = {
     icon: '<rect x="3" y="5" width="18" height="16" rx="2"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="10" x2="12" y2="16"/>'
   },
   'ask-bankiq': {
-    title: 'Ask BankIQ',
+    title: 'Ask AI',
     subtitle: 'Natural language query — Executive access',
     placeholder: 'Conversational interface and query results will render here',
     icon: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'
@@ -9353,7 +9353,7 @@ function renderUnassignedState() {
   document.querySelectorAll('.side-nav__item').forEach(function(item) {
     item.classList.remove('active');
   });
-  document.getElementById('pageTitle').textContent = 'Welcome to BankIQ';
+  document.getElementById('pageTitle').textContent = 'Welcome to B2B Banking';
   document.getElementById('pageSubtitle').textContent = 'Access pending';
 
   var content = document.getElementById('pageContent');
@@ -9385,7 +9385,7 @@ function renderUnassignedState() {
        (per Stéphane's note on the 2026-06-25 client call). */
     +   '<div class="unassigned-state__body">If your access has been set up, your workspace will appear automatically once configuration is complete. If you think this is a mistake, contact your administrator.</div>'
     +   '<div class="unassigned-state__actions">'
-    +     '<a class="btn-primary" href="mailto:?subject=BankIQ%20access%20%E2%80%94%20role%20assignment%20needed&body=Hi%2C%20I%27ve%20signed%20into%20BankIQ%20but%20don%27t%20have%20a%20role%20assigned%20yet.%20Could%20you%20assign%20one%20to%20my%20account%3F%20Thanks.">'
+    +     '<a class="btn-primary" href="mailto:?subject=B2B Banking%20access%20%E2%80%94%20role%20assignment%20needed&body=Hi%2C%20I%27ve%20signed%20into%20B2B Banking%20but%20don%27t%20have%20a%20role%20assigned%20yet.%20Could%20you%20assign%20one%20to%20my%20account%3F%20Thanks.">'
     +       '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 4.5L8 8.5l5.5-4"/></svg>'
     +       'Contact your administrator</a>'
     +     '<button class="btn-secondary" onclick="location.reload()">Check again</button>'
@@ -9446,7 +9446,7 @@ function navigateTo(el) {
     return;
   }
 
-  /* Ask BankIQ gets conversational interface */
+  /* Ask AI gets conversational interface */
   if (page === 'ask-bankiq') {
     content.style.alignItems = 'stretch';
     content.style.justifyContent = 'stretch';
@@ -12783,7 +12783,7 @@ var settingsState = {
 };
 
 /* Modules permissions can be granted against. Excludes Onboarding (platform-side only). */
-var RBAC_MODULES = ['Campaigns', 'Vault', 'Ask BankIQ', 'Referrals', 'Settings'];
+var RBAC_MODULES = ['Campaigns', 'Vault', 'Ask AI', 'Referrals', 'Settings'];
 
 /* Bank-side roles. Platform Admin is intentionally NOT here — it's Intersect-managed. */
 var rolesData = [
@@ -12792,7 +12792,7 @@ var rolesData = [
     name: 'Bank Executive',
     description: 'Full bank-side access.',
     isSystem: true,
-    permissions: { 'Campaigns': true, 'Vault': true, 'Ask BankIQ': true, 'Referrals': true, 'Settings': true },
+    permissions: { 'Campaigns': true, 'Vault': true, 'Ask AI': true, 'Referrals': true, 'Settings': true },
     users: [
       { name:'Carol Whitfield',  email:'cwhitfield@fmbank.com',  phone:'(540) 723-9101', title:'Chief Operating Officer' },
       { name:'David Lin',        email:'dlin@fmbank.com',        phone:'(540) 723-9104', title:'VP Customer Experience' },
@@ -12804,7 +12804,7 @@ var rolesData = [
     name: 'Bank Officer',
     description: 'Cross-branch customer-facing officers.',
     isSystem: true,
-    permissions: { 'Campaigns': true, 'Vault': true, 'Ask BankIQ': false, 'Referrals': true, 'Settings': false },
+    permissions: { 'Campaigns': true, 'Vault': true, 'Ask AI': false, 'Referrals': true, 'Settings': false },
     users: [
       { name:'Priya Desai',     email:'pdesai@fmbank.com',    phone:'(540) 723-9115', title:'Relationship Manager' },
       { name:'Tom Reinholt',    email:'treinholt@fmbank.com', phone:'(540) 723-9118', title:'Commercial Banker' },
@@ -12817,7 +12817,7 @@ var rolesData = [
     name: 'Branch Manager',
     description: 'Owns their branch’s referral queue.',
     isSystem: true,
-    permissions: { 'Campaigns': true, 'Vault': true, 'Ask BankIQ': false, 'Referrals': true, 'Settings': false },
+    permissions: { 'Campaigns': true, 'Vault': true, 'Ask AI': false, 'Referrals': true, 'Settings': false },
     users: [
       { name:'Marcus Hale',  email:'mhale@fmbank.com', phone:'(540) 723-9112', title:'Branch Manager', branch:'Winchester Main' },
       { name:'Anika Bauer',  email:'abauer@fmbank.com', phone:'(540) 723-9127', title:'Branch Manager', branch:'Strasburg' }
@@ -12828,7 +12828,7 @@ var rolesData = [
     name: 'Teller',
     description: 'In-branch staff (tellers, frontline).',
     isSystem: true,
-    permissions: { 'Campaigns': false, 'Vault': false, 'Ask BankIQ': false, 'Referrals': true, 'Settings': false },
+    permissions: { 'Campaigns': false, 'Vault': false, 'Ask AI': false, 'Referrals': true, 'Settings': false },
     users: [
       { name:'Lucia Vargas', email:'lvargas@fmbank.com', phone:'(540) 723-9131', title:'Senior Teller', branch:'Winchester Main' },
       { name:'Sam Patel',    email:'spatel@fmbank.com',  phone:'(540) 723-9134', title:'Teller', branch:'Strasburg' },
@@ -13340,7 +13340,7 @@ function renderSettingsSectionSecurity() {
   h += '<div class="settings-card__title">Authentication policy</div>';
   h += '</div>';
   h += '<div class="settings-card__body">';
-  /* MFA is enforced by the bank's IdP (Entra/Okta) at login — BankIQ does not implement its own 2FA layer. */
+  /* MFA is enforced by the bank's IdP (Entra/Okta) at login — B2B Banking does not implement its own 2FA layer. */
   h += '<div class="settings-row settings-row--note"><div class="settings-row__label">Multi-factor authentication</div><div class="settings-row__value settings-row__value--muted">Enforced by your identity provider at sign-in</div></div>';
   h += renderSettingsEditableRow('Session timeout', 'sessionTimeout', { help:'Inactivity period before re-authentication' });
   h += '</div>';
@@ -15578,7 +15578,7 @@ function renderAskBankIQ() {
     return '<div class="nlq">' +
       '<div class="nlq-denied">' +
         '<div class="nlq-denied__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg></div>' +
-        '<div class="nlq-denied__title">Ask BankIQ is available for Bank Executives</div>' +
+        '<div class="nlq-denied__title">Ask AI is available for Bank Executives</div>' +
         '<div class="nlq-denied__desc">This feature provides conversational access to your bank\'s performance data and insights. Contact your platform administrator if you believe you should have access.</div>' +
       '</div>' +
     '</div>';
@@ -15623,7 +15623,7 @@ function renderAskBankIQ() {
 function renderNlqWelcome() {
   var h = '<div class="nlq-welcome" id="nlqWelcome">';
   h += '<div class="nlq-welcome__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>';
-  h += '<div class="nlq-welcome__title">Ask BankIQ</div>';
+  h += '<div class="nlq-welcome__title">Ask AI</div>';
   h += '<div class="nlq-welcome__desc">Ask plain-language questions about your bank\'s performance, campaigns, and customer insights. Responses are generated from your most recent nightly data snapshot — not live queries.</div>';
 
   h += '<div class="nlq-welcome__starters">';
@@ -15778,7 +15778,7 @@ function nlqCheckScroll() {
   }
 }
 
-/* Attach scroll listener after rendering Ask BankIQ */
+/* Attach scroll listener after rendering Ask AI */
 function nlqAttachScrollListener() {
   var thread = document.getElementById('nlqThread');
   if (thread) {
@@ -17059,7 +17059,7 @@ document.addEventListener('click', function(e) {
 
         <div class="step-section">
           <div class="step-section__title">Primary Admin Contact</div>
-          <p class="step-panel__description" style="margin-bottom:var(--sp-md)">This person becomes the bank administrator. They receive the only invite BankIQ sends, then invite the rest of the team from Settings.</p>
+          <p class="step-panel__description" style="margin-bottom:var(--sp-md)">This person becomes the bank administrator. They receive the only invite B2B Banking sends, then invite the rest of the team from Settings.</p>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label form-label--required">Full Name</label>
@@ -17559,7 +17559,7 @@ document.addEventListener('click', function(e) {
       <div id="invitePreviewCanvas"></div>
     </div>
     <div class="modal__footer">
-      <div class="modal__footer-left" style="font-family:var(--font-body);font-size:0.75rem;color:var(--text-3);">Transactional · sent via BankIQ platform</div>
+      <div class="modal__footer-left" style="font-family:var(--font-body);font-size:0.75rem;color:var(--text-3);">Transactional · sent via B2B Banking platform</div>
       <div class="modal__footer-right">
         <button class="btn-secondary" onclick="closeInvitePreview()">Close</button>
         <button class="btn-primary" id="invitePreviewSendBtn" onclick="invitePreviewSend()" style="display:none;">Send invite</button>
@@ -17580,18 +17580,18 @@ var STEP_NAMES = ['Setup', 'Intelligence', 'Audiences', 'Products', 'Vault'];
    Team & Roles — Data-driven sub-tab system
    ═══════════════════════════════════════════════ */
 
-var MODULES = ['Intelligence','Campaigns','Vault','Ask BankIQ','Settings','Referrals'];
+var MODULES = ['Intelligence','Campaigns','Vault','Ask AI','Settings','Referrals'];
 
 var teamRoles = [
-  { id:'exec',    name:'Bank Executive', desc:'Full platform access including Ask BankIQ & Settings',
-    perms:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask BankIQ':true, Settings:true, Referrals:true },
+  { id:'exec',    name:'Bank Executive', desc:'Full platform access including Ask AI & Settings',
+    perms:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask AI':true, Settings:true, Referrals:true },
     locked:{ Intelligence:true, Campaigns:true, Vault:true, Referrals:true } },
   { id:'officer', name:'Bank Officer', desc:'Intelligence, Campaigns, Vault, Settings & Referrals',
-    perms:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask BankIQ':false, Settings:true, Referrals:true },
-    locked:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask BankIQ':true, Referrals:true } },
+    perms:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask AI':false, Settings:true, Referrals:true },
+    locked:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask AI':true, Referrals:true } },
   { id:'teller',  name:'Teller', desc:'Referrals widget only — embedded in core banking',
-    perms:{ Intelligence:false, Campaigns:false, Vault:false, 'Ask BankIQ':false, Settings:false, Referrals:true },
-    locked:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask BankIQ':true, Settings:true, Referrals:true } }
+    perms:{ Intelligence:false, Campaigns:false, Vault:false, 'Ask AI':false, Settings:false, Referrals:true },
+    locked:{ Intelligence:true, Campaigns:true, Vault:true, 'Ask AI':true, Settings:true, Referrals:true } }
 ];
 
 var teamUsers = [
@@ -17881,21 +17881,21 @@ function renderInviteEmail(data) {
   +     '</div>'
         /* Body */
   +     '<div style="padding:32px;font-family:\'DM Sans\',system-ui,sans-serif;color:#333;line-height:1.6;">'
-  +       '<h1 style="font-family:\'Exo 2\',system-ui,sans-serif;font-size:1.35rem;font-weight:700;color:#111;margin:0 0 16px;">You’ve been invited to BankIQ</h1>'
+  +       '<h1 style="font-family:\'Exo 2\',system-ui,sans-serif;font-size:1.35rem;font-weight:700;color:#111;margin:0 0 16px;">You’ve been invited to B2B Banking</h1>'
   +       '<p style="font-size:0.9rem;margin:0 0 14px;">Hi '+first+',</p>'
-  +       '<p style="font-size:0.9rem;margin:0 0 14px;">Your administrator has set up an account for you at <strong style="color:#111;">'+bank+'</strong> on BankIQ, the intelligence and referral platform. You’ve been added as <strong style="color:#111;">'+roleName+'</strong>.</p>'
+  +       '<p style="font-size:0.9rem;margin:0 0 14px;">Your administrator has set up an account for you at <strong style="color:#111;">'+bank+'</strong> on B2B Banking, the intelligence and referral platform. You’ve been added as <strong style="color:#111;">'+roleName+'</strong>.</p>'
   +       '<p style="font-size:0.9rem;margin:0 0 24px;">Accept your invitation to activate your access and sign in.</p>'
   +       '<div style="text-align:center;margin:0 0 24px;">'
   +         '<a href="#" style="display:inline-block;background:'+gold+';color:#fff;font-family:\'DM Sans\',system-ui,sans-serif;font-size:0.9rem;font-weight:600;text-decoration:none;padding:13px 30px;border-radius:9px;">Accept invite &amp; sign in</a>'
   +       '</div>'
   +       '<div style="background:#f6f6f4;border:1px solid rgba(0,0,0,0.06);border-radius:9px;padding:14px 16px;margin:0 0 8px;">'
-  +         '<p style="font-size:0.78rem;color:#555;margin:0 0 6px;"><strong style="color:#111;">Sign in with your work account.</strong> BankIQ uses your bank’s single sign-on — no separate password to create.</p>'
+  +         '<p style="font-size:0.78rem;color:#555;margin:0 0 6px;"><strong style="color:#111;">Sign in with your work account.</strong> B2B Banking uses your bank’s single sign-on — no separate password to create.</p>'
   +         '<p style="font-size:0.78rem;color:#555;margin:0;">This invitation expires in <strong>7 days</strong>. If it lapses, ask your administrator to resend it.</p>'
   +       '</div>'
   +     '</div>'
         /* Footer */
   +     '<div style="padding:18px 32px;border-top:1px solid rgba(0,0,0,0.06);font-family:\'DM Sans\',system-ui,sans-serif;">'
-  +       '<p style="font-size:0.72rem;color:#8a8a8a;margin:0 0 4px;">Sent by BankIQ on behalf of '+bank+'. Questions? Reply to this email or contact your administrator.</p>'
+  +       '<p style="font-size:0.72rem;color:#8a8a8a;margin:0 0 4px;">Sent by B2B Banking on behalf of '+bank+'. Questions? Reply to this email or contact your administrator.</p>'
   +       '<p style="font-size:0.72rem;color:#a5a5a5;margin:0;">If you weren’t expecting this invitation, you can safely ignore this email.</p>'
   +     '</div>'
   +   '</div>'
