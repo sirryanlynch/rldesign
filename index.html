@@ -433,6 +433,21 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .fj svg{display:block;width:100%;height:auto}
 .fj .note{color:var(--ink-2);font-size:14px;line-height:1.55;padding:16px 18px}
 .fj .note b{color:var(--ink);font-weight:600}
+/* DMG composed device scene (iso tilt + drop shadows, overlapping) */
+.dmgscene{margin:10px 0 14px;perspective:2000px}
+.dmgscene .dev{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#0c0c0c;box-shadow:0 46px 100px -34px rgba(0,0,0,.85),0 16px 36px -16px rgba(0,0,0,.55)}
+.dmgscene .top{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#151515;border-bottom:1px solid var(--line)}
+.dmgscene .top .dot{width:9px;height:9px;border-radius:50%;background:#2f2f2f;flex:0 0 auto}
+.dmgscene .top .dot.r{background:#ff5f57}.dmgscene .top .dot.y{background:#febc2e}.dmgscene .top .dot.g{background:#28c840}
+.dmgscene .top .u{flex:1;min-width:0;margin-left:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:#0b0b0b;border:1px solid var(--line);border-radius:5px;padding:4px 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.dmgscene .dev img{display:block;width:100%;height:auto;background:#0f0f0f}
+.dmgscene .lead{width:82%;margin:0 auto;transform:rotateX(2.5deg);transform-origin:center bottom;position:relative;z-index:3}
+.dmgscene .pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:-32px 0 0;position:relative;z-index:2}
+.dmgscene .pair .dev:nth-child(1){transform:rotate(-1.2deg)}
+.dmgscene .pair .dev:nth-child(2){transform:rotate(1.4deg) translateY(16px)}
+.dmgscene .wide{margin-top:22px;position:relative;z-index:1}
+.dmgscene .scenecap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:.02em}
+@media(max-width:640px){.dmgscene .lead{width:100%;transform:none}.dmgscene .pair{grid-template-columns:1fr;gap:16px;margin-top:16px}.dmgscene .pair .dev{transform:none!important}}
 
 /* special projects tag + throughline */
 .sptag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(200,255,61,.34);border-radius:999px;padding:3px 11px;margin-top:12px}
@@ -1125,18 +1140,17 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         <div class="ph" id="dmg"><div><h3>DMG</h3><div class="role">Sr. Product Designer on a facilities-maintenance SaaS platform: work orders, service lines, licensing, and technician dispatch for commercial properties.</div></div></div>
         <p class="casesub">DMG ran on spreadsheets, email, and phone calls. As Sr. Product Designer I owned it end to end — the research, the flows, and a component system the team could keep extending. Below: the shipped product, and the thinking that got there.</p>
 
-        <figure class="casehero">
-          <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff44f7ae87be81ac3a6223_DMGScreenCap-ezgif.com-resize.gif" alt="DMG prototype — work order to dispatch" loading="lazy"/>
-          <figcaption>Interactive prototype — raise a work order, match a licensed provider, dispatch, and track it to done.</figcaption>
-        </figure>
-
-        <div class="scrollwrap">
-          <div class="scrollrow">
-            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c22b3e6f0e700693822_ezgif.com-animated-gif-maker.gif" alt="Work-order flow" loading="lazy"/><figcaption>Work-order intake &amp; flow</figcaption></figure>
-            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c7c1f2100603b58fd1d_uiux.png" alt="Platform UI" loading="lazy"/><figcaption>Dispatch board · platform UI</figcaption></figure>
-            <figure><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/680061620697547c510124ee_ezgif.com-animated-gif-maker%20(1).gif" alt="Service lines" loading="lazy"/><figcaption>Service lines &amp; licensing</figcaption></figure>
+        <div class="dmgscene">
+          <figure class="dev lead">
+            <div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · dispatch → work order</span></div>
+            <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff44f7ae87be81ac3a6223_DMGScreenCap-ezgif.com-resize.gif" alt="DMG prototype — work order to dispatch" loading="lazy"/>
+          </figure>
+          <div class="pair">
+            <figure class="dev"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · work orders</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c22b3e6f0e700693822_ezgif.com-animated-gif-maker.gif" alt="Work-order flow" loading="lazy"/></figure>
+            <figure class="dev"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · service lines</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/680061620697547c510124ee_ezgif.com-animated-gif-maker%20(1).gif" alt="Service lines" loading="lazy"/></figure>
           </div>
-          <div class="scrollcap">swipe for more screens</div>
+          <figure class="dev wide"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · dispatch board</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c7c1f2100603b58fd1d_uiux.png" alt="Platform UI · dispatch board" loading="lazy"/></figure>
+          <figcaption class="scenecap">Prototype to shipped platform. Work orders, licensed-provider matching, dispatch, and live status.</figcaption>
         </div>
 
         <div class="uxprocess">
@@ -1620,81 +1634,54 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   });
 })();
 </script>
-<!-- hero portrait: each halftone dot flips like a coin (independent timing) to reveal the photo when the cursor is near -->
+<!-- hero portrait: halftone by default; scrub the cursor to dissolve dots and reveal the photo, fading back ~1s -->
 <script>
 (function(){
   var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
-  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height, TWOPI=Math.PI*2;
+  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
   var backup=document.getElementById('heroBackup'), portrait=cv.parentNode;
   portrait.addEventListener('contextmenu',function(e){ e.preventDefault();
     var toBackup=!cv.hasAttribute('hidden');
     if(backup) backup.hidden=!toBackup;
     if(toBackup) cv.setAttribute('hidden',''); else cv.removeAttribute('hidden');
   });
-
-  var CELL=14, COLS=Math.ceil(W/CELL), ROWS=Math.ceil(H/CELL);
-  var photo=document.createElement('canvas'); photo.width=W; photo.height=H; var pc=photo.getContext('2d');
-  var baked=document.createElement('canvas'); baked.width=W; baked.height=H; var bc=baked.getContext('2d');
-  var grid={}, active={}, R=Math.round(W*0.12), last=null, HOLD=1000, FLOOR=54;
-  var og=new Image();
-  og.onload=function(){
-    pc.drawImage(og,0,0,W,H);
-    var d;
-    try{ d=pc.getImageData(0,0,W,H).data; }
-    catch(err){ var ht=new Image(); ht.onload=function(){ ctx.drawImage(ht,0,0,W,H); }; ht.src='assets/img/hero-halftone.png'; return; } // file:// fallback
-    for(var gy=0;gy<ROWS;gy++){ for(var gx=0;gx<COLS;gx++){
-      var x0=gx*CELL,y0=gy*CELL,r=0,g=0,b=0,a=0,n=0;
-      for(var yy=0;yy<CELL;yy++){ var py=y0+yy; if(py>=H)break; var row=py*W;
-        for(var xx=0;xx<CELL;xx++){ var px=x0+xx; if(px>=W)break; var i=(row+px)*4; r+=d[i];g+=d[i+1];b+=d[i+2];a+=d[i+3];n++; } }
-      if(!n)continue; r/=n;g/=n;b/=n;a/=n; var cov=a/255; if(cov<0.25)continue;
-      r=Math.max(r,FLOOR); g=Math.max(g,FLOOR); b=Math.max(b,FLOOR);   // lift the darkest dots (no "missing tooth")
-      var lum=(0.299*r+0.587*g+0.114*b)/255, rad=(0.42+0.55*Math.pow(lum,0.8))*(CELL*0.5);
-      var c={x:x0,y:y0,cx:x0+CELL/2,cy:y0+CELL/2,col:'rgb('+(r|0)+','+(g|0)+','+(b|0)+')',r:rad,cov:Math.min(1,cov),p:0,target:0,trig:0,t:0,k:gy*COLS+gx};
-      grid[c.k]=c; bc.globalAlpha=c.cov; bc.fillStyle=c.col; bc.beginPath(); bc.arc(c.cx,c.cy,c.r,0,TWOPI); bc.fill();
-    }}
-    bc.globalAlpha=1; ctx.drawImage(baked,0,0); requestAnimationFrame(loop);
-  };
-  og.src='assets/img/hero-og.png';
-
-  function P(e){ var rr=cv.getBoundingClientRect(); return {x:(e.clientX-rr.left)/rr.width*W, y:(e.clientY-rr.top)/rr.height*H}; }
-  function touch(x,y){
-    var now=performance.now(), R2=R*R;
-    var gx0=Math.max(0,((x-R)/CELL)|0), gx1=Math.min(COLS-1,((x+R)/CELL)|0);
-    var gy0=Math.max(0,((y-R)/CELL)|0), gy1=Math.min(ROWS-1,((y+R)/CELL)|0);
-    for(var gy=gy0;gy<=gy1;gy++) for(var gx=gx0;gx<=gx1;gx++){
-      var c=grid[gy*COLS+gx]; if(!c)continue; var dx=c.cx-x, dy=c.cy-y;
-      if(dx*dx+dy*dy>R2)continue;
-      if(c.p<=0 && c.target===0) c.trig=now + Math.random()*240;    // each dot starts its flip at its own moment
-      c.target=1; c.t=now; active[c.k]=c;
-    }
+  function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
+  var htL=mk(), hx=htL.getContext('2d');
+  var ogL=mk(), ox=ogL.getContext('2d');
+  var msk=mk(), mx=msk.getContext('2d');
+  var ht=new Image(), og=new Image(), n=0;
+  var R=Math.round(W*0.11);
+  var last=null, lastPaint=0, idleDrawn=false;
+  function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width*W, y:(e.clientY-r.top)/r.height*H}; }
+  function stamp(x,y){
+    var g=mx.createRadialGradient(x,y,0,x,y,R);
+    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.55,'rgba(255,255,255,.95)'); g.addColorStop(1,'rgba(255,255,255,0)');
+    mx.fillStyle=g; mx.beginPath(); mx.arc(x,y,R,0,Math.PI*2); mx.fill();
   }
-  function move(p){
-    if(last){ var dx=p.x-last.x,dy=p.y-last.y,dist=Math.hypot(dx,dy),s=Math.max(1,(dist/(R*0.5))|0);
-      for(var i=1;i<=s;i++) touch(last.x+dx*i/s, last.y+dy*i/s); } else touch(p.x,p.y);
-    last=p;
+  function paint(p){
+    if(last){ var d=Math.hypot(p.x-last.x,p.y-last.y), s=Math.max(1,Math.floor(d/(R*0.33)));
+      for(var i=1;i<=s;i++) stamp(last.x+(p.x-last.x)*i/s, last.y+(p.y-last.y)*i/s);
+    } else stamp(p.x,p.y);
+    last=p; lastPaint=performance.now(); idleDrawn=false;
   }
-  cv.addEventListener('mousemove',function(e){ move(P(e)); });
+  cv.addEventListener('mousemove',function(e){ paint(pos(e)); });
   cv.addEventListener('mouseleave',function(){ last=null; });
-  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) move(P(t)); },{passive:true});
+  cv.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) paint(pos(t)); },{passive:true});
   cv.addEventListener('touchend',function(){ last=null; });
-
-  function loop(){
-    requestAnimationFrame(loop);
-    if(cv.hasAttribute('hidden')) return;
-    var now=performance.now();
-    ctx.clearRect(0,0,W,H); ctx.drawImage(baked,0,0);
-    for(var k in active){ var c=active[k];
-      if(c.target===1 && now-c.t>HOLD) c.target=0;                  // flip back after the hold
-      if(now>=c.trig) c.p += (c.target - c.p) * 0.32;               // fast coin-flip
-      if(c.target===0 && c.p<0.02){ delete active[k]; continue; }
-      ctx.clearRect(c.x,c.y,CELL,CELL);
-      if(c.p<0.5){ var sy=1-c.p*2;                                  // face A: the dot, edge-on
-        if(sy>0.02){ ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,sy); ctx.globalAlpha=c.cov; ctx.fillStyle=c.col; ctx.beginPath(); ctx.arc(0,0,c.r,0,TWOPI); ctx.fill(); ctx.globalAlpha=1; ctx.restore(); }
-      } else { var s2=(c.p-0.5)*2;                                  // face B: the photo tile
-        ctx.save(); ctx.translate(c.cx,c.cy); ctx.scale(1,s2); ctx.drawImage(photo,c.x,c.y,CELL,CELL,-CELL/2,-CELL/2,CELL,CELL); ctx.restore();
-      }
-    }
+  function draw(){
+    mx.globalCompositeOperation='destination-out'; mx.fillStyle='rgba(0,0,0,.05)'; mx.fillRect(0,0,W,H); mx.globalCompositeOperation='source-over';
+    ox.clearRect(0,0,W,H); ox.globalCompositeOperation='source-over'; ox.drawImage(og,0,0,W,H);
+    ox.globalCompositeOperation='destination-in'; ox.drawImage(msk,0,0); ox.globalCompositeOperation='source-over';
+    ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); ctx.drawImage(ogL,0,0);
   }
+  function loop(){
+    if(performance.now()-lastPaint < 1400){ draw(); idleDrawn=false; }
+    else if(!idleDrawn){ ctx.clearRect(0,0,W,H); ctx.drawImage(ht,0,0,W,H); idleDrawn=true; }
+    requestAnimationFrame(loop);
+  }
+  function ready(){ if(++n<2) return; ctx.drawImage(ht,0,0,W,H); requestAnimationFrame(loop); }
+  ht.onload=ready; og.onload=ready;
+  ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
 })();
 </script>
 </body>
