@@ -174,8 +174,22 @@ a{color:inherit}
 .paneltext{color:var(--muted);max-width:60ch;font-size:16px;margin:6px 0 22px}
 
 /* ══ Design System storybook wall (leads Product/UX) — faithful to the B2B banking system ══ */
-.ds{--g:#c4a66c;--ind:#6366f1;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--b1:#0a0a0b;--b2:#111214;--b3:#1a1b1e;--b4:#232427;--t0:#f5f5f5;--t1:#bdbdbd;--t2:#a0a0a0;--t3:#8e8e8e;--l0:rgba(255,255,255,.06);--l1:rgba(255,255,255,.12);--l2:rgba(255,255,255,.24);--la:rgba(196,166,108,.3);--disp:'Exo 2',system-ui,sans-serif;--bd:'DM Sans',system-ui,sans-serif;--mn:'DM Mono',ui-monospace,monospace}
-.ds .dshead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;margin:2px 0 22px}
+.ds{--g:#c4a66c;--ind:#6366f1;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--b1:#0a0a0b;--b2:#111214;--b3:#1a1b1e;--b4:#232427;--t0:#f5f5f5;--t1:#bdbdbd;--t2:#a0a0a0;--t3:#8e8e8e;--l0:rgba(255,255,255,.06);--l1:rgba(255,255,255,.12);--l2:rgba(255,255,255,.24);--la:rgba(196,166,108,.3);--disp:'Exo 2',system-ui,sans-serif;--bd:'DM Sans',system-ui,sans-serif;--mn:'DM Mono',ui-monospace,monospace;transition:background .3s ease,color .3s ease}
+.ds.light{--g:#8a6d33;--ind:#4f46e5;--ok:#047857;--warn:#b45309;--bad:#dc2626;--b1:#ffffff;--b2:#f4f5f6;--b3:#eaebed;--b4:#dfe1e4;--t0:#14161a;--t1:#3f4550;--t2:#5a616c;--t3:#767d88;--l0:rgba(15,18,24,.08);--l1:rgba(15,18,24,.14);--l2:rgba(15,18,24,.26);--la:rgba(138,109,51,.45)}
+.ds.light{background:#eef0f2}
+.ds.light .dsvframe,.ds.light .dsview iframe{background:#ffffff}
+.ds.light .dsvhead{background:#f4f5f6;color:var(--t2)}
+.ds.light .dsix.active .n{color:#fff}
+.ds .dstop{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.ds .dstheme{display:inline-flex;align-items:center;gap:8px;background:var(--b2);border:1px solid var(--l1);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;font-family:var(--mn);font-size:11px;letter-spacing:.04em;color:var(--t2);transition:border-color .18s,color .18s,background .18s}
+.ds .dstheme:hover{border-color:var(--la);color:var(--g)}
+.ds .dstheme .tk{position:relative;width:26px;height:15px;border-radius:999px;background:var(--b4);border:1px solid var(--l1);flex:0 0 auto;transition:background .2s}
+.ds .dstheme .tk::after{content:"";position:absolute;top:1px;left:1px;width:11px;height:11px;border-radius:50%;background:var(--g);transition:transform .2s ease}
+.ds.light .dstheme .tk::after{transform:translateX(11px)}
+.ds .dstheme .tl::before{content:"Light"}
+.ds.light .dstheme .tl::before{content:"Dark"}
+.ds .dstheme .tl{color:inherit}
+.ds .dshead{margin:2px 0 24px}
 .ds .dshead .eyebrow{color:var(--g)}
 .ds .dshead h3{font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.01em;line-height:1.05;margin:10px 0 0;color:var(--t0)}
 .ds .dshead p{font-family:var(--bd);color:var(--t2);font-size:14px;line-height:1.55;margin:10px 0 0;max-width:56ch}
@@ -185,7 +199,29 @@ a{color:inherit}
 .ds .eggwrap .popper{position:absolute;top:calc(100% + 8px);left:calc(50% - 8px);transform:translateY(-4px);white-space:nowrap;font-family:var(--mn);font-size:11px;color:var(--t1);background:var(--b3);border:1px solid rgba(196,166,108,.45);padding:6px 10px;border-radius:6px;box-shadow:0 10px 26px -12px rgba(0,0,0,.75);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:5}
 .ds .eggwrap .popper::after{content:"";position:absolute;bottom:100%;left:13px;border:5px solid transparent;border-bottom-color:rgba(196,166,108,.45)}
 .ds .eggwrap.show .popper{opacity:1;transform:translateY(0);pointer-events:auto}
-.ds .dscta{display:flex;flex-direction:column;gap:9px;align-items:stretch}
+.ds .dscta{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:20px}
+/* three-piece index: storybook · full system · rationale */
+.ds .dsindex{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+@media(max-width:680px){.ds .dsindex{grid-template-columns:1fr}}
+.ds .dsix{display:flex;align-items:flex-start;gap:12px;text-align:left;background:var(--b2);border:1px solid var(--l1);border-radius:10px;padding:14px 15px;cursor:pointer;text-decoration:none;font-family:var(--bd);transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
+.ds .dsix:hover{border-color:var(--la);background:var(--b3);transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(0,0,0,.7)}
+.ds .dsix .n{font-family:var(--mn);font-size:11px;color:var(--g);border:1px solid var(--la);border-radius:5px;padding:3px 7px;flex:0 0 auto;letter-spacing:.05em}
+.ds .dsix .t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ds .dsix .t b{color:var(--t0);font-weight:600;font-size:14px;line-height:1.15}
+.ds .dsix .t span{color:var(--t3);font-size:11px;font-family:var(--mn);letter-spacing:.02em}
+.ds .dsix.active{background:linear-gradient(180deg,rgba(196,166,108,.1),transparent 80%),var(--b2);border-color:var(--la)}
+.ds .dsix.active .n{background:var(--g);color:#0b0b0d;border-color:var(--g)}
+/* embedded content window (no modal) */
+.ds .dsview{display:none;margin-top:22px}
+.ds .dsview.on{display:block}
+.ds.embedding .dswall{display:none}
+.ds .dsvframe{border:1px solid var(--l1);border-radius:11px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
+.ds .dsvhead{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#131316;border-bottom:1px solid var(--l0);font-family:var(--mn);font-size:10px;color:var(--t2)}
+.ds .dsvhead .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.ds .dsvhead .u{flex:1;min-width:0;margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds .dsvhead .x{margin-left:auto;font-family:var(--mn);font-size:10px;color:var(--t2);background:none;border:1px solid var(--l1);border-radius:5px;padding:5px 11px;cursor:pointer;white-space:nowrap}
+.ds .dsvhead .x:hover{color:var(--g);border-color:var(--la)}
+.ds .dsview iframe{display:block;width:100%;height:78vh;max-height:840px;border:0;background:#0b0b0d}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 .dswall{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;font-family:var(--bd)}
@@ -946,17 +982,19 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="no">01</div>
       <div class="pc ds" id="ds">
         <div class="dshead">
-          <div>
+          <div class="dstop">
             <div class="eyebrow">Design System · B2B Banking app</div>
-            <h3>Components, specs &amp; states — built for handoff.</h3>
-            <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
+            <button class="dstheme" data-theme-toggle aria-pressed="false" title="Toggle storybook theme"><span class="tk"></span><span class="tl"></span></button>
           </div>
-          <div class="dscta">
-            <button class="dsopen" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Live design-system reference · opens in-page">Open the full system ↗</button>
-            <button class="dsopen gho" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="Foundational work — the decisions, tradeoffs, and the why behind the system">Foundational work →</button>
+          <h3>Components, specs &amp; states — built for handoff.</h3>
+          <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
+          <div class="dsindex">
+            <button class="dsix active" data-view="wall"><span class="n">01</span><span class="t"><b>Live storybook</b><span>interactive · below ↓</span></span></button>
+            <button class="dsix" data-view="embed" data-embed="tools/bankiq-design-system/index.html" data-title="B2B Banking app · Design System"><span class="n">02</span><span class="t"><b>Full design system</b><span>25-section reference ↗</span></span></button>
+            <button class="dsix" data-view="embed" data-embed="tools/bankiq-rationale/index.html" data-title="B2B Banking app · Design Rationale"><span class="n">03</span><span class="t"><b>Rationale deck</b><span>decisions &amp; why ↗</span></span></button>
           </div>
         </div>
-        <div class="dswall">
+        <div class="dswall" id="dswall">
 
           <div class="story wide">
             <div class="lab"><span class="dot"></span><span class="n">Button</span><span class="live">interactive · spec</span></div>
@@ -1131,6 +1169,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           </div>
 
         </div>
+
+        <div class="dsview" id="dsview">
+          <div class="dsvframe">
+            <div class="dsvhead"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="u" id="dsvTitle"></span><button class="x" data-view="wall">← back to storybook</button></div>
+            <iframe id="dsFrame" title="Embedded design reference" loading="lazy"></iframe>
+          </div>
+        </div>
       </div>
       </div>
 
@@ -1304,6 +1349,40 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   document.getElementById('mClose').addEventListener('click',closeModal);
   modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+
+  // design-system: embedded content window (no modal)
+  var dsSec=document.getElementById('ds');
+  if(dsSec){
+    var dsView=document.getElementById('dsview'),dsFrame=document.getElementById('dsFrame'),
+        dsvTitle=document.getElementById('dsvTitle'),
+        dsCards=dsSec.querySelectorAll('.dsix'),curEmbed='';
+    function dsWall(){
+      dsSec.classList.remove('embedding');dsView.classList.remove('on');
+      if(dsFrame.src&&dsFrame.src!=='about:blank')dsFrame.src='about:blank';
+      curEmbed='';
+      dsCards.forEach(function(c){c.classList.toggle('active',c.dataset.view==='wall');});
+    }
+    window.rlEmbed=function(src,title){
+      dsvTitle.textContent=title||'';
+      if(curEmbed!==src){dsFrame.src=src;curEmbed=src;}
+      dsSec.classList.add('embedding');dsView.classList.add('on');
+      dsCards.forEach(function(c){c.classList.toggle('active',c.dataset.embed===src);});
+      var top=dsView.getBoundingClientRect().top+window.pageYOffset-80;
+      window.scrollTo({top:top,behavior:'smooth'});
+    };
+    dsSec.querySelectorAll('[data-view]').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(b.dataset.view==='embed')window.rlEmbed(b.dataset.embed,b.dataset.title);
+        else dsWall();
+      });
+    });
+    // light / dark theme toggle for the storybook
+    var dsToggle=dsSec.querySelector('[data-theme-toggle]');
+    if(dsToggle)dsToggle.addEventListener('click',function(){
+      var lit=dsSec.classList.toggle('light');
+      dsToggle.setAttribute('aria-pressed',lit?'true':'false');
+    });
+  }
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.02,rootMargin:'0px 0px 26% 0px'});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
