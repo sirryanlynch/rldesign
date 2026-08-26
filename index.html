@@ -488,26 +488,21 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .dmgpanel{width:25%;height:100%;overflow:hidden}
 .dmgtabs{transition:transform .5s cubic-bezier(.5,0,.2,1),opacity .4s ease}
 .dmgscreen.authing .dmgtabs{transform:translateY(100%);opacity:0;pointer-events:none}
-/* login / intro screen */
-.dmglogin{position:relative;background:linear-gradient(168deg,#eaf1ff 0%,#f5f8fc 46%,#fbfcfe 100%);display:flex;flex-direction:column}
-.dmglogin .lbg{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:280px;height:280px;background:radial-gradient(closest-side,rgba(47,111,214,.22),transparent 70%);filter:blur(8px);pointer-events:none}
-.dmglogin .lbrand{position:relative;text-align:center;padding:52px 0 0}
-.dmglogin .mark{width:60px;height:60px;margin:0 auto 14px;border-radius:18px;background:linear-gradient(150deg,#3f86f0,#2258c8);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 16px 30px -12px rgba(37,88,200,.6),inset 0 1px 0 rgba(255,255,255,.35)}
-.dmglogin .wd{font-family:var(--disp);font-weight:700;font-size:26px;letter-spacing:.14em;color:#141c2b}
-.dmglogin .sub{font-size:11px;color:#6a7686;font-family:var(--mono);letter-spacing:.06em;margin-top:5px}
-.dmglogin .lcard{position:relative;margin:auto 20px 0;background:#fff;border:1px solid #e7ebf2;border-radius:20px;padding:20px 18px;box-shadow:0 24px 50px -22px rgba(24,40,80,.28)}
-.dmglogin .lh{font-weight:700;font-size:17px;letter-spacing:-.01em;color:#161922}
-.dmglogin .lp{font-size:11px;color:#7a828f;margin-top:3px}
-.dmglogin .lfield{display:flex;align-items:center;gap:9px;border:1px solid #e3e7ee;border-radius:11px;padding:11px 12px;margin-top:12px;background:#fbfcfe}
-.dmglogin .lfield.foc{border-color:var(--dmgblue);box-shadow:0 0 0 3px rgba(47,111,214,.12);background:#fff}
+/* login / intro screen — classic centered modal on branded blue */
+.dmglogin{position:relative;background:radial-gradient(125% 90% at 50% 6%,#4a8ef5 0%,#2f6fd6 44%,#1f52bd 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 26px}
+.dmglogin .lbg{position:absolute;inset:0;background:radial-gradient(58% 40% at 50% 16%,rgba(255,255,255,.20),transparent 70%),radial-gradient(80% 60% at 90% 100%,rgba(0,0,0,.14),transparent 60%);pointer-events:none}
+.dmglogin .dmgsb{position:absolute;top:0;left:0;right:0;color:#fff;z-index:2}
+.dmglogin .lbrand{position:relative;z-index:2;text-align:center;margin-bottom:24px}
+.dmglogin .mark{width:66px;height:66px;margin:0 auto 13px;border-radius:20px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.32);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 16px 30px -14px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4)}
+.dmglogin .wd{font-family:var(--disp);font-weight:700;font-size:24px;letter-spacing:.24em;color:#fff;text-indent:.24em}
+.dmglogin .lcard{position:relative;z-index:2;width:100%;background:#fff;border-radius:18px;padding:18px 16px;box-shadow:0 34px 64px -26px rgba(8,26,72,.6)}
+.dmglogin .lfield{display:flex;align-items:center;gap:9px;border:1px solid #e3e7ee;border-radius:11px;padding:12px 12px;background:#fbfcfe}
+.dmglogin .lfield+.lfield{margin-top:10px}
+.dmglogin .lfield.foc{border-color:var(--dmgblue);box-shadow:0 0 0 3px rgba(47,111,214,.14);background:#fff}
 .dmglogin .lfield .li{color:#9aa2ad;display:flex;flex:0 0 auto}
 .dmglogin .lfield .lv{font-size:12px;color:#2b303a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dmglogin .lfield .lr{color:#b7bdc7;display:flex}
-.dmglogin .lbtn{position:relative;overflow:hidden;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,#3f86f0,#2f6fd6);color:#fff;font-weight:700;font-size:13.5px;border-radius:12px;padding:12px 0;box-shadow:0 14px 26px -12px rgba(47,111,214,.75)}
-.dmglogin .lforgot{text-align:center;font-size:11px;color:var(--dmgblue);font-weight:600;margin-top:12px}
-.dmglogin .lfoot{text-align:center;font-size:9.5px;color:#9aa2ad;font-family:var(--mono);letter-spacing:.04em;padding:16px 0 18px}
-.dmglogin .lsso{display:flex;align-items:center;gap:8px;margin-top:13px;color:#9aa2ad;font-size:9.5px;font-family:var(--mono)}
-.dmglogin .lsso::before,.dmglogin .lsso::after{content:"";height:1px;flex:1;background:#e7ebf2}
+.dmglogin .lbtn{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,#3f86f0,#2f6fd6);color:#fff;font-weight:700;font-size:13.5px;border-radius:12px;padding:13px 0;box-shadow:0 14px 26px -12px rgba(31,82,189,.7)}
 /* enriched checklist */
 .dmgchk li::before{content:"";width:13px;height:13px;border-radius:50%;background:#fff;border:1.5px solid #cfd3da;box-sizing:border-box;flex:0 0 auto}
 .dmgchk li.on::before{border:0;background:var(--dmggreen) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/9px no-repeat}
@@ -1393,22 +1388,16 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
                 <!-- PANEL 0 · branded login -->
                 <div class="dmgpanel dmglogin" id="dmgPanelLogin">
                   <div class="lbg"></div>
-                  <div class="dmgsb"><span>9:41</span><span class="r"><svg width="18" height="11" viewBox="0 0 20 12"><g fill="#0b0c0f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></g></svg><svg width="16" height="11" viewBox="0 0 16 12" fill="#0b0c0f"><path d="M8 3.1c2.35 0 4.5.92 6.1 2.44l-1.45 1.5A6.7 6.7 0 0 0 8 5.2 6.7 6.7 0 0 0 3.35 7.04L1.9 5.54A8.9 8.9 0 0 1 8 3.1z"/><path d="M8 7.05c1.2 0 2.32.5 3.12 1.32L8 11.5 4.88 8.37A4.45 4.45 0 0 1 8 7.05z"/></svg><svg width="25" height="12" viewBox="0 0 26 13"><rect x="1" y="1.6" width="20" height="10" rx="3" fill="none" stroke="#0b0c0f" stroke-width="1.1" opacity=".85"/><rect x="2.8" y="3.3" width="15.4" height="6.6" rx="1.7" fill="#0b0c0f"/><rect x="22.4" y="4.7" width="2" height="3.8" rx="1" fill="#0b0c0f"/></svg></span></div>
+                  <div class="dmgsb"><span>9:41</span><span class="r"><svg width="18" height="11" viewBox="0 0 20 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></g></svg><svg width="16" height="11" viewBox="0 0 16 12" fill="#fff"><path d="M8 3.1c2.35 0 4.5.92 6.1 2.44l-1.45 1.5A6.7 6.7 0 0 0 8 5.2 6.7 6.7 0 0 0 3.35 7.04L1.9 5.54A8.9 8.9 0 0 1 8 3.1z"/><path d="M8 7.05c1.2 0 2.32.5 3.12 1.32L8 11.5 4.88 8.37A4.45 4.45 0 0 1 8 7.05z"/></svg><svg width="25" height="12" viewBox="0 0 26 13"><rect x="1" y="1.6" width="20" height="10" rx="3" fill="none" stroke="#fff" stroke-width="1.1" opacity=".85"/><rect x="2.8" y="3.3" width="15.4" height="6.6" rx="1.7" fill="#fff"/><rect x="22.4" y="4.7" width="2" height="3.8" rx="1" fill="#fff"/></svg></span></div>
                   <div class="lbrand">
-                    <div class="mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></div>
+                    <div class="mark"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></div>
                     <div class="wd">DMG</div>
-                    <div class="sub">Field Service Platform</div>
                   </div>
                   <div class="lcard">
-                    <div class="lh">Welcome back</div>
-                    <div class="lp">Sign in to manage your jobs</div>
                     <div class="lfield foc"><span class="li"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span><span class="lv">ryan.lynch@dmg.co</span></div>
                     <div class="lfield"><span class="li"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="lv">••••••••••</span><span class="lr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg></span></div>
                     <div class="lbtn"><span class="lo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span>Sign in</div>
-                    <div class="lforgot">Forgot password?</div>
-                    <div class="lsso">or continue with SSO</div>
                   </div>
-                  <div class="lfoot">Secured by DMG · v2.4</div>
                 </div>
                 <!-- PANEL A · profile / onboarding -->
                 <div class="dmgpanel" id="dmgPanelA">
@@ -1537,8 +1526,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           function run(){
             timers.forEach(clearTimeout); timers=[];
             go(0); tab('profile'); panelA.classList.remove('added'); panelC.classList.remove('dispatched'); hideAll(); park();
-            at(1000,function(){move(135,440);});                              // login: Sign in
-            at(1650,function(){tapAt(135,440); go(1); tab('profile');});      // enter app
+            at(1000,function(){move(135,400);});                              // login: Sign in
+            at(1650,function(){tapAt(135,400); go(1); tab('profile');});      // enter app
             at(2600,function(){show('a1');});
             at(3800,function(){show('a2');});
             at(4900,function(){move(150,316);});
