@@ -199,7 +199,7 @@ a{color:inherit}
 .ds .dscta{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:20px}
 /* three-piece index: storybook · full system · rationale */
 /* design-system tabbed viewer */
-.ds .dsviewer{margin-top:22px}
+.ds .dsviewer{margin-top:22px;scroll-margin-top:84px}
 .ds .dstabs{display:flex;gap:2px;border-bottom:1px solid var(--l1);flex-wrap:wrap}
 .ds .dstab{position:relative;background:none;border:0;font-family:var(--mn);font-size:12px;letter-spacing:.01em;color:var(--t3);padding:12px 17px;cursor:pointer;transition:color .2s;white-space:nowrap}
 .ds .dstab:hover{color:var(--t1)}
@@ -873,42 +873,6 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="tool reveal" data-snap style="margin-top:44px">
     <div class="ghost">01</div>
     <div class="txt">
-      <div class="tag-lab">MetaQuest · Enterprise data product</div>
-      <h3 id="metaquest">The spreadsheet that became a product.</h3>
-      <p class="sub">Weekly SLA reporting lived in a workbook someone re-keyed by hand every Monday. I turned it into a gated dashboard that fills itself.</p>
-      <div class="caps">
-        <div class="cap"><span class="i">01</span><span class="d"><b>Automated data fill</b> from a normalized feed, no more manual entry</span></div>
-        <div class="cap"><span class="i">02</span><span class="d"><b>Read it fast</b> with RAG status, an SLA heatmap, and per-metric trend</span></div>
-        <div class="cap"><span class="i">03</span><span class="d"><b>Analyst annotation</b> attached to every metric for context</span></div>
-        <div class="cap"><span class="i">04</span><span class="d"><b>Gated and offline-safe</b>, renders from file for secure sharing</span></div>
-      </div>
-      <p class="result">Monday's afternoon of copy-paste is gone. The report <span class="hl">refreshes in minutes</span>, and everyone reads the same live truth.</p>
-    </div>
-    <div>
-      <div class="browser">
-        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">sla-dashboard · program performance</span></div>
-        <div class="ui" style="--sp-panel:#ffffff;--sp-line:#E7E6F2;--sp-muted:#67696F;--sp-accent:#5C4BB9;background:#F4F4FA;color:#282A32">
-          <div class="topline"><span class="t">SLA Performance · Week of Jun 8</span><span class="pill">auto-refreshed</span></div>
-          <div class="rag">
-            <div class="c g"><div class="lbl">Program A</div><div class="val" data-count="98" data-suffix="%">0%</div><div class="d">On-time</div></div>
-            <div class="c a"><div class="lbl">Program B</div><div class="val" data-count="91" data-suffix="%">0%</div><div class="d">Watch</div></div>
-            <div class="c r"><div class="lbl">Program C</div><div class="val" data-count="84" data-suffix="%">0%</div><div class="d">Breach</div></div>
-          </div>
-          <div class="heat">
-            <div class="row"><span class="rl">On-Time Rate</span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#D7472F"></span><span class="cell" style="background:#4FA85C"></span></div>
-            <div class="row"><span class="rl">QA Pass Rate</span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span></div>
-            <div class="row"><span class="rl">Throughput</span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#D7472F"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span></div>
-          </div>
-          <div class="bars"><span class="b" data-h="52"></span><span class="b" data-h="63"></span><span class="b" data-h="71"></span><span class="b" data-h="58"></span><span class="b" data-h="80"></span><span class="b" data-h="74"></span><span class="b" data-h="88"></span><span class="b" data-h="82"></span></div>
-        </div>
-      </div>
-      <div class="snapcap">Sanitized preview · synthetic data · program names withheld</div>
-      <button class="launch" data-launch="tools/metaquest/index.html" data-label="MetaQuest · SLA dashboard" data-note="Password-gated build · password: metaverse">Launch the full dashboard <span class="hint">↗ live build</span></button>
-    </div>
-  </div>
-      <div class="tool reveal" data-snap>
-    <div class="ghost">02</div>
-    <div class="txt">
       <div class="tag-lab">Microsite · Sales enablement</div>
       <h3 id="microsite">Bids that breathe.</h3>
       <p class="sub">Proposals went out as PDFs that were stale on arrival. I built a system that ships them as branded microsites with review built in.</p>
@@ -946,7 +910,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     </div>
   </div>
       <div class="tool reveal" data-snap>
-    <div class="ghost">03</div>
+    <div class="ghost">02</div>
     <div class="txt">
       <div class="tag-lab">Single Origin · Knowledge platform</div>
       <h3 id="single-origin">One place, always true.</h3>
@@ -986,43 +950,39 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     </div>
   </div>
       <div class="tool reveal" data-snap>
-    <div class="ghost">04</div>
+    <div class="ghost">03</div>
     <div class="txt">
-      <div class="tag-lab">B2B Banking app · martech platform</div>
-      <h3 id="bankapp">Data that acts on itself.</h3>
-      <p class="sub">Community banks sit on rich customer data they can't move on. The platform reads it, spots who's dormant or leaving, and turns that into a campaign you can send.</p>
+      <div class="tag-lab">MetaQuest · Enterprise data product</div>
+      <h3 id="metaquest">The spreadsheet that became a product.</h3>
+      <p class="sub">Weekly SLA reporting lived in a workbook someone re-keyed by hand every Monday. I turned it into a gated dashboard that fills itself.</p>
       <div class="caps">
-        <div class="cap"><span class="i">01</span><span class="d"><b>Insight engines</b> for dormant accounts, flight risk, growth, and relationship gaps</span></div>
-        <div class="cap"><span class="i">02</span><span class="d"><b>Audience → content → export</b>, one clean lifecycle</span></div>
-        <div class="cap"><span class="i">03</span><span class="d"><b>Plain-language Q&amp;A</b> answers questions for executives</span></div>
-        <div class="cap"><span class="i">04</span><span class="d"><b>Governed AI</b>: explainable, auditable, role-scoped</span></div>
+        <div class="cap"><span class="i">01</span><span class="d"><b>Automated data fill</b> from a normalized feed, no more manual entry</span></div>
+        <div class="cap"><span class="i">02</span><span class="d"><b>Read it fast</b> with RAG status, an SLA heatmap, and per-metric trend</span></div>
+        <div class="cap"><span class="i">03</span><span class="d"><b>Analyst annotation</b> attached to every metric for context</span></div>
+        <div class="cap"><span class="i">04</span><span class="d"><b>Gated and offline-safe</b>, renders from file for secure sharing</span></div>
       </div>
-      <p class="result">An insight stops being a chart nobody reads and becomes <span class="hl">outreach that ships</span>, with every step traceable.</p>
+      <p class="result">Monday's afternoon of copy-paste is gone. The report <span class="hl">refreshes in minutes</span>, and everyone reads the same live truth.</p>
     </div>
     <div>
       <div class="browser">
-        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">b2b-banking · intelligence → campaigns</span></div>
-        <div class="ui" style="padding:0;--sp-panel:#111111;--sp-line:#232323;--sp-muted:#8b8b8b;--sp-accent:#C4A66C;background:#000;color:#f4f4f4">
-          <div class="appshell" style="grid-template-columns:132px 1fr">
-            <div class="side" style="background:#080808">
-              <div class="brand2" style="color:#C4A66C">B2B Banking</div>
-              <div class="nav2"><a>Dashboard</a><a class="on">Intelligence</a><a>Recommendations</a><a>Campaigns</a><a>Ask AI</a></div>
-            </div>
-            <div class="main">
-              <div class="topline"><span class="t">Insights → Campaign</span><span class="pill" style="border-color:#C4A66C;color:#C4A66C">AI gateway</span></div>
-              <div class="rows">
-                <div class="r"><span class="tg" style="border-color:#94A3B8;color:#94A3B8">DORMANT</span><span class="grow"><span class="h">Dormant account revival</span><div class="meter" style="--w:88%"><i></i></div></span><span class="s">1,204</span></div>
-                <div class="r"><span class="tg" style="border-color:#C2410C;color:#C2410C">FLIGHT</span><span class="grow"><span class="h">Deposit flight risk</span><div class="meter" style="--w:64%"><i></i></div></span><span class="s">318</span></div>
-                <div class="r"><span class="tg" style="border-color:#4FA85C;color:#4FA85C">GROWTH</span><span class="grow"><span class="h">SMB growth opportunity</span><div class="meter" style="--w:80%"><i></i></div></span><span class="s">742</span></div>
-              </div>
-              <div class="pipe"><span class="node">Audience</span><span class="flow"></span><span class="node hl">AI content</span><span class="flow"></span><span class="node">Export</span></div>
-              <div class="ask"><div class="q" id="bqQ"><span class="cur">&nbsp;</span></div><div class="a" id="bqA"></div></div>
-            </div>
+        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">sla-dashboard · program performance</span></div>
+        <div class="ui" style="--sp-panel:#ffffff;--sp-line:#E7E6F2;--sp-muted:#67696F;--sp-accent:#5C4BB9;background:#F4F4FA;color:#282A32">
+          <div class="topline"><span class="t">SLA Performance · Week of Jun 8</span><span class="pill">auto-refreshed</span></div>
+          <div class="rag">
+            <div class="c g"><div class="lbl">Program A</div><div class="val" data-count="98" data-suffix="%">0%</div><div class="d">On-time</div></div>
+            <div class="c a"><div class="lbl">Program B</div><div class="val" data-count="91" data-suffix="%">0%</div><div class="d">Watch</div></div>
+            <div class="c r"><div class="lbl">Program C</div><div class="val" data-count="84" data-suffix="%">0%</div><div class="d">Breach</div></div>
           </div>
+          <div class="heat">
+            <div class="row"><span class="rl">On-Time Rate</span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#D7472F"></span><span class="cell" style="background:#4FA85C"></span></div>
+            <div class="row"><span class="rl">QA Pass Rate</span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#E0A100"></span></div>
+            <div class="row"><span class="rl">Throughput</span><span class="cell" style="background:#E0A100"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#D7472F"></span><span class="cell" style="background:#4FA85C"></span><span class="cell" style="background:#4FA85C"></span></div>
+          </div>
+          <div class="bars"><span class="b" data-h="52"></span><span class="b" data-h="63"></span><span class="b" data-h="71"></span><span class="b" data-h="58"></span><span class="b" data-h="80"></span><span class="b" data-h="74"></span><span class="b" data-h="88"></span><span class="b" data-h="82"></span></div>
         </div>
       </div>
-      <div class="snapcap">Synthetic data · watch a question answer itself</div>
-      <button class="launch" data-launch="tools/bankiq/index.html" data-label="B2B Banking app · prototype" data-note="Full interactive prototype · synthetic data">Launch the full prototype <span class="hint">↗ live build</span></button>
+      <div class="snapcap">Sanitized preview · synthetic data · program names withheld</div>
+      <button class="launch" data-launch="tools/metaquest/index.html" data-label="MetaQuest · SLA dashboard" data-note="Password-gated build · password: metaverse">Launch the full dashboard <span class="hint">↗ live build</span></button>
     </div>
   </div>
     </div>
@@ -1041,6 +1001,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
               <button class="dstab on" role="tab" aria-selected="true" data-i="0">Rationale deck</button>
               <button class="dstab" role="tab" aria-selected="false" data-i="1">Design system</button>
               <button class="dstab" role="tab" aria-selected="false" data-i="2">Live storybook</button>
+              <button class="dstab" role="tab" aria-selected="false" data-i="3">Live prototype</button>
             </div>
             <div class="dspane">
               <div class="dsphead"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u" id="dsPaneU">bankiq · rationale deck</span></div>
@@ -1048,6 +1009,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
                 <iframe class="dsf on" data-src="tools/bankiq-rationale/index.html" title="B2B Banking · Design Rationale" loading="lazy"></iframe>
                 <iframe class="dsf" data-src="tools/bankiq-design-system/index.html" title="B2B Banking · Design System" loading="lazy"></iframe>
                 <iframe class="dsf" data-src="tools/bankiq-storybook/index.html" title="B2B Banking · Live Storybook" loading="lazy"></iframe>
+                <iframe class="dsf" data-src="tools/bankiq/index.html" title="B2B Banking · Live Prototype" loading="lazy"></iframe>
               </div>
             </div>
           </div>
@@ -1331,7 +1293,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           window.addEventListener('resize',function(){ set(i); });
         })();
         </script>
-        <details class="more"><summary><span class="mk">+</span> The story behind it</summary>
+        <details class="more" open><summary><span class="mk">+</span> The story behind it</summary>
           <div class="grid2">
             <div><h4>The gap</h4><p>Facilities teams juggled work orders, licensing, and vendors across spreadsheets and phone calls. Status was always stale, and dispatching the right technician meant guesswork.</p></div>
             <div><h4>The move</h4><p>One platform to raise a work order, match it to the right service line and licensed provider, and track it to done, with every job's status easy to see.</p></div>
@@ -1427,17 +1389,18 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     var tabs=[].slice.call(wrap.querySelectorAll('.dstab')),
         frames=[].slice.call(wrap.querySelectorAll('.dsf')),
         headU=document.getElementById('dsPaneU'),
-        labels=['bankiq · rationale deck','bankiq · design system','bankiq · live storybook'],
+        labels=['bankiq · rationale deck','bankiq · design system','bankiq · live storybook','bankiq · live prototype'],
         loaded=[];
     function load(i){ if(!loaded[i]){ frames[i].src=frames[i].getAttribute('data-src'); loaded[i]=true; } }
-    function activate(i){
+    function activate(i,scroll){
       tabs.forEach(function(t,k){ t.classList.toggle('on',k===i); t.setAttribute('aria-selected',k===i?'true':'false'); });
       frames.forEach(function(f,k){ f.classList.toggle('on',k===i); });
       if(headU) headU.textContent=labels[i]||'';
       load(i);
+      if(scroll!==false) wrap.scrollIntoView({behavior:'smooth',block:'start'});
     }
     tabs.forEach(function(t,i){ t.addEventListener('click',function(){ activate(i); }); });
-    window.rlDsTab=function(i){ activate(i); wrap.scrollIntoView({behavior:'smooth',block:'center'}); };
+    window.rlDsTab=function(i){ activate(i); };
     // load the first build once the section scrolls into view
     var seen=false;
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting&&!seen){ seen=true; load(0); } }); },{threshold:.15}).observe(wrap);
