@@ -476,6 +476,47 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .fj svg{display:block;width:100%;height:auto}
 .fj .note{color:var(--ink-2);font-size:14px;line-height:1.55;padding:16px 18px}
 .fj .note b{color:var(--ink);font-weight:600}
+/* journey map — standardized research artifact with animated stage spotlight */
+.jmap{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#101013,#0a0a0c);padding:16px 16px 18px;position:relative;overflow:hidden}
+.jmap .jmhd{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.jmap .jmtag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#0b0b0d;background:var(--accent);border-radius:5px;padding:4px 9px;font-weight:600}
+.jmap .jmpersona{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:5px;padding:4px 9px}
+.jmap .jmprov{font-family:var(--mono);font-size:10px;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.jmap .jmprov::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7}
+.jmap .jmscen{color:var(--muted);font-size:12px;line-height:1.5;margin:9px 0 4px;max-width:70ch}
+.jmap .jmwrap{position:relative;margin-top:12px}
+.jmap .jmherozone{position:relative;height:112px;margin-bottom:8px}
+.jmap .jmhero{position:absolute;bottom:0;left:50%;width:238px;transform:translateX(-50%);background:linear-gradient(180deg,#17171b,#101013);border:1px solid var(--line);border-radius:12px;padding:11px 13px;box-shadow:0 24px 52px -22px rgba(0,0,0,.85);opacity:0;transition:left .55s cubic-bezier(.5,0,.2,1),opacity .35s ease}
+.jmap .jmhero.on{opacity:1}
+.jmap .jmharrow{position:absolute;bottom:-7px;left:50%;width:12px;height:12px;background:#111114;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateX(-50%) rotate(45deg);transition:left .55s cubic-bezier(.5,0,.2,1)}
+.jmap .jmhstage{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.jmap .jmhstage .n{font-family:var(--mono);font-size:10px;color:#0b0b0d;background:var(--accent);border-radius:4px;padding:2px 6px;font-weight:700}
+.jmap .jmhstage b{font-size:13px;color:var(--ink);font-weight:600}
+.jmap .jmhstage .syn{margin-left:auto;font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.jmap .jmhrow{display:flex;gap:9px;margin-top:5px}
+.jmap .jmhrow .k{font-family:var(--mono);font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;flex:0 0 60px;padding-top:2px}
+.jmap .jmhrow .v{font-size:11px;color:var(--ink-2);line-height:1.35;flex:1}
+.jmap .jmhrow .v.opp{color:var(--accent)}
+.jmap .jmemote{position:relative;height:66px;margin:0 2px}
+.jmap .jmemote svg{position:absolute;inset:0;width:100%;height:100%}
+.jmap .jmline{fill:none;stroke:url(#jmgrad);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.jmap .jmarea{fill:url(#jmarea)}
+.jmap .jmpt{position:absolute;width:9px;height:9px;border-radius:50%;background:#0a0a0c;border:2px solid var(--muted);transform:translate(-50%,-50%);transition:border-color .3s,background .3s,box-shadow .3s,width .3s,height .3s;z-index:2}
+.jmap .jmpt.hot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px rgba(200,255,61,.16);width:11px;height:11px}
+.jmap .jmyl{position:absolute;left:0;font-family:var(--mono);font-size:8px;color:var(--muted);opacity:.55}
+.jmap .jmgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:8px}
+.jmap .jmstage{border:1px solid var(--line);border-radius:10px;background:#0d0d10;padding:9px 8px 10px;transition:transform .4s cubic-bezier(.5,0,.2,1),border-color .4s,background .4s,box-shadow .4s}
+.jmap .jmstage.active{border-color:rgba(200,255,61,.5);background:linear-gradient(180deg,rgba(200,255,61,.08),#0d0d10);transform:translateY(-4px);box-shadow:0 18px 34px -18px rgba(0,0,0,.8)}
+.jmap .jmphase{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.jmap .jmphase .pn{font-family:var(--mono);font-size:9px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 4px}
+.jmap .jmstage.active .jmphase .pn{color:#0b0b0d;background:var(--accent);border-color:var(--accent)}
+.jmap .jmact{font-size:9.5px;color:var(--muted);line-height:1.4;margin-top:6px;min-height:39px}
+.jmap .jmdots{display:flex;flex-direction:column;gap:4px;font-family:var(--mono);font-size:8.5px;color:var(--ink-2)}
+.jmap .jmdots span{display:inline-flex;align-items:center;gap:5px}
+.jmap .jmdots .pain::before{content:"";width:6px;height:6px;border-radius:50%;background:#e5533d;flex:0 0 auto}
+.jmap .jmdots .opp::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:0 0 auto}
+@media(max-width:720px){.jmap{overflow-x:auto}.jmap .jmwrap{min-width:640px}}
+@media(prefers-reduced-motion:reduce){.jmap .jmstage,.jmap .jmhero,.jmap .jmharrow,.jmap .jmpt{transition:none}}
 /* DMG composed device scene (iso tilt + drop shadows, overlapping) */
 /* DMG animated prototype — multi-screen recreation of the provider app with pop-out feature callouts */
 :root{--dmgblue:#2f6fd6;--dmgink:#1b1c20;--dmgmut:#8b8f98;--dmgbord:#edeff2;--dmggreen:#34a853;--dmgamber:#e08a1e;--dmgring:#9d2f33}
@@ -1552,54 +1593,91 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 
         <div class="uxprocess">
           <div class="lbl">UX process</div>
-          <p class="pintro">A slice of the research and systems thinking behind the build — synthesized from dispatcher interviews and ride-alongs with field techs.</p>
-          <div class="fjgrid">
-            <div class="fj full">
-              <div class="fjhead"><span class="d" style="background:#c8ff3d"></span>work-order-flow.fig · request → resolved</div>
-              <div class="board"><svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
-                <defs><marker id="fa" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#5a5a66"/></marker></defs>
-                <g transform="rotate(-3 95 40)"><rect x="20" y="16" width="152" height="48" rx="3" fill="#e6b8bf"/><text x="30" y="35" font-size="10" fill="#3a1e22">Today: phones,</text><text x="30" y="49" font-size="10" fill="#3a1e22">email &amp; spreadsheets</text></g>
-                <g transform="rotate(2 448 34)"><rect x="360" y="12" width="186" height="46" rx="3" fill="#efd67a"/><text x="370" y="31" font-size="10" fill="#3a331a">Idea: auto-match by</text><text x="370" y="45" font-size="10" fill="#3a331a">service line + license + zone</text></g>
-                <g fill="#16161a" stroke="#34343e"><rect x="14" y="104" width="104" height="46" rx="8"/><rect x="140" y="104" width="104" height="46" rx="8"/><rect x="426" y="104" width="120" height="46" rx="8" fill="#1b2410" stroke="#4d6a1f"/><rect x="568" y="104" width="104" height="46" rx="8"/><rect x="286" y="176" width="130" height="40" rx="8"/></g>
-                <polygon points="330,100 386,127 330,154 274,127" fill="#16161a" stroke="#34343e"/>
-                <g fill="#cbcbd2" font-size="12" text-anchor="middle"><text x="66" y="131">New request</text><text x="192" y="131">Triage + SLA</text><text x="330" y="131" font-size="10.5">Licensed?</text><text x="486" y="131" fill="#c8ff3d">Match + dispatch</text><text x="620" y="131">Track to done</text><text x="351" y="200">Flag + re-route</text></g>
-                <g stroke="#4a4a55" fill="none" marker-end="url(#fa)"><line x1="118" y1="127" x2="138" y2="127"/><line x1="244" y1="127" x2="272" y2="127"/><line x1="386" y1="127" x2="424" y2="127"/><line x1="546" y1="127" x2="566" y2="127"/><line x1="330" y1="154" x2="330" y2="174"/><path d="M416,196 L472,196 L484,152"/></g>
-                <text x="402" y="120" font-size="9" fill="#7fae3a">yes</text><text x="338" y="169" font-size="9" fill="#8a8a92">no</text>
-              </svg></div>
+          <p class="pintro">Before a pixel, I mapped the job the dispatcher actually does — where it breaks and where the product could earn its keep. The raw notes stay in the file; this is the distilled version.</p>
+          <div class="jmap" id="jmap">
+            <div class="jmhd">
+              <span class="jmtag">Journey map</span>
+              <span class="jmpersona">Persona · Dispatcher</span>
+              <span class="jmprov">18 interviews</span>
+              <span class="jmprov">6 field ride-alongs</span>
+              <span class="jmprov">3 mo. ticket data</span>
             </div>
-
-            <div class="fj full">
-              <div class="fjhead"><span class="d" style="background:#8ab4e8"></span>research-synthesis.fig · affinity map</div>
-              <div class="board"><svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
-                <g font-size="10" letter-spacing="1.5" fill="#8a8a92" text-anchor="middle"><text x="130" y="24">PAIN POINTS</text><text x="380" y="24">BEHAVIORS</text><text x="630" y="24">OPPORTUNITIES</text></g>
-                <g fill="#e6b8bf"><rect x="28" y="40" width="204" height="46" rx="3"/><rect x="28" y="96" width="204" height="46" rx="3"/><rect x="28" y="152" width="204" height="46" rx="3"/></g>
-                <g fill="#3a1e22" font-size="11"><text x="40" y="68">Status is always stale</text><text x="40" y="124">Wrong tech shows up</text><text x="40" y="180">Licenses live in email</text></g>
-                <g fill="#a9c5ea"><rect x="278" y="40" width="204" height="46" rx="3"/><rect x="278" y="96" width="204" height="46" rx="3"/><rect x="278" y="152" width="204" height="46" rx="3"/></g>
-                <g fill="#1c2c3e" font-size="11"><text x="290" y="68">Calls to confirm status</text><text x="290" y="124">Re-keys across 3 tools</text><text x="290" y="180">Dispatches on gut feel</text></g>
-                <g fill="#b3dcb6"><rect x="528" y="40" width="204" height="46" rx="3"/><rect x="528" y="96" width="204" height="46" rx="3"/><rect x="528" y="152" width="204" height="46" rx="3"/></g>
-                <g fill="#1f3320" font-size="11"><text x="540" y="68">One live source of truth</text><text x="540" y="124">Match on license + zone</text><text x="540" y="180">Ship modules in hours</text></g>
-              </svg></div>
-            </div>
-
-            <div class="fj">
-              <div class="fjhead"><span class="d" style="background:#efd67a"></span>prioritization.fig · effort × impact</div>
-              <div class="board"><svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
-                <g stroke="#2a2a32"><line x1="40" y1="20" x2="40" y2="220"/><line x1="40" y1="220" x2="340" y2="220"/><line x1="40" y1="120" x2="340" y2="120" stroke-dasharray="3 4"/><line x1="190" y1="20" x2="190" y2="220" stroke-dasharray="3 4"/></g>
-                <g font-size="9" fill="#6b6b74"><text x="46" y="34">IMPACT ↑</text><text x="252" y="236">EFFORT →</text></g>
-                <circle cx="95" cy="60" r="7" fill="#c8ff3d"/><text x="108" y="63" font-size="10" fill="#cbcbd2">Live status</text>
-                <circle cx="150" cy="82" r="7" fill="#9bd6a0"/><text x="163" y="85" font-size="10" fill="#cbcbd2">Auto-match</text>
-                <circle cx="272" cy="70" r="7" fill="#8ab4e8"/><text x="214" y="54" font-size="10" fill="#cbcbd2">Mobile dispatch</text>
-                <circle cx="120" cy="175" r="6" fill="#6a6a72"/><text x="132" y="178" font-size="10" fill="#8a8a92">Bulk import</text>
-                <circle cx="292" cy="182" r="6" fill="#6a6a72"/><text x="232" y="202" font-size="10" fill="#8a8a92">Custom reports</text>
-              </svg></div>
-            </div>
-
-            <div class="fj">
-              <div class="fjhead"><span class="d" style="background:#c8ff3d"></span>principles.md</div>
-              <div class="note"><b>Status before everything.</b> Every screen answers "where is this job?" at a glance.<br/><br/><b>Match, don't make them think.</b> The system proposes the right licensed provider; the dispatcher just confirms.<br/><br/><b>Build to extend.</b> New service lines and modules drop into the same component system.</div>
+            <div class="jmscen">Goal — get the right licensed tech to the job, fast, with a status everyone can see.</div>
+            <div class="jmwrap">
+              <div class="jmherozone">
+                <div class="jmhero" id="jmHero">
+                  <div class="jmhstage"><span class="n">01</span><b>Intake</b><span class="syn">synthesized</span></div>
+                  <div class="jmhrow"><span class="k">What we heard</span><span class="v" id="jmHeard">…</span></div>
+                  <div class="jmhrow"><span class="k">Opportunity</span><span class="v opp" id="jmOpp">…</span></div>
+                  <span class="jmharrow" id="jmArrow"></span>
+                </div>
+              </div>
+              <div class="jmemote">
+                <svg viewBox="0 0 600 66" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="jmgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e5533d"/><stop offset=".5" stop-color="#e0b53a"/><stop offset="1" stop-color="#c8ff3d"/></linearGradient>
+                    <linearGradient id="jmarea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8ff3d" stop-opacity=".16"/><stop offset="1" stop-color="#c8ff3d" stop-opacity="0"/></linearGradient>
+                  </defs>
+                  <path class="jmarea" d="M50,32.5 L150,43 L250,46.6 L350,36 L450,30.7 L550,21 L550,66 L50,66 Z"/>
+                  <path class="jmline" d="M50,32.5 L150,43 L250,46.6 L350,36 L450,30.7 L550,21"/>
+                </svg>
+                <span class="jmyl" style="top:1px">delight</span>
+                <span class="jmyl" style="bottom:1px">frustration</span>
+                <div class="jmpt" data-i="0" style="left:8.333%;top:32.5px"></div>
+                <div class="jmpt" data-i="1" style="left:25%;top:43px"></div>
+                <div class="jmpt" data-i="2" style="left:41.667%;top:46.6px"></div>
+                <div class="jmpt" data-i="3" style="left:58.333%;top:36px"></div>
+                <div class="jmpt" data-i="4" style="left:75%;top:30.7px"></div>
+                <div class="jmpt" data-i="5" style="left:91.667%;top:21px"></div>
+              </div>
+              <div class="jmgrid">
+                <div class="jmstage" data-i="0"><div class="jmphase"><span class="pn">01</span>Intake</div><div class="jmact">Log the request; capture site, issue &amp; contact.</div><div class="jmdots"><span class="pain">scattered inputs</span><span class="opp">one intake</span></div></div>
+                <div class="jmstage" data-i="1"><div class="jmphase"><span class="pn">02</span>Triage</div><div class="jmact">Set priority, SLA &amp; the right service line.</div><div class="jmdots"><span class="pain">judged from memory</span><span class="opp">guided rules</span></div></div>
+                <div class="jmstage" data-i="2"><div class="jmphase"><span class="pn">03</span>Match</div><div class="jmact">Check license, zone &amp; availability.</div><div class="jmdots"><span class="pain">manual &amp; risky</span><span class="opp">auto-match</span></div></div>
+                <div class="jmstage" data-i="3"><div class="jmphase"><span class="pn">04</span>Dispatch</div><div class="jmact">Assign the tech; send full job details.</div><div class="jmdots"><span class="pain">lost context</span><span class="opp">one-tap send</span></div></div>
+                <div class="jmstage" data-i="4"><div class="jmphase"><span class="pn">05</span>On-site</div><div class="jmact">Work performed; status updated live.</div><div class="jmdots"><span class="pain">goes dark</span><span class="opp">live status</span></div></div>
+                <div class="jmstage" data-i="5"><div class="jmphase"><span class="pn">06</span>Resolve</div><div class="jmact">Verify, close &amp; invoice the job.</div><div class="jmdots"><span class="pain">scattered proof</span><span class="opp">audit trail</span></div></div>
+              </div>
             </div>
           </div>
         </div>
+        <script>
+        (function(){
+          var jm=document.getElementById('jmap'); if(!jm) return;
+          var stages=[
+            {n:'01',name:'Intake',heard:'Requests arrive by phone, email and text — nothing lands in one place.',opp:'One intake, a single source of truth.'},
+            {n:'02',name:'Triage',heard:'Priority is judged from memory, so urgent jobs quietly slip.',opp:'Guided triage with SLA rules built in.'},
+            {n:'03',name:'Match',heard:'Finding the right licensed tech is manual and easy to get wrong.',opp:'Auto-match on license, zone and availability.'},
+            {n:'04',name:'Dispatch',heard:'Hand-offs lose context between the office and the field.',opp:'One-tap dispatch that carries the full job.'},
+            {n:'05',name:'On-site',heard:'Once a tech is on site, status goes dark for everyone else.',opp:'Live status straight from the field.'},
+            {n:'06',name:'Resolve',heard:'Close-out and proof end up in scattered threads.',opp:'Structured close-out with an audit trail.'}
+          ];
+          var cols=jm.querySelectorAll('.jmstage'), pts=jm.querySelectorAll('.jmpt'),
+              hero=jm.querySelector('#jmHero'), arrow=jm.querySelector('#jmArrow'),
+              hn=hero.querySelector('.n'), hname=hero.querySelector('b'),
+              heard=document.getElementById('jmHeard'), opp=document.getElementById('jmOpp'),
+              wrap=jm.querySelector('.jmwrap');
+          var reduce=matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+          function set(i){
+            cols.forEach(function(c,k){c.classList.toggle('active',k===i);});
+            pts.forEach(function(p,k){p.classList.toggle('hot',k===i);});
+            var s=stages[i]; hn.textContent=s.n; hname.textContent=s.name; heard.textContent=s.heard; opp.textContent=s.opp;
+            var cr=cols[i].getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+            var cx=cr.left-wr.left+cr.width/2, hw=hero.offsetWidth||238;
+            var lx=Math.max(hw/2+2, Math.min(cx, wr.width-hw/2-2));
+            hero.style.left=lx+'px';
+            arrow.style.left=Math.max(14,Math.min(hw-14, cx-lx+hw/2))+'px';
+            hero.classList.add('on');
+          }
+          if(reduce){ set(2); return; }
+          var i=0; set(0); var started=false;
+          var io=new IntersectionObserver(function(es){es.forEach(function(e){
+            if(e.isIntersecting && !started){ started=true; setInterval(function(){ i=(i+1)%stages.length; set(i); },2600); }
+          });},{threshold:.25});
+          io.observe(jm);
+          window.addEventListener('resize',function(){ set(i); });
+        })();
+        </script>
         <details class="more"><summary><span class="mk">+</span> The story behind it</summary>
           <div class="grid2">
             <div><h4>The gap</h4><p>Facilities teams juggled work orders, licensing, and vendors across spreadsheets and phone calls. Status was always stale, and dispatching the right technician meant guesswork.</p></div>
