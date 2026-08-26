@@ -203,13 +203,20 @@ a{color:inherit}
 /* three-piece index: storybook · full system · rationale */
 .ds .dsindex{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
 @media(max-width:680px){.ds .dsindex{grid-template-columns:1fr}}
-.ds .dsix{display:flex;align-items:flex-start;gap:12px;text-align:left;background:var(--b2);border:1px solid var(--l1);border-radius:10px;padding:14px 15px;cursor:pointer;text-decoration:none;font-family:var(--bd);transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
-.ds .dsix:hover{border-color:var(--la);background:var(--b3);transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(0,0,0,.7)}
+.ds .dsix{display:flex;flex-direction:column;text-align:left;background:var(--b2);border:1px solid var(--l1);border-radius:12px;padding:0;overflow:hidden;cursor:pointer;text-decoration:none;font-family:var(--bd);transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
+.ds .dsix:hover{border-color:var(--la);transform:translateY(-3px);box-shadow:0 18px 36px -16px rgba(0,0,0,.75)}
+.ds .dsix .thumb{position:relative;display:block;aspect-ratio:16/10;background:#0d0d10;border-bottom:1px solid var(--l0);overflow:hidden}
+.ds .dsix .thumb svg{display:block;width:100%;height:100%}
+.ds .dsix .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(196,166,108,.12));opacity:0;transition:opacity .18s}
+.ds .dsix:hover .thumb::after{opacity:1}
+.ds .dsix .cap{display:flex;align-items:flex-start;gap:11px;padding:13px 14px}
 .ds .dsix .n{font-family:var(--mn);font-size:11px;color:var(--g);border:1px solid var(--la);border-radius:5px;padding:3px 7px;flex:0 0 auto;letter-spacing:.05em}
 .ds .dsix .t{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ds .dsix .t b{color:var(--t0);font-weight:600;font-size:14px;line-height:1.15}
 .ds .dsix .t span{color:var(--t3);font-size:11px;font-family:var(--mn);letter-spacing:.02em}
-.ds .dsix.active{background:linear-gradient(180deg,rgba(196,166,108,.1),transparent 80%),var(--b2);border-color:var(--la)}
+.ds .dsix.active{border-color:var(--la);box-shadow:0 0 0 1px var(--la) inset}
+.ds .dsix.active .thumb{border-bottom-color:var(--la)}
+.ds .dsix.active .cap{background:linear-gradient(180deg,rgba(196,166,108,.1),transparent)}
 .ds .dsix.active .n{background:var(--g);color:#0b0b0d;border-color:var(--g)}
 /* embedded content window (no modal) */
 .ds .dsview{display:none;margin-top:22px}
@@ -470,20 +477,86 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .fj .note{color:var(--ink-2);font-size:14px;line-height:1.55;padding:16px 18px}
 .fj .note b{color:var(--ink);font-weight:600}
 /* DMG composed device scene (iso tilt + drop shadows, overlapping) */
-.dmgscene{margin:10px 0 14px;perspective:2000px}
-.dmgscene .dev{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#0c0c0c;box-shadow:0 46px 100px -34px rgba(0,0,0,.85),0 16px 36px -16px rgba(0,0,0,.55)}
-.dmgscene .top{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#151515;border-bottom:1px solid var(--line)}
-.dmgscene .top .dot{width:9px;height:9px;border-radius:50%;background:#2f2f2f;flex:0 0 auto}
-.dmgscene .top .dot.r{background:#ff5f57}.dmgscene .top .dot.y{background:#febc2e}.dmgscene .top .dot.g{background:#28c840}
-.dmgscene .top .u{flex:1;min-width:0;margin-left:8px;font-family:var(--mono);font-size:10px;color:var(--muted-2);background:#0b0b0b;border:1px solid var(--line);border-radius:5px;padding:4px 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.dmgscene .dev img{display:block;width:100%;height:auto;background:#0f0f0f}
-.dmgscene .lead{width:82%;margin:0 auto;transform:rotateX(2.5deg);transform-origin:center bottom;position:relative;z-index:3}
-.dmgscene .pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:-32px 0 0;position:relative;z-index:2}
-.dmgscene .pair .dev:nth-child(1){transform:rotate(-1.2deg)}
-.dmgscene .pair .dev:nth-child(2){transform:rotate(1.4deg) translateY(16px)}
-.dmgscene .wide{margin-top:22px;position:relative;z-index:1}
-.dmgscene .scenecap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:.02em}
-@media(max-width:640px){.dmgscene .lead{width:100%;transform:none}.dmgscene .pair{grid-template-columns:1fr;gap:16px;margin-top:16px}.dmgscene .pair .dev{transform:none!important}}
+/* DMG animated prototype — faithful recreation of the provider app + pop-out feature callouts */
+:root{--dmgblue:#2f6fd6;--dmgink:#1b1c20;--dmgmut:#8b8f98;--dmgbord:#eceef1;--dmggreen:#34a853;--dmgring:#9d2f33}
+.dmgproto{position:relative;margin:2px auto 4px;max-width:820px;min-height:600px;display:flex;align-items:center;justify-content:center;padding:20px 0}
+.dmgproto .aura{position:absolute;top:6%;left:50%;transform:translateX(-50%);width:340px;height:88%;background:radial-gradient(closest-side,rgba(47,111,214,.20),transparent 70%);filter:blur(24px);z-index:0}
+.dmgphone{position:relative;z-index:2;width:272px;flex:0 0 auto;border-radius:40px;background:linear-gradient(150deg,#17181b,#050506);padding:11px;box-shadow:0 64px 120px -44px rgba(0,0,0,.88),0 22px 46px -22px rgba(0,0,0,.6),inset 0 0 0 1.5px #2a2a30;animation:dmgfloat 7s ease-in-out infinite}
+@keyframes dmgfloat{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-12px) rotate(.5deg)}}
+.dmgscreen{position:relative;border-radius:29px;overflow:hidden;background:#fff;width:250px;height:515px;font-family:var(--bd);color:var(--dmgink)}
+.dmgscreen .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:86px;height:20px;background:#050506;border-radius:0 0 13px 13px;z-index:9}
+.dmgsb{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 2px;font:600 10px var(--bd)}
+.dmgsb svg{display:block}
+.dmghdr{display:flex;align-items:center;gap:9px;padding:6px 14px 8px}
+.dmgav{width:30px;height:30px;border-radius:50%;background:#e9edf3;flex:0 0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dmgname{font-weight:700;font-size:15px;letter-spacing:-.01em}
+.dmghdr .sp{flex:1}
+.dmghdr .ic{color:#20222a}
+.dmgdiv{height:1px;background:var(--dmgbord);margin:0 14px}
+.dmgsetup{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:12px 14px 10px}
+.dmgring{position:relative;width:52px;height:52px;flex:0 0 auto}
+.dmgring svg{transform:rotate(-90deg)}
+.dmgring .arc{stroke:var(--dmgring);stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:138;stroke-dashoffset:92;animation:dmgarc 12s ease-in-out infinite}
+@keyframes dmgarc{0%{stroke-dashoffset:138}6%,100%{stroke-dashoffset:92}}
+.dmgring .trk{stroke:#eceef1;stroke-width:4;fill:none}
+.dmgring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--dmgring)}
+.dmgset2{display:flex;flex-direction:column}
+.dmgsetlbl{font-size:11px;color:var(--dmgmut);margin-top:5px;line-height:1.25;text-align:center;max-width:58px}
+.dmgchk{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin:0;padding:0;list-style:none}
+.dmgchk li{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#3a3c44}
+.dmgchk li::before{content:"";width:12px;height:12px;border-radius:50%;background:#d7dae0;flex:0 0 auto}
+.dmgchk li.on::before{background:var(--dmggreen);box-shadow:inset 0 0 0 2px #fff,0 0 0 1px var(--dmggreen)}
+.dmgcards{padding:2px 14px 0;display:flex;flex-direction:column;gap:9px}
+.dmgcard{border:1px solid var(--dmgbord);border-radius:12px;padding:12px 12px;box-shadow:0 1px 2px rgba(20,24,40,.04)}
+.dmgcard .row{display:flex;align-items:center;gap:9px}
+.dmgcard .row .lbl{font-weight:600;font-size:13px}
+.dmgcard .row .sp{flex:1}
+.dmgcard .ci{color:#2b2d34;flex:0 0 auto}
+.dmgcard .chev{color:#b5b9c1}
+.dmgcard.open{border-color:#dfe6f4}
+.dmgaddwrap{position:relative;margin-top:11px}
+.dmgadd{display:flex;align-items:center;gap:9px;color:var(--dmgblue);font-weight:600;font-size:12.5px}
+.dmgadd .plus{width:17px;height:17px;border-radius:50%;background:var(--dmgblue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;flex:0 0 auto}
+.dmgripple{position:absolute;left:9px;top:9px;width:0;height:0;border-radius:50%;background:rgba(47,111,214,.28);transform:translate(-50%,-50%);z-index:3;animation:dmgripple 12s ease-out infinite}
+@keyframes dmgripple{0%,33%{width:0;height:0;opacity:.5}40%{width:120px;height:120px;opacity:0}41%,100%{width:0;height:0;opacity:0}}
+.dmgnewline{overflow:hidden;max-height:0;opacity:0;margin-top:0;animation:dmgnew 12s ease-in-out infinite}
+.dmgnewline .in{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:9px;background:#f2f6fd;border:1px solid #dbe6fb;font-size:12px;font-weight:600;color:#25303f}
+.dmgnewline .tick{margin-left:auto;color:var(--dmggreen);font-weight:700}
+@keyframes dmgnew{0%,40%{max-height:0;opacity:0}46%{max-height:52px;opacity:1}80%{max-height:52px;opacity:1}86%,100%{max-height:0;opacity:0}}
+.dmgtabs{position:absolute;left:0;right:0;bottom:0;display:flex;padding:8px 10px 12px;border-top:1px solid var(--dmgbord);background:#fff}
+.dmgtab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:#9498a1;font-weight:600}
+.dmgtab.on{color:#fff;background:var(--dmgblue);border-radius:9px;padding:5px 0 4px;box-shadow:0 6px 14px -6px rgba(47,111,214,.6)}
+.dmgcur{position:absolute;z-index:8;width:16px;height:16px;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));animation:dmgcur 12s ease-in-out infinite;opacity:0}
+@keyframes dmgcur{0%,24%{opacity:0;left:78%;top:70%}30%{opacity:1;left:34%;top:70.5%}36%{opacity:1;left:33%;top:70.5%}38%{transform:scale(.82)}40%{transform:scale(1)}44%{opacity:1;left:33%;top:70.5%}72%{opacity:0;left:80%;top:80%}100%{opacity:0}}
+/* pop-out feature callouts */
+.dmgcallout{position:absolute;z-index:4;background:linear-gradient(180deg,#191a1e,#101115);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 13px;width:172px;box-shadow:0 26px 54px -24px rgba(0,0,0,.85);opacity:0;transform:translateY(8px) scale(.94);transform-origin:center}
+.dmgcallout b{display:block;color:#fff;font:600 12.5px var(--bd);letter-spacing:-.01em}
+.dmgcallout span{display:block;color:#a6a9b4;font-size:10.5px;font-family:var(--mono);margin-top:2px}
+.dmgcallout i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--dmgblue);box-shadow:0 0 0 4px rgba(47,111,214,.22)}
+.dmgcallout .dash{position:absolute;height:1px;background:linear-gradient(90deg,var(--dmgblue),transparent);opacity:.6}
+.dmgproto .c1{top:6%;left:2%;animation:dmgpop1 12s ease-in-out infinite}
+.dmgproto .c2{top:34%;left:0;animation:dmgpop2 12s ease-in-out infinite}
+.dmgproto .c3{top:44%;right:1%;animation:dmgpop3 12s ease-in-out infinite}
+.dmgproto .c4{bottom:8%;right:3%;animation:dmgpop4 12s ease-in-out infinite}
+@keyframes dmgpop1{0%,2%{opacity:0;transform:translateY(8px) scale(.94)}7%,76%{opacity:1;transform:translateY(0) scale(1)}82%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
+@keyframes dmgpop2{0%,16%{opacity:0;transform:translateY(8px) scale(.94)}21%,78%{opacity:1;transform:translateY(0) scale(1)}84%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
+@keyframes dmgpop3{0%,30%{opacity:0;transform:translateY(8px) scale(.94)}35%,80%{opacity:1;transform:translateY(0) scale(1)}86%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
+@keyframes dmgpop4{0%,52%{opacity:0;transform:translateY(8px) scale(.94)}58%,82%{opacity:1;transform:translateY(0) scale(1)}88%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
+.dmgcap{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin:0 auto;max-width:560px;letter-spacing:.02em}
+@media(max-width:760px){
+  .dmgproto{min-height:0;flex-direction:column;padding:8px 0 4px}
+  .dmgproto .aura{width:260px}
+  .dmgcallout{position:relative;opacity:1!important;transform:none!important;animation:none!important;width:auto;max-width:300px;margin:8px auto 0;box-shadow:0 14px 30px -18px rgba(0,0,0,.7)}
+  .dmgproto .c1,.dmgproto .c2,.dmgproto .c3,.dmgproto .c4{position:relative;inset:auto}
+  .dmgcallout i,.dmgcallout .dash{display:none}
+  .dmgcallcol{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .dmgphone,.dmgcallout,.dmgcur,.dmgripple,.dmgnewline,.dmgring .arc{animation:none!important}
+  .dmgcallout{opacity:1;transform:none}
+  .dmgnewline{max-height:52px;opacity:1}
+  .dmgcur{opacity:0}
+}
 
 /* special projects tag + throughline */
 .sptag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(200,255,61,.34);border-radius:999px;padding:3px 11px;margin-top:12px}
@@ -752,7 +825,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 <header class="hero" id="top">
   <div class="wrap">
     <div class="htop">
-    <div class="meta reveal"><span>Santa Cruz, CA</span><span>UX &amp; Creative Direction</span><span><b>Available for work</b></span></div>
+    <div class="meta reveal"><span>Santa Cruz, CA</span><span>UX &amp; Creative Direction</span><span><b>Let's connect</b></span></div>
     <h1 class="reveal">Ryan Lynch,<br/><em>designer &amp; maker.</em></h1>
     </div>
     <div class="statement">
@@ -798,7 +871,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   <section class="wrap reveal" style="padding:88px 28px">
     <div class="eyebrow">A throughline</div>
     <h2 class="htitle">Wherever I land, I end up on <em>Special Projects</em>.</h2>
-    <p>Every company has that team, the one pulled aside to build the thing nobody's built yet. I keep getting drafted onto it. Advanced materials at Tesla, the special-projects group at Cruz Foam, and now the internal AI tools I build at Experis. The work below is that chapter.</p>
+    <p>Every company has that team, the one that builds what nobody's built yet. I keep getting pulled onto it, and I don't wait for the brief: I go hunt the problem worth solving and build the thing we didn't know we needed. Advanced materials at Tesla, the special-projects group at Cruz Foam, and now the internal AI tools at Experis. The work below is that chapter.</p>
     <div class="thread">
       <div class="step"><div class="co">Tesla</div><div class="wh">Design Studio · Special Projects</div><div class="ds">Co-founded the advanced-materials team. 3D knitting, enviro-responsive textiles, moonshot production.</div></div>
       <div class="step"><div class="co">Cruz Foam</div><div class="wh">Creative · Special Projects</div><div class="ds">Tapped to shape brand, product, and comms for a first-of-its-kind compostable material.</div></div>
@@ -989,9 +1062,43 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           <h3>Components, specs &amp; states — built for handoff.</h3>
           <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
           <div class="dsindex">
-            <button class="dsix active" data-view="wall"><span class="n">01</span><span class="t"><b>Live storybook</b><span>interactive · below ↓</span></span></button>
-            <button class="dsix" data-view="embed" data-embed="tools/bankiq-design-system/index.html" data-title="B2B Banking app · Design System"><span class="n">02</span><span class="t"><b>Full design system</b><span>25-section reference ↗</span></span></button>
-            <button class="dsix" data-view="embed" data-embed="tools/bankiq-rationale/index.html" data-title="B2B Banking app · Design Rationale"><span class="n">03</span><span class="t"><b>Rationale deck</b><span>decisions &amp; why ↗</span></span></button>
+            <button class="dsix" data-view="embed" data-embed="tools/bankiq-rationale/index.html" data-title="B2B Banking app · Design Rationale">
+              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
+                <rect width="320" height="200" fill="#0e0f1a"/><rect x="22" y="20" width="276" height="160" rx="9" fill="#15172a" stroke="#2b2f4a"/>
+                <circle cx="38" cy="36" r="3" fill="#3893cd"/><rect x="48" y="33" width="46" height="6" rx="3" fill="#5c4bb9"/>
+                <rect x="38" y="54" width="150" height="13" rx="3" fill="#eef0f7"/><rect x="38" y="74" width="104" height="9" rx="3" fill="#9aa0be"/>
+                <defs><marker id="rat" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0L5,3L0,6" fill="none" stroke="#4a5a86"/></marker></defs>
+                <g fill="#1b2138" stroke="#3a63a0"><rect x="38" y="112" width="58" height="30" rx="5"/><rect x="131" y="112" width="58" height="30" rx="5"/><rect x="224" y="112" width="58" height="30" rx="5" fill="#173049" stroke="#3893cd"/></g>
+                <g stroke="#4a5a86" marker-end="url(#rat)"><line x1="96" y1="127" x2="129" y2="127"/><line x1="189" y1="127" x2="222" y2="127"/></g>
+                <g fill="#aeb4d0" font-size="8"><text x="52" y="131">problem</text><text x="147" y="131">tradeoff</text><text x="238" y="131" fill="#7cc4f0">decision</text></g>
+                <rect x="38" y="158" width="120" height="6" rx="3" fill="#2b2f4a"/></svg></span>
+              <span class="cap"><span class="n">01</span><span class="t"><b>Rationale deck</b><span>the decisions &amp; why &rarr;</span></span></span>
+            </button>
+            <button class="dsix" data-view="embed" data-embed="tools/bankiq-design-system/index.html" data-title="B2B Banking app · Design System">
+              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
+                <rect width="320" height="200" fill="#0d0d10"/>
+                <g><rect x="24" y="24" width="34" height="34" rx="6" fill="#c4a66c"/><rect x="64" y="24" width="34" height="34" rx="6" fill="#8b7340"/><rect x="104" y="24" width="34" height="34" rx="6" fill="#232323"/><rect x="144" y="24" width="34" height="34" rx="6" fill="#6366f1"/><rect x="184" y="24" width="34" height="34" rx="6" fill="#ededed"/></g>
+                <rect x="24" y="78" width="86" height="30" rx="7" fill="#c4a66c"/><rect x="40" y="89" width="54" height="8" rx="4" fill="#0b0b0d"/>
+                <rect x="122" y="78" width="86" height="30" rx="7" fill="none" stroke="#c4a66c"/><rect x="138" y="89" width="54" height="8" rx="4" fill="#c4a66c"/>
+                <rect x="228" y="82" width="40" height="22" rx="11" fill="#2a2c30"/><circle cx="257" cy="93" r="8" fill="#c4a66c"/>
+                <rect x="24" y="126" width="184" height="30" rx="7" fill="#141518" stroke="#2a2c30"/><rect x="36" y="137" width="70" height="8" rx="4" fill="#6a6a72"/>
+                <rect x="228" y="126" width="68" height="30" rx="7" fill="#141518" stroke="#2a2c30"/>
+                <rect x="24" y="170" width="272" height="6" rx="3" fill="#1a1b1e"/></svg></span>
+              <span class="cap"><span class="n">02</span><span class="t"><b>Full design system</b><span>25-section reference &rarr;</span></span></span>
+            </button>
+            <button class="dsix active" data-view="wall">
+              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="200" fill="#0d0d10"/>
+                <g stroke="#26272c" fill="#141518"><rect x="20" y="20" width="86" height="76" rx="6"/><rect x="117" y="20" width="86" height="76" rx="6"/><rect x="214" y="20" width="86" height="76" rx="6"/><rect x="20" y="106" width="86" height="74" rx="6"/><rect x="117" y="106" width="86" height="74" rx="6"/><rect x="214" y="106" width="86" height="74" rx="6"/></g>
+                <g fill="#c4a66c"><rect x="30" y="30" width="26" height="5" rx="2.5"/><rect x="127" y="30" width="26" height="5" rx="2.5"/><rect x="224" y="30" width="26" height="5" rx="2.5"/><rect x="30" y="116" width="26" height="5" rx="2.5"/><rect x="127" y="116" width="26" height="5" rx="2.5"/><rect x="224" y="116" width="26" height="5" rx="2.5"/></g>
+                <rect x="30" y="52" width="50" height="18" rx="9" fill="#c4a66c"/>
+                <circle cx="160" cy="62" r="14" fill="none" stroke="#6366f1" stroke-width="3"/>
+                <g fill="#2a2c30"><rect x="224" y="50" width="66" height="7" rx="3"/><rect x="224" y="62" width="52" height="7" rx="3"/><rect x="224" y="74" width="60" height="7" rx="3"/></g>
+                <rect x="30" y="138" width="66" height="20" rx="5" fill="#141518" stroke="#3a3c42"/>
+                <circle cx="134" cy="140" r="4" fill="#28c840"/><rect x="142" y="136" width="52" height="7" rx="3" fill="#2a2c30"/><rect x="127" y="152" width="66" height="7" rx="3" fill="#2a2c30"/>
+                <rect x="224" y="138" width="30" height="30" rx="6" fill="#6366f1" opacity=".8"/><rect x="260" y="138" width="30" height="30" rx="6" fill="#c4a66c" opacity=".8"/></svg></span>
+              <span class="cap"><span class="n">03</span><span class="t"><b>Live storybook</b><span>interactive &middot; below &darr;</span></span></span>
+            </button>
           </div>
         </div>
         <div class="dswall" id="dswall">
@@ -1182,21 +1289,82 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="piece reveal">
       <div class="no">02</div>
       <div class="pc">
+        <div class="ph" id="tesla"><div><h3>Tesla · Design Studio</h3><div class="role">Sr. Designer, Design &amp; Craftsmanship. Production seats, the space-suit program, and co-founder of Special Projects: advanced materials, 3D knitting, and five-year concepts.</div><span class="sptag">Special Projects</span></div></div>
+        <div class="gallery feature">
+          <img src="assets/img/tesla-future.jpg" alt="Tesla advanced rear seating" loading="lazy"/>
+          <img src="assets/img/tesla-trim.jpg" alt="Tesla seat trim design" loading="lazy"/>
+          <img src="assets/img/tesla-seats.jpg" alt="Tesla seat prototypes" loading="lazy"/>
+          <img src="assets/img/tesla-spacesuit.jpg" alt="SpaceX space suit development" loading="lazy"/>
+        </div>
+      </div>
+    </div>
+      <div class="piece reveal">
+      <div class="no">03</div>
+      <div class="pc">
         <div class="ph" id="dmg"><div><h3>DMG</h3><div class="role">Sr. Product Designer on a facilities-maintenance SaaS platform: work orders, service lines, licensing, and technician dispatch for commercial properties.</div></div></div>
         <p class="casesub">DMG ran on spreadsheets, email, and phone calls. As Sr. Product Designer I owned it end to end — the research, the flows, and a component system the team could keep extending. Below: the shipped product, and the thinking that got there.</p>
 
-        <div class="dmgscene">
-          <figure class="dev lead">
-            <div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · dispatch → work order</span></div>
-            <img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff44f7ae87be81ac3a6223_DMGScreenCap-ezgif.com-resize.gif" alt="DMG prototype — work order to dispatch" loading="lazy"/>
-          </figure>
-          <div class="pair">
-            <figure class="dev"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · work orders</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c22b3e6f0e700693822_ezgif.com-animated-gif-maker.gif" alt="Work-order flow" loading="lazy"/></figure>
-            <figure class="dev"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · service lines</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/680061620697547c510124ee_ezgif.com-animated-gif-maker%20(1).gif" alt="Service lines" loading="lazy"/></figure>
+        <div class="dmgproto">
+          <div class="aura"></div>
+          <div class="dmgphone">
+            <div class="dmgscreen">
+              <div class="notch"></div>
+              <div class="dmgsb">
+                <span>9:41</span>
+                <span class="r">
+                  <svg width="16" height="10" viewBox="0 0 18 12"><g fill="#111"><rect x="0" y="7" width="2.4" height="4" rx=".6"/><rect x="3.4" y="5" width="2.4" height="6" rx=".6"/><rect x="6.8" y="3" width="2.4" height="8" rx=".6"/><rect x="10.2" y="1" width="2.4" height="10" rx=".6"/></g></svg>
+                  <svg width="14" height="10" viewBox="0 0 16 12" fill="none" stroke="#111" stroke-width="1.4"><path d="M1 4.5A10 10 0 0 1 15 4.5"/><path d="M3.5 7A6 6 0 0 1 12.5 7"/><circle cx="8" cy="9.5" r="1" fill="#111" stroke="none"/></svg>
+                  <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.4" fill="none" stroke="#111" stroke-width="1.2"/><rect x="2.6" y="3" width="14" height="6" rx="1.2" fill="#111"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#111"/></svg>
+                </span>
+              </div>
+              <div class="dmghdr">
+                <div class="dmgav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7d8896" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></div>
+                <div class="dmgname">Ryan Lynch</div>
+                <div class="sp"></div>
+                <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19"/></svg></span>
+                <span class="ic" style="margin-left:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5h16v11H9l-4 3v-3H4z"/></svg></span>
+              </div>
+              <div class="dmgdiv"></div>
+              <div class="dmgsetup">
+                <div class="dmgset2">
+                  <div class="dmgring">
+                    <svg viewBox="0 0 52 52"><circle class="trk" cx="26" cy="26" r="22"/><circle class="arc" cx="26" cy="26" r="22"/></svg>
+                    <b>2/6</b>
+                  </div>
+                  <div class="dmgsetlbl">Account setup incomplete</div>
+                </div>
+                <ul class="dmgchk">
+                  <li class="on">Provider info</li><li>Insurance</li>
+                  <li class="on">Licenses</li><li>W9 upload</li>
+                  <li class="on">Service lines</li><li>Bank info</li>
+                </ul>
+              </div>
+              <div class="dmgcards">
+                <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></span><span class="lbl">Provider</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+                <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14h5"/></svg></span><span class="lbl">Licenses</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+                <div class="dmgcard open">
+                  <div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></span><span class="lbl">Service Lines</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></span></div>
+                  <div class="dmgaddwrap">
+                    <span class="dmgripple"></span>
+                    <div class="dmgadd"><span class="plus">+</span>Add a new service line</div>
+                    <div class="dmgnewline"><div class="in">HVAC Repair<span class="tick">✓</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <svg class="dmgcur" viewBox="0 0 16 16"><path d="M1 1L1 12L4.2 9.2L6.4 14L8.2 13.2L6 8.6L10 8.6Z" fill="#fff" stroke="#111" stroke-width="1"/></svg>
+              <div class="dmgtabs">
+                <div class="dmgtab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>My Jobs</div>
+                <div class="dmgtab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l3-8h12l3 8M3 13v5h18v-5M3 13h5l1.5 2.5h5L16 13h5"/></svg>Opportunities</div>
+                <div class="dmgtab on"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg>Profile</div>
+              </div>
+            </div>
           </div>
-          <figure class="dev wide"><div class="top"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u">dmg.app · dispatch board</span></div><img src="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/67ff3c7c1f2100603b58fd1d_uiux.png" alt="Platform UI · dispatch board" loading="lazy"/></figure>
-          <figcaption class="scenecap">Prototype to shipped platform. Work orders, licensed-provider matching, dispatch, and live status.</figcaption>
+          <div class="dmgcallout c1"><b>Onboarding, tracked</b><span>setup status at a glance</span><i style="right:-4px;bottom:15px"></i><span class="dash" style="right:-42px;bottom:18px;width:42px"></span></div>
+          <div class="dmgcallout c2"><b>Verified up front</b><span>licenses &amp; insurance</span><i style="right:-4px;top:18px"></i><span class="dash" style="right:-46px;top:21px;width:46px"></span></div>
+          <div class="dmgcallout c3"><b>Add lines in seconds</b><span>tap → live instantly</span><i style="left:-4px;top:18px"></i><span class="dash" style="left:-46px;top:21px;width:46px"></span></div>
+          <div class="dmgcallout c4"><b>Matched by license + zone</b><span>the right tech, dispatched</span><i style="left:-4px;top:16px"></i><span class="dash" style="left:-46px;top:19px;width:46px"></span></div>
         </div>
+        <figcaption class="dmgcap">A faithful rebuild of the DMG provider app — onboarding, licensing, and one-tap service lines — recreated in code for this case study.</figcaption>
 
         <div class="uxprocess">
           <div class="lbl">UX process</div>
@@ -1256,18 +1424,6 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
             <div><h4>Where it landed</h4><p>A clearer path from request to resolution, and a design language the product kept extending long after launch.</p></div>
           </div>
         </details>
-      </div>
-    </div>
-      <div class="piece reveal">
-      <div class="no">03</div>
-      <div class="pc">
-        <div class="ph" id="tesla"><div><h3>Tesla · Design Studio</h3><div class="role">Sr. Designer, Design &amp; Craftsmanship. Production seats, the space-suit program, and co-founder of Special Projects: advanced materials, 3D knitting, and five-year concepts.</div><span class="sptag">Special Projects</span></div></div>
-        <div class="gallery feature">
-          <img src="assets/img/tesla-future.jpg" alt="Tesla advanced rear seating" loading="lazy"/>
-          <img src="assets/img/tesla-trim.jpg" alt="Tesla seat trim design" loading="lazy"/>
-          <img src="assets/img/tesla-seats.jpg" alt="Tesla seat prototypes" loading="lazy"/>
-          <img src="assets/img/tesla-spacesuit.jpg" alt="SpaceX space suit development" loading="lazy"/>
-        </div>
       </div>
     </div>
     </div>
