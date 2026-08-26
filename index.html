@@ -177,9 +177,6 @@ a{color:inherit}
 .ds{--g:#c4a66c;--ind:#6366f1;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--b1:#0a0a0b;--b2:#111214;--b3:#1a1b1e;--b4:#232427;--t0:#f5f5f5;--t1:#bdbdbd;--t2:#a0a0a0;--t3:#8e8e8e;--l0:rgba(255,255,255,.06);--l1:rgba(255,255,255,.12);--l2:rgba(255,255,255,.24);--la:rgba(196,166,108,.3);--disp:'Exo 2',system-ui,sans-serif;--bd:'DM Sans',system-ui,sans-serif;--mn:'DM Mono',ui-monospace,monospace;transition:background .3s ease,color .3s ease}
 .ds.light{--g:#8a6d33;--ind:#4f46e5;--ok:#047857;--warn:#b45309;--bad:#dc2626;--b1:#ffffff;--b2:#f4f5f6;--b3:#eaebed;--b4:#dfe1e4;--t0:#14161a;--t1:#3f4550;--t2:#5a616c;--t3:#767d88;--l0:rgba(15,18,24,.08);--l1:rgba(15,18,24,.14);--l2:rgba(15,18,24,.26);--la:rgba(138,109,51,.45)}
 .ds.light{background:#eef0f2}
-.ds.light .dsvframe,.ds.light .dsview iframe{background:#ffffff}
-.ds.light .dsvhead{background:#f4f5f6;color:var(--t2)}
-.ds.light .dsix.active .n{color:#fff}
 .ds .dstop{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .ds .dstheme{display:inline-flex;align-items:center;gap:8px;background:var(--b2);border:1px solid var(--l1);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;font-family:var(--mn);font-size:11px;letter-spacing:.04em;color:var(--t2);transition:border-color .18s,color .18s,background .18s}
 .ds .dstheme:hover{border-color:var(--la);color:var(--g)}
@@ -203,32 +200,16 @@ a{color:inherit}
 /* three-piece index: storybook · full system · rationale */
 .ds .dsindex{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
 @media(max-width:680px){.ds .dsindex{grid-template-columns:1fr}}
-.ds .dsix{display:flex;flex-direction:column;text-align:left;background:var(--b2);border:1px solid var(--l1);border-radius:12px;padding:0;overflow:hidden;cursor:pointer;text-decoration:none;font-family:var(--bd);transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
-.ds .dsix:hover{border-color:var(--la);transform:translateY(-3px);box-shadow:0 18px 36px -16px rgba(0,0,0,.75)}
-.ds .dsix .thumb{position:relative;display:block;aspect-ratio:16/10;background:#0d0d10;border-bottom:1px solid var(--l0);overflow:hidden}
-.ds .dsix .thumb svg{display:block;width:100%;height:100%}
-.ds .dsix .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(196,166,108,.12));opacity:0;transition:opacity .18s}
-.ds .dsix:hover .thumb::after{opacity:1}
-.ds .dsix .cap{display:flex;align-items:flex-start;gap:11px;padding:13px 14px}
-.ds .dsix .n{font-family:var(--mn);font-size:11px;color:var(--g);border:1px solid var(--la);border-radius:5px;padding:3px 7px;flex:0 0 auto;letter-spacing:.05em}
-.ds .dsix .t{display:flex;flex-direction:column;gap:3px;min-width:0}
-.ds .dsix .t b{color:var(--t0);font-weight:600;font-size:14px;line-height:1.15}
-.ds .dsix .t span{color:var(--t3);font-size:11px;font-family:var(--mn);letter-spacing:.02em}
-.ds .dsix.active{border-color:var(--la);box-shadow:0 0 0 1px var(--la) inset}
-.ds .dsix.active .thumb{border-bottom-color:var(--la)}
-.ds .dsix.active .cap{background:linear-gradient(180deg,rgba(196,166,108,.1),transparent)}
-.ds .dsix.active .n{background:var(--g);color:#0b0b0d;border-color:var(--g)}
-/* embedded content window (no modal) */
-.ds .dsview{display:none;margin-top:22px}
-.ds .dsview.on{display:block}
-.ds.embedding .dswall{display:none}
-.ds .dsvframe{border:1px solid var(--l1);border-radius:11px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
-.ds .dsvhead{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#131316;border-bottom:1px solid var(--l0);font-family:var(--mn);font-size:10px;color:var(--t2)}
-.ds .dsvhead .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
-.ds .dsvhead .u{flex:1;min-width:0;margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ds .dsvhead .x{margin-left:auto;font-family:var(--mn);font-size:10px;color:var(--t2);background:none;border:1px solid var(--l1);border-radius:5px;padding:5px 11px;cursor:pointer;white-space:nowrap}
-.ds .dsvhead .x:hover{color:var(--g);border-color:var(--la)}
-.ds .dsview iframe{display:block;width:100%;height:78vh;max-height:840px;border:0;background:#0b0b0d}
+.ds .dsix{position:relative;display:flex;flex-direction:column;text-align:left;background:var(--b2);border:1px solid var(--l1);border-radius:14px;padding:18px 17px 15px;cursor:pointer;text-decoration:none;font-family:var(--bd);transition:border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.ds .dsix:hover{border-color:var(--la);background:var(--b3);transform:translateY(-3px);box-shadow:0 22px 44px -22px rgba(0,0,0,.7)}
+.ds .dsix .num{font-family:var(--mn);font-size:34px;font-weight:500;line-height:1;color:var(--l2);letter-spacing:-.02em;transition:color .2s}
+.ds .dsix:hover .num{color:var(--g)}
+.ds .dsix .tag{position:absolute;top:16px;right:15px;font-family:var(--mn);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);border:1px solid var(--l1);border-radius:999px;padding:3px 9px}
+.ds .dsix .t{margin:16px 0 5px;font-size:16px;font-weight:600;color:var(--t0);letter-spacing:-.01em}
+.ds .dsix .d{font-size:12.5px;line-height:1.5;color:var(--t2)}
+.ds .dsix .meta{margin-top:14px;padding-top:12px;border-top:1px solid var(--l0);display:flex;align-items:center;gap:8px;font-family:var(--mn);font-size:10px;color:var(--t3);letter-spacing:.02em}
+.ds .dsix .meta .arw{margin-left:auto;font-size:13px;line-height:1;color:var(--t3);transition:transform .2s,color .2s}
+.ds .dsix:hover .meta .arw{color:var(--g);transform:scale(1.18)}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 .dswall{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;font-family:var(--bd)}
@@ -1179,42 +1160,23 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           <h3>Components, specs &amp; states — built for handoff.</h3>
           <p>The system engineering builds against: component APIs, variants, interaction states, and the semantic tokens beneath them. Half reference, half working library — inspect it live below.</p>
           <div class="dsindex">
-            <button class="dsix" data-view="embed" data-embed="tools/bankiq-rationale/index.html" data-title="B2B Banking app · Design Rationale">
-              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
-                <rect width="320" height="200" fill="#0e0f1a"/><rect x="22" y="20" width="276" height="160" rx="9" fill="#15172a" stroke="#2b2f4a"/>
-                <circle cx="38" cy="36" r="3" fill="#3893cd"/><rect x="48" y="33" width="46" height="6" rx="3" fill="#5c4bb9"/>
-                <rect x="38" y="54" width="150" height="13" rx="3" fill="#eef0f7"/><rect x="38" y="74" width="104" height="9" rx="3" fill="#9aa0be"/>
-                <defs><marker id="rat" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0L5,3L0,6" fill="none" stroke="#4a5a86"/></marker></defs>
-                <g fill="#1b2138" stroke="#3a63a0"><rect x="38" y="112" width="58" height="30" rx="5"/><rect x="131" y="112" width="58" height="30" rx="5"/><rect x="224" y="112" width="58" height="30" rx="5" fill="#173049" stroke="#3893cd"/></g>
-                <g stroke="#4a5a86" marker-end="url(#rat)"><line x1="96" y1="127" x2="129" y2="127"/><line x1="189" y1="127" x2="222" y2="127"/></g>
-                <g fill="#aeb4d0" font-size="8"><text x="52" y="131">problem</text><text x="147" y="131">tradeoff</text><text x="238" y="131" fill="#7cc4f0">decision</text></g>
-                <rect x="38" y="158" width="120" height="6" rx="3" fill="#2b2f4a"/></svg></span>
-              <span class="cap"><span class="n">01</span><span class="t"><b>Rationale deck</b><span>the decisions &amp; why &rarr;</span></span></span>
+            <button class="dsix" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="The decisions, tradeoffs, and the reasoning behind the system">
+              <span class="num">01</span><span class="tag">Deck</span>
+              <span class="t">Rationale deck</span>
+              <span class="d">The decisions and tradeoffs — the case for why the system is built the way it is.</span>
+              <span class="meta">12 slides · the why<span class="arw">&#8599;</span></span>
             </button>
-            <button class="dsix" data-view="embed" data-embed="tools/bankiq-design-system/index.html" data-title="B2B Banking app · Design System">
-              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,monospace">
-                <rect width="320" height="200" fill="#0d0d10"/>
-                <g><rect x="24" y="24" width="34" height="34" rx="6" fill="#c4a66c"/><rect x="64" y="24" width="34" height="34" rx="6" fill="#8b7340"/><rect x="104" y="24" width="34" height="34" rx="6" fill="#232323"/><rect x="144" y="24" width="34" height="34" rx="6" fill="#6366f1"/><rect x="184" y="24" width="34" height="34" rx="6" fill="#ededed"/></g>
-                <rect x="24" y="78" width="86" height="30" rx="7" fill="#c4a66c"/><rect x="40" y="89" width="54" height="8" rx="4" fill="#0b0b0d"/>
-                <rect x="122" y="78" width="86" height="30" rx="7" fill="none" stroke="#c4a66c"/><rect x="138" y="89" width="54" height="8" rx="4" fill="#c4a66c"/>
-                <rect x="228" y="82" width="40" height="22" rx="11" fill="#2a2c30"/><circle cx="257" cy="93" r="8" fill="#c4a66c"/>
-                <rect x="24" y="126" width="184" height="30" rx="7" fill="#141518" stroke="#2a2c30"/><rect x="36" y="137" width="70" height="8" rx="4" fill="#6a6a72"/>
-                <rect x="228" y="126" width="68" height="30" rx="7" fill="#141518" stroke="#2a2c30"/>
-                <rect x="24" y="170" width="272" height="6" rx="3" fill="#1a1b1e"/></svg></span>
-              <span class="cap"><span class="n">02</span><span class="t"><b>Full design system</b><span>25-section reference &rarr;</span></span></span>
+            <button class="dsix" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Full 25-section design-system reference">
+              <span class="num">02</span><span class="tag">System</span>
+              <span class="t">Full design system</span>
+              <span class="d">Components, variants, interaction states, and the semantic tokens beneath them.</span>
+              <span class="meta">25 sections · reference<span class="arw">&#8599;</span></span>
             </button>
-            <button class="dsix active" data-view="wall">
-              <span class="thumb"><svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
-                <rect width="320" height="200" fill="#0d0d10"/>
-                <g stroke="#26272c" fill="#141518"><rect x="20" y="20" width="86" height="76" rx="6"/><rect x="117" y="20" width="86" height="76" rx="6"/><rect x="214" y="20" width="86" height="76" rx="6"/><rect x="20" y="106" width="86" height="74" rx="6"/><rect x="117" y="106" width="86" height="74" rx="6"/><rect x="214" y="106" width="86" height="74" rx="6"/></g>
-                <g fill="#c4a66c"><rect x="30" y="30" width="26" height="5" rx="2.5"/><rect x="127" y="30" width="26" height="5" rx="2.5"/><rect x="224" y="30" width="26" height="5" rx="2.5"/><rect x="30" y="116" width="26" height="5" rx="2.5"/><rect x="127" y="116" width="26" height="5" rx="2.5"/><rect x="224" y="116" width="26" height="5" rx="2.5"/></g>
-                <rect x="30" y="52" width="50" height="18" rx="9" fill="#c4a66c"/>
-                <circle cx="160" cy="62" r="14" fill="none" stroke="#6366f1" stroke-width="3"/>
-                <g fill="#2a2c30"><rect x="224" y="50" width="66" height="7" rx="3"/><rect x="224" y="62" width="52" height="7" rx="3"/><rect x="224" y="74" width="60" height="7" rx="3"/></g>
-                <rect x="30" y="138" width="66" height="20" rx="5" fill="#141518" stroke="#3a3c42"/>
-                <circle cx="134" cy="140" r="4" fill="#28c840"/><rect x="142" y="136" width="52" height="7" rx="3" fill="#2a2c30"/><rect x="127" y="152" width="66" height="7" rx="3" fill="#2a2c30"/>
-                <rect x="224" y="138" width="30" height="30" rx="6" fill="#6366f1" opacity=".8"/><rect x="260" y="138" width="30" height="30" rx="6" fill="#c4a66c" opacity=".8"/></svg></span>
-              <span class="cap"><span class="n">03</span><span class="t"><b>Live storybook</b><span>interactive &middot; below &darr;</span></span></span>
+            <button class="dsix" data-scroll="#dswall">
+              <span class="num">03</span><span class="tag">Live</span>
+              <span class="t">Live storybook</span>
+              <span class="d">The working component library, running inline — inspect states and tokens hands-on.</span>
+              <span class="meta">interactive · below<span class="arw">&#8595;</span></span>
             </button>
           </div>
         </div>
@@ -1392,13 +1354,6 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
             </div>
           </div>
 
-        </div>
-
-        <div class="dsview" id="dsview">
-          <div class="dsvframe">
-            <div class="dsvhead"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="u" id="dsvTitle"></span></div>
-            <iframe id="dsFrame" title="Embedded design reference" loading="lazy"></iframe>
-          </div>
         </div>
       </div>
       </div>
@@ -1769,30 +1724,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
 
-  // design-system: embedded content window (no modal)
+  // design-system index: 01/02 open the modal (via [data-launch]); 03 scrolls to the live storybook
   var dsSec=document.getElementById('ds');
   if(dsSec){
-    var dsView=document.getElementById('dsview'),dsFrame=document.getElementById('dsFrame'),
-        dsvTitle=document.getElementById('dsvTitle'),
-        dsCards=dsSec.querySelectorAll('.dsix'),curEmbed='';
-    function dsWall(){
-      dsSec.classList.remove('embedding');dsView.classList.remove('on');
-      if(dsFrame.src&&dsFrame.src!=='about:blank')dsFrame.src='about:blank';
-      curEmbed='';
-      dsCards.forEach(function(c){c.classList.toggle('active',c.dataset.view==='wall');});
-    }
-    window.rlEmbed=function(src,title){
-      dsvTitle.textContent=title||'';
-      if(curEmbed!==src){dsFrame.src=src;curEmbed=src;}
-      dsSec.classList.add('embedding');dsView.classList.add('on');
-      dsCards.forEach(function(c){c.classList.toggle('active',c.dataset.embed===src);});
-      var top=dsView.getBoundingClientRect().top+window.pageYOffset-80;
-      window.scrollTo({top:top,behavior:'smooth'});
-    };
-    dsSec.querySelectorAll('[data-view]').forEach(function(b){
+    dsSec.querySelectorAll('[data-scroll]').forEach(function(b){
       b.addEventListener('click',function(){
-        if(b.dataset.view==='embed')window.rlEmbed(b.dataset.embed,b.dataset.title);
-        else dsWall();
+        var t=document.querySelector(b.dataset.scroll);
+        if(t){var y=t.getBoundingClientRect().top+window.pageYOffset-90;window.scrollTo({top:y,behavior:'smooth'});}
       });
     });
     // light / dark theme toggle for the storybook
