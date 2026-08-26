@@ -477,85 +477,117 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 .fj .note{color:var(--ink-2);font-size:14px;line-height:1.55;padding:16px 18px}
 .fj .note b{color:var(--ink);font-weight:600}
 /* DMG composed device scene (iso tilt + drop shadows, overlapping) */
-/* DMG animated prototype — faithful recreation of the provider app + pop-out feature callouts */
-:root{--dmgblue:#2f6fd6;--dmgink:#1b1c20;--dmgmut:#8b8f98;--dmgbord:#eceef1;--dmggreen:#34a853;--dmgring:#9d2f33}
-.dmgproto{position:relative;margin:2px auto 4px;max-width:820px;min-height:600px;display:flex;align-items:center;justify-content:center;padding:20px 0}
-.dmgproto .aura{position:absolute;top:6%;left:50%;transform:translateX(-50%);width:340px;height:88%;background:radial-gradient(closest-side,rgba(47,111,214,.20),transparent 70%);filter:blur(24px);z-index:0}
-.dmgphone{position:relative;z-index:2;width:272px;flex:0 0 auto;border-radius:40px;background:linear-gradient(150deg,#17181b,#050506);padding:11px;box-shadow:0 64px 120px -44px rgba(0,0,0,.88),0 22px 46px -22px rgba(0,0,0,.6),inset 0 0 0 1.5px #2a2a30;animation:dmgfloat 7s ease-in-out infinite}
-@keyframes dmgfloat{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-12px) rotate(.5deg)}}
-.dmgscreen{position:relative;border-radius:29px;overflow:hidden;background:#fff;width:250px;height:515px;font-family:var(--bd);color:var(--dmgink)}
-.dmgscreen .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:86px;height:20px;background:#050506;border-radius:0 0 13px 13px;z-index:9}
-.dmgsb{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 2px;font:600 10px var(--bd)}
+/* DMG animated prototype — multi-screen recreation of the provider app with pop-out feature callouts */
+:root{--dmgblue:#2f6fd6;--dmgink:#1b1c20;--dmgmut:#8b8f98;--dmgbord:#edeff2;--dmggreen:#34a853;--dmgamber:#e08a1e;--dmgring:#9d2f33}
+.dmgproto{position:relative;margin:2px auto 4px;max-width:900px;min-height:620px;display:flex;align-items:center;justify-content:center;padding:16px 0}
+.dmgproto .aura{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:330px;height:90%;background:radial-gradient(closest-side,rgba(47,111,214,.20),transparent 70%);filter:blur(26px);z-index:0}
+.dmgphone{position:relative;z-index:2;width:292px;flex:0 0 auto;border-radius:42px;background:linear-gradient(150deg,#17181b,#050506);padding:11px;box-shadow:0 66px 120px -46px rgba(0,0,0,.9),0 22px 46px -22px rgba(0,0,0,.6),inset 0 0 0 1.5px #2a2a30;animation:dmgfloat 7s ease-in-out infinite}
+@keyframes dmgfloat{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-11px) rotate(.4deg)}}
+.dmgscreen{position:relative;border-radius:31px;overflow:hidden;background:#fff;width:270px;height:552px;font-family:var(--bd);color:var(--dmgink)}
+.dmgscreen .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:92px;height:20px;background:#050506;border-radius:0 0 13px 13px;z-index:9}
+.dmgstage{position:absolute;top:0;left:0;height:498px;width:300%;display:flex;transition:transform .6s cubic-bezier(.66,0,.2,1)}
+.dmgpanel{width:33.333%;height:100%;overflow:hidden}
+.dmgsb{display:flex;justify-content:space-between;align-items:center;padding:8px 15px 1px;font:600 11px var(--bd)}
 .dmgsb svg{display:block}
-.dmghdr{display:flex;align-items:center;gap:9px;padding:6px 14px 8px}
-.dmgav{width:30px;height:30px;border-radius:50%;background:#e9edf3;flex:0 0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.dmgname{font-weight:700;font-size:15px;letter-spacing:-.01em}
+.dmghdr{display:flex;align-items:center;gap:9px;padding:5px 14px 7px}
+.dmgav{width:28px;height:28px;border-radius:50%;background:#e9edf3;flex:0 0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dmgttl{font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
 .dmghdr .sp{flex:1}
-.dmghdr .ic{color:#20222a}
-.dmgdiv{height:1px;background:var(--dmgbord);margin:0 14px}
-.dmgsetup{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:12px 14px 10px}
-.dmgring{position:relative;width:52px;height:52px;flex:0 0 auto}
+.dmghdr .ic{color:#20222a;display:flex}
+.dmgdiv{height:1px;background:var(--dmgbord)}
+.dmgsetup{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;padding:11px 14px 9px}
+.dmgring{position:relative;width:50px;height:50px}
 .dmgring svg{transform:rotate(-90deg)}
-.dmgring .arc{stroke:var(--dmgring);stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:138;stroke-dashoffset:92;animation:dmgarc 12s ease-in-out infinite}
-@keyframes dmgarc{0%{stroke-dashoffset:138}6%,100%{stroke-dashoffset:92}}
-.dmgring .trk{stroke:#eceef1;stroke-width:4;fill:none}
+.dmgring .trk{stroke:#edeff2;stroke-width:4;fill:none}
+.dmgring .arc{stroke:var(--dmgring);stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:138;stroke-dashoffset:92}
 .dmgring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--dmgring)}
-.dmgset2{display:flex;flex-direction:column}
-.dmgsetlbl{font-size:11px;color:var(--dmgmut);margin-top:5px;line-height:1.25;text-align:center;max-width:58px}
-.dmgchk{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin:0;padding:0;list-style:none}
-.dmgchk li{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#3a3c44}
-.dmgchk li::before{content:"";width:12px;height:12px;border-radius:50%;background:#d7dae0;flex:0 0 auto}
+.dmgsetlbl{font-size:9.5px;color:var(--dmgmut);text-align:center;margin-top:3px;line-height:1.15}
+.dmgchk{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:0;padding:0;list-style:none}
+.dmgchk li{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#3d3f47;white-space:nowrap}
+.dmgchk li::before{content:"";width:11px;height:11px;border-radius:50%;background:#d7dae0;flex:0 0 auto}
 .dmgchk li.on::before{background:var(--dmggreen);box-shadow:inset 0 0 0 2px #fff,0 0 0 1px var(--dmggreen)}
-.dmgcards{padding:2px 14px 0;display:flex;flex-direction:column;gap:9px}
-.dmgcard{border:1px solid var(--dmgbord);border-radius:12px;padding:12px 12px;box-shadow:0 1px 2px rgba(20,24,40,.04)}
+.dmgcards{padding:3px 14px 0;display:flex;flex-direction:column;gap:8px}
+.dmgcard{border:1px solid var(--dmgbord);border-radius:12px;padding:11px 12px;box-shadow:0 1px 2px rgba(20,24,40,.04)}
 .dmgcard .row{display:flex;align-items:center;gap:9px}
 .dmgcard .row .lbl{font-weight:600;font-size:13px}
 .dmgcard .row .sp{flex:1}
-.dmgcard .ci{color:#2b2d34;flex:0 0 auto}
-.dmgcard .chev{color:#b5b9c1}
-.dmgcard.open{border-color:#dfe6f4}
-.dmgaddwrap{position:relative;margin-top:11px}
+.dmgcard .ci{color:#2b2d34;display:flex;flex:0 0 auto}
+.dmgcard .chev{color:#b7bbc3;display:flex}
+.dmgcard.open{border-color:#dbe6f8}
+.dmgaddwrap{position:relative;margin-top:10px}
 .dmgadd{display:flex;align-items:center;gap:9px;color:var(--dmgblue);font-weight:600;font-size:12.5px}
-.dmgadd .plus{width:17px;height:17px;border-radius:50%;background:var(--dmgblue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;flex:0 0 auto}
-.dmgripple{position:absolute;left:9px;top:9px;width:0;height:0;border-radius:50%;background:rgba(47,111,214,.28);transform:translate(-50%,-50%);z-index:3;animation:dmgripple 12s ease-out infinite}
-@keyframes dmgripple{0%,33%{width:0;height:0;opacity:.5}40%{width:120px;height:120px;opacity:0}41%,100%{width:0;height:0;opacity:0}}
-.dmgnewline{overflow:hidden;max-height:0;opacity:0;margin-top:0;animation:dmgnew 12s ease-in-out infinite}
-.dmgnewline .in{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:9px;background:#f2f6fd;border:1px solid #dbe6fb;font-size:12px;font-weight:600;color:#25303f}
-.dmgnewline .tick{margin-left:auto;color:var(--dmggreen);font-weight:700}
-@keyframes dmgnew{0%,40%{max-height:0;opacity:0}46%{max-height:52px;opacity:1}80%{max-height:52px;opacity:1}86%,100%{max-height:0;opacity:0}}
-.dmgtabs{position:absolute;left:0;right:0;bottom:0;display:flex;padding:8px 10px 12px;border-top:1px solid var(--dmgbord);background:#fff}
-.dmgtab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:#9498a1;font-weight:600}
-.dmgtab.on{color:#fff;background:var(--dmgblue);border-radius:9px;padding:5px 0 4px;box-shadow:0 6px 14px -6px rgba(47,111,214,.6)}
-.dmgcur{position:absolute;z-index:8;width:16px;height:16px;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));animation:dmgcur 12s ease-in-out infinite;opacity:0}
-@keyframes dmgcur{0%,24%{opacity:0;left:78%;top:70%}30%{opacity:1;left:34%;top:70.5%}36%{opacity:1;left:33%;top:70.5%}38%{transform:scale(.82)}40%{transform:scale(1)}44%{opacity:1;left:33%;top:70.5%}72%{opacity:0;left:80%;top:80%}100%{opacity:0}}
-/* pop-out feature callouts */
-.dmgcallout{position:absolute;z-index:4;background:linear-gradient(180deg,#191a1e,#101115);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 13px;width:172px;box-shadow:0 26px 54px -24px rgba(0,0,0,.85);opacity:0;transform:translateY(8px) scale(.94);transform-origin:center}
-.dmgcallout b{display:block;color:#fff;font:600 12.5px var(--bd);letter-spacing:-.01em}
-.dmgcallout span{display:block;color:#a6a9b4;font-size:10.5px;font-family:var(--mono);margin-top:2px}
-.dmgcallout i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--dmgblue);box-shadow:0 0 0 4px rgba(47,111,214,.22)}
-.dmgcallout .dash{position:absolute;height:1px;background:linear-gradient(90deg,var(--dmgblue),transparent);opacity:.6}
-.dmgproto .c1{top:6%;left:2%;animation:dmgpop1 12s ease-in-out infinite}
-.dmgproto .c2{top:34%;left:0;animation:dmgpop2 12s ease-in-out infinite}
-.dmgproto .c3{top:44%;right:1%;animation:dmgpop3 12s ease-in-out infinite}
-.dmgproto .c4{bottom:8%;right:3%;animation:dmgpop4 12s ease-in-out infinite}
-@keyframes dmgpop1{0%,2%{opacity:0;transform:translateY(8px) scale(.94)}7%,76%{opacity:1;transform:translateY(0) scale(1)}82%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
-@keyframes dmgpop2{0%,16%{opacity:0;transform:translateY(8px) scale(.94)}21%,78%{opacity:1;transform:translateY(0) scale(1)}84%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
-@keyframes dmgpop3{0%,30%{opacity:0;transform:translateY(8px) scale(.94)}35%,80%{opacity:1;transform:translateY(0) scale(1)}86%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
-@keyframes dmgpop4{0%,52%{opacity:0;transform:translateY(8px) scale(.94)}58%,82%{opacity:1;transform:translateY(0) scale(1)}88%,100%{opacity:0;transform:translateY(-6px) scale(.97)}}
-.dmgcap{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin:0 auto;max-width:560px;letter-spacing:.02em}
-@media(max-width:760px){
+.dmgadd .plus{width:17px;height:17px;border-radius:50%;background:var(--dmgblue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;flex:0 0 auto}
+.dmgnew{overflow:hidden;max-height:0;opacity:0;transition:max-height .45s ease,opacity .4s ease,margin-top .45s ease}
+.dmgpanel.added .dmgnew{max-height:48px;opacity:1;margin-top:9px}
+.dmgnew .in{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;background:#f2f6fd;border:1px solid #dbe6fb;font-size:12px;font-weight:600;color:#25303f}
+.dmgnew .tick{margin-left:auto;color:var(--dmggreen);font-weight:700}
+.dmgsec{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dmgmut);font-family:var(--mono);padding:2px 15px 0}
+.dmgchips{display:flex;gap:7px;padding:8px 14px 4px}
+.dmgchip{font-size:10.5px;font-weight:600;color:#5b5f68;background:#f2f3f5;border:1px solid var(--dmgbord);border-radius:999px;padding:4px 11px}
+.dmgchip.on{color:#fff;background:var(--dmgblue);border-color:var(--dmgblue)}
+.dmgjobs{display:flex;flex-direction:column;gap:8px;padding:4px 14px 0}
+.dmgjob{border:1px solid var(--dmgbord);border-radius:12px;padding:10px 11px;box-shadow:0 1px 2px rgba(20,24,40,.04)}
+.dmgjob .t{display:flex;align-items:center;gap:8px}
+.dmgjob .t b{font-size:12.5px;font-weight:600}
+.dmgjob .t .sp{flex:1}
+.dmgjob .meta{font-size:10px;color:var(--dmgmut);margin-top:3px}
+.dmgjob .foot{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:10px;color:#5b5f68}
+.dmgjob .foot .av{width:16px;height:16px;border-radius:50%;background:#dfe4ec}
+.st{font-size:9.5px;font-weight:700;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.st.blue{color:#1e5fc0;background:#e7f0fd}
+.st.amber{color:#9a5a05;background:#fbf0dd}
+.st.gray{color:#5b5f68;background:#eef0f2}
+.dmgwo{padding:6px 14px 0;display:flex;flex-direction:column;gap:9px}
+.dmgwo .sum{border:1px solid var(--dmgbord);border-radius:12px;padding:11px 12px}
+.dmgwo .sum b{font-size:13.5px;font-weight:700}
+.dmgwo .sum .m{font-size:10.5px;color:var(--dmgmut);margin-top:3px}
+.dmgprov{border:1px solid #dbe6f8;border-radius:12px;padding:11px 12px;background:linear-gradient(180deg,#f7faff,#fff)}
+.dmgprov .top{display:flex;align-items:center;gap:9px}
+.dmgprov .av{width:34px;height:34px;border-radius:50%;background:#d9e3f2;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-weight:700;color:#3b5b86;font-size:12px}
+.dmgprov .nm{font-weight:700;font-size:13px}
+.dmgprov .badge{margin-left:auto;font-size:9px;font-weight:700;color:var(--dmggreen);background:#e7f6ec;border-radius:999px;padding:3px 8px;display:flex;align-items:center;gap:4px}
+.dmgprov .attrs{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.dmgprov .attr{font-size:9.5px;color:#41505f;background:#eaf1fb;border:1px solid #d9e6f9;border-radius:7px;padding:3px 7px}
+.dmgbtn{margin-top:2px;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--dmgblue);color:#fff;font-weight:700;font-size:13px;border-radius:11px;padding:11px 0;box-shadow:0 10px 22px -10px rgba(47,111,214,.7);transition:background .3s}
+.dmgpanel.dispatched .dmgbtn{background:var(--dmggreen);box-shadow:0 10px 22px -10px rgba(52,168,83,.6)}
+.dmgbtn .lo{display:flex}
+.dmgbtn .d1{display:none}
+.dmgpanel.dispatched .dmgbtn .d0,.dmgpanel.dispatched .dmgbtn .lo{display:none}
+.dmgpanel.dispatched .dmgbtn .d1{display:inline}
+.dmgpanel.dispatched .dmgbtn::before{content:"✓";font-size:14px;margin-right:2px}
+.dmgtabs{position:absolute;left:0;right:0;bottom:0;height:54px;display:flex;padding:7px 10px;border-top:1px solid var(--dmgbord);background:#fff;z-index:7}
+.dmgtab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9.5px;color:#9498a1;font-weight:600;border-radius:9px;transition:color .25s,background .25s}
+.dmgtab.on{color:#fff;background:var(--dmgblue);box-shadow:0 6px 14px -6px rgba(47,111,214,.6)}
+.dmgcur{position:absolute;z-index:8;width:17px;height:17px;left:135px;top:380px;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4));transition:left .5s cubic-bezier(.5,0,.2,1),top .5s cubic-bezier(.5,0,.2,1),opacity .3s;transform:translate(-2px,-1px)}
+.dmgcur.off{opacity:0}
+.dmgtapring{position:absolute;z-index:8;width:34px;height:34px;border-radius:50%;background:rgba(47,111,214,.28);left:135px;top:380px;transform:translate(-50%,-50%) scale(0);opacity:0;pointer-events:none}
+.dmgtapring.go{animation:dmgtap .5s ease-out}
+@keyframes dmgtap{0%{transform:translate(-50%,-50%) scale(.1);opacity:.55}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.dmgcallout{position:absolute;z-index:5;width:186px;background:linear-gradient(180deg,#191a1e,#101115);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:11px 13px;box-shadow:0 28px 56px -24px rgba(0,0,0,.85);opacity:0;visibility:hidden;transform:scale(.6)}
+.dmgcallout b{display:block;color:#fff;font:600 13px var(--bd);letter-spacing:-.01em;line-height:1.2}
+.dmgcallout p{margin:3px 0 0;color:#a6a9b4;font-size:10.5px;font-family:var(--mono);line-height:1.3}
+.dmgcallout .wire{position:absolute;top:50%;height:1.6px;width:38px;background:linear-gradient(90deg,var(--dmgblue),rgba(47,111,214,.15));transform:scaleX(0);transition:transform .4s ease .06s}
+.dmgcallout .pin{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--dmgblue);box-shadow:0 0 0 5px rgba(47,111,214,.18);transform:translateY(-50%) scale(0);opacity:0;transition:transform .3s ease .28s,opacity .3s ease .28s}
+.dmgcallout.left{right:calc(50% + 150px);transform-origin:right center}
+.dmgcallout.right{left:calc(50% + 150px);transform-origin:left center}
+.dmgcallout.left .wire{right:-38px;transform-origin:right center}
+.dmgcallout.left .pin{right:-44px}
+.dmgcallout.right .wire{left:-38px;transform-origin:left center;background:linear-gradient(270deg,var(--dmgblue),rgba(47,111,214,.15))}
+.dmgcallout.right .pin{left:-44px}
+.dmgcallout.show{visibility:visible;opacity:1;transform:scale(1);transition:opacity .16s ease,transform .42s cubic-bezier(.34,1.5,.5,1)}
+.dmgcallout.show .wire{transform:scaleX(1)}
+.dmgcallout.show .pin{opacity:1;transform:translateY(-50%) scale(1)}
+.dmgcap{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin:2px auto 0;max-width:560px;letter-spacing:.02em}
+@media(max-width:820px){
   .dmgproto{min-height:0;flex-direction:column;padding:8px 0 4px}
-  .dmgproto .aura{width:260px}
-  .dmgcallout{position:relative;opacity:1!important;transform:none!important;animation:none!important;width:auto;max-width:300px;margin:8px auto 0;box-shadow:0 14px 30px -18px rgba(0,0,0,.7)}
-  .dmgproto .c1,.dmgproto .c2,.dmgproto .c3,.dmgproto .c4{position:relative;inset:auto}
-  .dmgcallout i,.dmgcallout .dash{display:none}
-  .dmgcallcol{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
+  .dmgproto .aura{width:250px;height:60%}
+  .dmgcallout{position:relative;inset:auto;right:auto!important;left:auto!important;opacity:1;visibility:visible;transform:none;width:auto;max-width:300px;margin:9px auto 0}
+  .dmgcallout .wire,.dmgcallout .pin{display:none}
+  .dmgcallout.left,.dmgcallout.right{transform-origin:center}
 }
 @media(prefers-reduced-motion:reduce){
-  .dmgphone,.dmgcallout,.dmgcur,.dmgripple,.dmgnewline,.dmgring .arc{animation:none!important}
-  .dmgcallout{opacity:1;transform:none}
-  .dmgnewline{max-height:52px;opacity:1}
-  .dmgcur{opacity:0}
+  .dmgphone{animation:none}
+  .dmgstage,.dmgcur{transition:none}
 }
 
 /* special projects tag + throughline */
@@ -829,7 +861,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <h1 class="reveal">Ryan Lynch,<br/><em>designer &amp; maker.</em></h1>
     </div>
     <div class="statement">
-      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch — scribble over the portrait to reveal the photo" title="scribble to reveal · right-click to swap"></canvas><img id="heroBackup" src="assets/img/hero-ryan.png" alt="Ryan Lynch" title="right-click to swap back" hidden/></div>
+      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch"></canvas></div>
       <div class="fxpanel reveal"><canvas class="fx" id="heroFX"></canvas></div>
     </div>
   </div>
@@ -1309,62 +1341,138 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           <div class="dmgphone">
             <div class="dmgscreen">
               <div class="notch"></div>
-              <div class="dmgsb">
-                <span>9:41</span>
-                <span class="r">
-                  <svg width="16" height="10" viewBox="0 0 18 12"><g fill="#111"><rect x="0" y="7" width="2.4" height="4" rx=".6"/><rect x="3.4" y="5" width="2.4" height="6" rx=".6"/><rect x="6.8" y="3" width="2.4" height="8" rx=".6"/><rect x="10.2" y="1" width="2.4" height="10" rx=".6"/></g></svg>
-                  <svg width="14" height="10" viewBox="0 0 16 12" fill="none" stroke="#111" stroke-width="1.4"><path d="M1 4.5A10 10 0 0 1 15 4.5"/><path d="M3.5 7A6 6 0 0 1 12.5 7"/><circle cx="8" cy="9.5" r="1" fill="#111" stroke="none"/></svg>
-                  <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.4" fill="none" stroke="#111" stroke-width="1.2"/><rect x="2.6" y="3" width="14" height="6" rx="1.2" fill="#111"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#111"/></svg>
-                </span>
-              </div>
-              <div class="dmghdr">
-                <div class="dmgav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7d8896" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></div>
-                <div class="dmgname">Ryan Lynch</div>
-                <div class="sp"></div>
-                <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19"/></svg></span>
-                <span class="ic" style="margin-left:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5h16v11H9l-4 3v-3H4z"/></svg></span>
-              </div>
-              <div class="dmgdiv"></div>
-              <div class="dmgsetup">
-                <div class="dmgset2">
-                  <div class="dmgring">
-                    <svg viewBox="0 0 52 52"><circle class="trk" cx="26" cy="26" r="22"/><circle class="arc" cx="26" cy="26" r="22"/></svg>
-                    <b>2/6</b>
+              <div class="dmgstage" id="dmgStage">
+                <!-- PANEL A · profile / onboarding -->
+                <div class="dmgpanel" id="dmgPanelA">
+                  <div class="dmgsb"><span>9:41</span><span class="r">
+                    <svg width="16" height="10" viewBox="0 0 18 12"><g fill="#111"><rect x="0" y="7" width="2.4" height="4" rx=".6"/><rect x="3.4" y="5" width="2.4" height="6" rx=".6"/><rect x="6.8" y="3" width="2.4" height="8" rx=".6"/><rect x="10.2" y="1" width="2.4" height="10" rx=".6"/></g></svg>
+                    <svg width="14" height="10" viewBox="0 0 16 12" fill="none" stroke="#111" stroke-width="1.4"><path d="M1 4.5A10 10 0 0 1 15 4.5"/><path d="M3.5 7A6 6 0 0 1 12.5 7"/><circle cx="8" cy="9.5" r="1" fill="#111" stroke="none"/></svg>
+                    <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.4" fill="none" stroke="#111" stroke-width="1.2"/><rect x="2.6" y="3" width="14" height="6" rx="1.2" fill="#111"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#111"/></svg>
+                  </span></div>
+                  <div class="dmghdr">
+                    <div class="dmgav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7d8896" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></div>
+                    <div class="dmgttl">Ryan Lynch</div><div class="sp"></div>
+                    <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19"/></svg></span>
+                    <span class="ic" style="margin-left:9px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5h16v11H9l-4 3v-3H4z"/></svg></span>
                   </div>
-                  <div class="dmgsetlbl">Account setup incomplete</div>
-                </div>
-                <ul class="dmgchk">
-                  <li class="on">Provider info</li><li>Insurance</li>
-                  <li class="on">Licenses</li><li>W9 upload</li>
-                  <li class="on">Service lines</li><li>Bank info</li>
-                </ul>
-              </div>
-              <div class="dmgcards">
-                <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></span><span class="lbl">Provider</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
-                <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14h5"/></svg></span><span class="lbl">Licenses</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
-                <div class="dmgcard open">
-                  <div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></span><span class="lbl">Service Lines</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></span></div>
-                  <div class="dmgaddwrap">
-                    <span class="dmgripple"></span>
-                    <div class="dmgadd"><span class="plus">+</span>Add a new service line</div>
-                    <div class="dmgnewline"><div class="in">HVAC Repair<span class="tick">✓</span></div></div>
+                  <div class="dmgdiv"></div>
+                  <div class="dmgsetup">
+                    <div>
+                      <div class="dmgring"><svg viewBox="0 0 50 50"><circle class="trk" cx="25" cy="25" r="22"/><circle class="arc" cx="25" cy="25" r="22"/></svg><b>2/6</b></div>
+                      <div class="dmgsetlbl">Account setup<br>incomplete</div>
+                    </div>
+                    <ul class="dmgchk">
+                      <li class="on">Provider info</li><li>Insurance</li>
+                      <li class="on">Licenses</li><li>W9 upload</li>
+                      <li class="on">Service lines</li><li>Bank info</li>
+                    </ul>
+                  </div>
+                  <div class="dmgcards">
+                    <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg></span><span class="lbl">Provider</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+                    <div class="dmgcard"><div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14h5"/></svg></span><span class="lbl">Licenses</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+                    <div class="dmgcard open">
+                      <div class="row"><span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></span><span class="lbl">Service Lines</span><span class="sp"></span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></span></div>
+                      <div class="dmgaddwrap">
+                        <div class="dmgadd"><span class="plus">+</span>Add a new service line</div>
+                        <div class="dmgnew"><div class="in">HVAC Repair<span class="tick">✓</span></div></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <!-- PANEL B · my jobs -->
+                <div class="dmgpanel">
+                  <div class="dmgsb"><span>9:41</span><span class="r">
+                    <svg width="16" height="10" viewBox="0 0 18 12"><g fill="#111"><rect x="0" y="7" width="2.4" height="4" rx=".6"/><rect x="3.4" y="5" width="2.4" height="6" rx=".6"/><rect x="6.8" y="3" width="2.4" height="8" rx=".6"/><rect x="10.2" y="1" width="2.4" height="10" rx=".6"/></g></svg>
+                    <svg width="14" height="10" viewBox="0 0 16 12" fill="none" stroke="#111" stroke-width="1.4"><path d="M1 4.5A10 10 0 0 1 15 4.5"/><path d="M3.5 7A6 6 0 0 1 12.5 7"/><circle cx="8" cy="9.5" r="1" fill="#111" stroke="none"/></svg>
+                    <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.4" fill="none" stroke="#111" stroke-width="1.2"/><rect x="2.6" y="3" width="14" height="6" rx="1.2" fill="#111"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#111"/></svg>
+                  </span></div>
+                  <div class="dmghdr"><div class="dmgttl">My Jobs</div><div class="sp"></div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span></div>
+                  <div class="dmgchips"><span class="dmgchip on">All</span><span class="dmgchip">Active</span><span class="dmgchip">Scheduled</span></div>
+                  <div class="dmgjobs">
+                    <div class="dmgjob"><div class="t"><b>Rooftop HVAC — Unit 4</b><span class="sp"></span><span class="st blue">Dispatched</span></div><div class="meta">1200 Harbor Blvd · WO-4821</div><div class="foot"><span class="av"></span>M. Ruiz · arriving 2:30p</div></div>
+                    <div class="dmgjob"><div class="t"><b>Elevator inspection</b><span class="sp"></span><span class="st amber">In progress</span></div><div class="meta">8 Wharf St · WO-4817</div><div class="foot"><span class="av"></span>D. Okafor · on site</div></div>
+                    <div class="dmgjob"><div class="t"><b>Lighting retrofit</b><span class="sp"></span><span class="st gray">Scheduled</span></div><div class="meta">Pier 9 Annex · WO-4830</div><div class="foot"><span class="av"></span>Unassigned · Tue 9:00a</div></div>
+                  </div>
+                </div>
+                <!-- PANEL C · work order dispatch -->
+                <div class="dmgpanel" id="dmgPanelC">
+                  <div class="dmgsb"><span>9:41</span><span class="r">
+                    <svg width="16" height="10" viewBox="0 0 18 12"><g fill="#111"><rect x="0" y="7" width="2.4" height="4" rx=".6"/><rect x="3.4" y="5" width="2.4" height="6" rx=".6"/><rect x="6.8" y="3" width="2.4" height="8" rx=".6"/><rect x="10.2" y="1" width="2.4" height="10" rx=".6"/></g></svg>
+                    <svg width="14" height="10" viewBox="0 0 16 12" fill="none" stroke="#111" stroke-width="1.4"><path d="M1 4.5A10 10 0 0 1 15 4.5"/><path d="M3.5 7A6 6 0 0 1 12.5 7"/><circle cx="8" cy="9.5" r="1" fill="#111" stroke="none"/></svg>
+                    <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.4" fill="none" stroke="#111" stroke-width="1.2"/><rect x="2.6" y="3" width="14" height="6" rx="1.2" fill="#111"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#111"/></svg>
+                  </span></div>
+                  <div class="dmghdr"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></span><div class="dmgttl" style="font-size:14px">Work order</div><div class="sp"></div></div>
+                  <div class="dmgdiv"></div>
+                  <div class="dmgwo">
+                    <div class="sum"><b>Rooftop HVAC — Unit 4</b><div class="m">1200 Harbor Blvd · Priority: High · WO-4821</div></div>
+                    <div class="dmgsec">Matched provider</div>
+                    <div class="dmgprov">
+                      <div class="top"><span class="av">MR</span><span class="nm">Marco Ruiz</span><span class="badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>Licensed</span></div>
+                      <div class="attrs"><span class="attr">HVAC · Class A</span><span class="attr">Zone 3</span><span class="attr">★ 4.9</span><span class="attr">12 min out</span></div>
+                    </div>
+                    <div class="dmgbtn"><span class="lo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span class="d0">Dispatch</span><span class="d1">Dispatched</span></div>
+                  </div>
+                </div>
               </div>
-              <svg class="dmgcur" viewBox="0 0 16 16"><path d="M1 1L1 12L4.2 9.2L6.4 14L8.2 13.2L6 8.6L10 8.6Z" fill="#fff" stroke="#111" stroke-width="1"/></svg>
-              <div class="dmgtabs">
-                <div class="dmgtab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>My Jobs</div>
-                <div class="dmgtab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l3-8h12l3 8M3 13v5h18v-5M3 13h5l1.5 2.5h5L16 13h5"/></svg>Opportunities</div>
-                <div class="dmgtab on"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg>Profile</div>
+              <div class="dmgcur off"><svg viewBox="0 0 16 16"><path d="M1 1L1 12L4.2 9.2L6.4 14L8.2 13.2L6 8.6L10 8.6Z" fill="#fff" stroke="#111" stroke-width="1"/></svg></div>
+              <div class="dmgtapring" id="dmgTap"></div>
+              <div class="dmgtabs" id="dmgTabs">
+                <div class="dmgtab" data-tab="jobs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>My Jobs</div>
+                <div class="dmgtab" data-tab="opps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l3-8h12l3 8M3 13v5h18v-5M3 13h5l1.5 2.5h5L16 13h5"/></svg>Opportunities</div>
+                <div class="dmgtab on" data-tab="profile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0"/></svg>Profile</div>
               </div>
             </div>
           </div>
-          <div class="dmgcallout c1"><b>Onboarding, tracked</b><span>setup status at a glance</span><i style="right:-4px;bottom:15px"></i><span class="dash" style="right:-42px;bottom:18px;width:42px"></span></div>
-          <div class="dmgcallout c2"><b>Verified up front</b><span>licenses &amp; insurance</span><i style="right:-4px;top:18px"></i><span class="dash" style="right:-46px;top:21px;width:46px"></span></div>
-          <div class="dmgcallout c3"><b>Add lines in seconds</b><span>tap → live instantly</span><i style="left:-4px;top:18px"></i><span class="dash" style="left:-46px;top:21px;width:46px"></span></div>
-          <div class="dmgcallout c4"><b>Matched by license + zone</b><span>the right tech, dispatched</span><i style="left:-4px;top:16px"></i><span class="dash" style="left:-46px;top:19px;width:46px"></span></div>
+          <div class="dmgcallout left" data-call="a1" style="top:20%"><b>Onboarding, tracked</b><p>setup status at a glance</p><span class="wire"></span><span class="pin"></span></div>
+          <div class="dmgcallout left" data-call="a2" style="top:40%"><b>Verified up front</b><p>licenses &amp; insurance</p><span class="wire"></span><span class="pin"></span></div>
+          <div class="dmgcallout right" data-call="a3" style="top:62%"><b>Add lines in seconds</b><p>tap → live instantly</p><span class="wire"></span><span class="pin"></span></div>
+          <div class="dmgcallout right" data-call="b1" style="top:26%"><b>Live status, always</b><p>dispatched · in progress · done</p><span class="wire"></span><span class="pin"></span></div>
+          <div class="dmgcallout left" data-call="c1" style="top:48%"><b>Matched by license + zone</b><p>the right tech, dispatched</p><span class="wire"></span><span class="pin"></span></div>
         </div>
-        <figcaption class="dmgcap">A faithful rebuild of the DMG provider app — onboarding, licensing, and one-tap service lines — recreated in code for this case study.</figcaption>
+        <figcaption class="dmgcap">A faithful rebuild of the DMG provider app — onboarding, live job status, and license-matched dispatch — recreated in code, walking the full flow.</figcaption>
+        <script>
+        (function(){
+          var root=document.querySelector('.dmgproto'); if(!root) return;
+          var stage=root.querySelector('#dmgStage'),
+              panelA=root.querySelector('#dmgPanelA'), panelC=root.querySelector('#dmgPanelC'),
+              cur=root.querySelector('.dmgcur'), tap=root.querySelector('#dmgTap'),
+              tabs=root.querySelectorAll('#dmgTabs .dmgtab'), calls={};
+          root.querySelectorAll('.dmgcallout').forEach(function(c){calls[c.dataset.call]=c;});
+          var reduce=matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+          function go(n){ stage.style.transform='translateX(-'+(n*33.333)+'%)'; }
+          function tab(name){ tabs.forEach(function(t){t.classList.toggle('on',t.dataset.tab===name);}); }
+          function move(x,y){ cur.classList.remove('off'); cur.style.left=x+'px'; cur.style.top=y+'px'; }
+          function park(){ cur.classList.add('off'); }
+          function tapAt(x,y){ tap.style.left=x+'px'; tap.style.top=y+'px'; tap.classList.remove('go'); void tap.offsetWidth; tap.classList.add('go'); }
+          function show(id){ if(calls[id]) calls[id].classList.add('show'); }
+          function hide(id){ if(calls[id]) calls[id].classList.remove('show'); }
+          function hideAll(){ Object.keys(calls).forEach(function(k){calls[k].classList.remove('show');}); }
+          if(reduce){ go(0); tab('profile'); panelA.classList.add('added'); show('a1'); show('a2'); show('a3'); park(); return; }
+          var timers=[]; function at(t,fn){ timers.push(setTimeout(fn,t)); }
+          function run(){
+            timers.forEach(clearTimeout); timers=[];
+            go(0); tab('profile'); panelA.classList.remove('added'); panelC.classList.remove('dispatched'); hideAll(); park();
+            at(700,function(){show('a1');});
+            at(2000,function(){show('a2');});
+            at(3100,function(){move(150,362);});
+            at(3750,function(){tapAt(150,362); panelA.classList.add('added');});
+            at(4250,function(){show('a3');});
+            at(5700,function(){hide('a1');hide('a2');hide('a3');move(46,526);});
+            at(6250,function(){tapAt(46,526); go(1); tab('jobs');});
+            at(7100,function(){show('b1'); park();});
+            at(8400,function(){hide('b1'); move(135,176);});
+            at(9000,function(){tapAt(135,176); go(2);});
+            at(9850,function(){show('c1'); park();});
+            at(11150,function(){hide('c1'); move(135,438);});
+            at(11750,function(){tapAt(135,438); panelC.classList.add('dispatched');});
+            at(13500,function(){move(224,526);});
+            at(14100,function(){tapAt(224,526);});
+            at(14800,function(){run();});
+          }
+          var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(); io.disconnect();}});},{threshold:.2});
+          io.observe(root);
+        })();
+        </script>
 
         <div class="uxprocess">
           <div class="lbl">UX process</div>
@@ -1875,12 +1983,6 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 (function(){
   var cv=document.getElementById('heroCanvas'); if(!cv||!cv.getContext) return;
   var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
-  var backup=document.getElementById('heroBackup'), portrait=cv.parentNode;
-  portrait.addEventListener('contextmenu',function(e){ e.preventDefault();
-    var toBackup=!cv.hasAttribute('hidden');
-    if(backup) backup.hidden=!toBackup;
-    if(toBackup) cv.setAttribute('hidden',''); else cv.removeAttribute('hidden');
-  });
   function mk(){ var c=document.createElement('canvas'); c.width=W; c.height=H; return c; }
   var htL=mk(), hx=htL.getContext('2d');
   var ogL=mk(), ox=ogL.getContext('2d');
