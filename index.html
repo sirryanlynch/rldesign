@@ -212,8 +212,11 @@ a{color:inherit}
 .ds .dsix .t{margin:18px 0 6px;font-size:17px;font-weight:600;color:var(--t0);letter-spacing:-.015em}
 .ds .dsix .d{font-size:12.5px;line-height:1.55;color:var(--t2)}
 .ds .dsix .meta{margin-top:16px;padding-top:13px;border-top:1px solid var(--l0);display:flex;align-items:center;gap:8px;font-family:var(--mn);font-size:10px;color:var(--t3);letter-spacing:.02em}
-.ds .dsix .meta .arw{margin-left:auto;width:28px;height:28px;flex:0 0 auto;border-radius:50%;border:1px solid var(--l1);display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;color:var(--t2);transition:background .22s,border-color .22s,color .22s,transform .22s}
-.ds .dsix:hover .meta .arw{background:var(--g);border-color:var(--g);color:#0b0b0d;transform:translateX(3px)}
+.ds .dsix .meta .mtxt{color:var(--t3)}
+.ds .dsix .open{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--mn);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g);background:rgba(196,166,108,.12);border:1px solid var(--la);border-radius:999px;padding:6px 12px;transition:background .22s,color .22s,border-color .22s}
+.ds .dsix .open .arw{font-size:12px;line-height:1;transition:transform .22s}
+.ds .dsix:hover .open{background:var(--g);color:#0b0b0d;border-color:var(--g)}
+.ds .dsix:hover .open .arw{transform:translate(2px,-2px)}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 /* brand — system cards */
@@ -1037,19 +1040,19 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
               <span class="num">01</span><span class="tag">Deck</span>
               <span class="t">Rationale deck</span>
               <span class="d">The decisions and tradeoffs — the case for why the system is built the way it is.</span>
-              <span class="meta">12 slides · the why<span class="arw">&#8599;</span></span>
+              <span class="meta"><span class="mtxt">12 slides · the why</span><span class="open">Open<span class="arw">&#8599;</span></span></span>
             </button>
             <button class="dsix" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Full 25-section design-system reference">
               <span class="num">02</span><span class="tag">System</span>
               <span class="t">Full design system</span>
               <span class="d">Components, variants, interaction states, and the semantic tokens beneath them.</span>
-              <span class="meta">25 sections · reference<span class="arw">&#8599;</span></span>
+              <span class="meta"><span class="mtxt">25 sections · reference</span><span class="open">Open<span class="arw">&#8599;</span></span></span>
             </button>
             <button class="dsix" data-launch="tools/bankiq-storybook/index.html" data-label="B2B Banking app · Live Storybook" data-note="Interactive component library — states, tokens &amp; patterns">
               <span class="num">03</span><span class="tag">Live</span>
               <span class="t">Live storybook</span>
               <span class="d">The working component library — inspect real states, tokens, and patterns hands-on.</span>
-              <span class="meta">components · interactive<span class="arw">&#8599;</span></span>
+              <span class="meta"><span class="mtxt">components · interactive</span><span class="open">Open<span class="arw">&#8599;</span></span></span>
             </button>
           </div>
         </div>
@@ -1410,11 +1413,11 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       mTitle=document.getElementById('mTitle'),mNote=document.getElementById('mNote');
   function openModal(src,label,note){
     mTitle.innerHTML='<b>'+label+'</b>';mNote.textContent=note||'';
-    modal.classList.add('open');document.body.style.overflow='hidden';
+    modal.classList.add('open');document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
     mIframe.src=src;
   }
   window.rlModal=openModal;   // let embedded tools swap the modal to another build
-  function closeModal(){modal.classList.remove('open');document.body.style.overflow='';mIframe.src='about:blank';}
+  function closeModal(){modal.classList.remove('open');document.documentElement.style.overflow='';document.body.style.overflow='';mIframe.src='about:blank';}
   document.querySelectorAll('[data-launch]').forEach(function(b){
     b.addEventListener('click',function(){openModal(b.dataset.launch,b.dataset.label,b.dataset.note);});
   });
