@@ -481,12 +481,52 @@ details.more p{color:var(--ink-2);font-size:15px;margin:0;max-width:46ch}
 :root{--dmgblue:#2f6fd6;--dmgink:#1b1c20;--dmgmut:#8b8f98;--dmgbord:#edeff2;--dmggreen:#34a853;--dmgamber:#e08a1e;--dmgring:#9d2f33}
 .dmgproto{position:relative;margin:2px auto 4px;max-width:900px;min-height:620px;display:flex;align-items:center;justify-content:center;padding:16px 0}
 .dmgproto .aura{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:330px;height:90%;background:radial-gradient(closest-side,rgba(47,111,214,.20),transparent 70%);filter:blur(26px);z-index:0}
-.dmgphone{position:relative;z-index:2;width:292px;flex:0 0 auto;border-radius:42px;background:linear-gradient(150deg,#17181b,#050506);padding:11px;box-shadow:0 66px 120px -46px rgba(0,0,0,.9),0 22px 46px -22px rgba(0,0,0,.6),inset 0 0 0 1.5px #2a2a30;animation:dmgfloat 7s ease-in-out infinite}
-@keyframes dmgfloat{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-11px) rotate(.4deg)}}
+.dmgphone{position:relative;z-index:2;width:292px;flex:0 0 auto;border-radius:42px;background:linear-gradient(150deg,#17181b,#050506);padding:11px;box-shadow:0 66px 120px -46px rgba(0,0,0,.9),0 22px 46px -22px rgba(0,0,0,.6),inset 0 0 0 1.5px #2a2a30}
 .dmgscreen{position:relative;border-radius:31px;overflow:hidden;background:#fff;width:270px;height:552px;font-family:var(--bd);color:var(--dmgink)}
 .dmgscreen .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:92px;height:20px;background:#050506;border-radius:0 0 13px 13px;z-index:9}
-.dmgstage{position:absolute;top:0;left:0;height:498px;width:300%;display:flex;transition:transform .6s cubic-bezier(.66,0,.2,1)}
-.dmgpanel{width:33.333%;height:100%;overflow:hidden}
+.dmgstage{position:absolute;top:0;left:0;height:552px;width:400%;display:flex;transition:transform .6s cubic-bezier(.66,0,.2,1)}
+.dmgpanel{width:25%;height:100%;overflow:hidden}
+.dmgtabs{transition:transform .5s cubic-bezier(.5,0,.2,1),opacity .4s ease}
+.dmgscreen.authing .dmgtabs{transform:translateY(100%);opacity:0;pointer-events:none}
+/* login / intro screen */
+.dmglogin{position:relative;background:linear-gradient(168deg,#eaf1ff 0%,#f5f8fc 46%,#fbfcfe 100%);display:flex;flex-direction:column}
+.dmglogin .lbg{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:280px;height:280px;background:radial-gradient(closest-side,rgba(47,111,214,.22),transparent 70%);filter:blur(8px);pointer-events:none}
+.dmglogin .lbrand{position:relative;text-align:center;padding:52px 0 0}
+.dmglogin .mark{width:60px;height:60px;margin:0 auto 14px;border-radius:18px;background:linear-gradient(150deg,#3f86f0,#2258c8);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 16px 30px -12px rgba(37,88,200,.6),inset 0 1px 0 rgba(255,255,255,.35)}
+.dmglogin .wd{font-family:var(--disp);font-weight:700;font-size:26px;letter-spacing:.14em;color:#141c2b}
+.dmglogin .sub{font-size:11px;color:#6a7686;font-family:var(--mono);letter-spacing:.06em;margin-top:5px}
+.dmglogin .lcard{position:relative;margin:auto 20px 0;background:#fff;border:1px solid #e7ebf2;border-radius:20px;padding:20px 18px;box-shadow:0 24px 50px -22px rgba(24,40,80,.28)}
+.dmglogin .lh{font-weight:700;font-size:17px;letter-spacing:-.01em;color:#161922}
+.dmglogin .lp{font-size:11px;color:#7a828f;margin-top:3px}
+.dmglogin .lfield{display:flex;align-items:center;gap:9px;border:1px solid #e3e7ee;border-radius:11px;padding:11px 12px;margin-top:12px;background:#fbfcfe}
+.dmglogin .lfield.foc{border-color:var(--dmgblue);box-shadow:0 0 0 3px rgba(47,111,214,.12);background:#fff}
+.dmglogin .lfield .li{color:#9aa2ad;display:flex;flex:0 0 auto}
+.dmglogin .lfield .lv{font-size:12px;color:#2b303a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dmglogin .lfield .lr{color:#b7bdc7;display:flex}
+.dmglogin .lbtn{position:relative;overflow:hidden;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,#3f86f0,#2f6fd6);color:#fff;font-weight:700;font-size:13.5px;border-radius:12px;padding:12px 0;box-shadow:0 14px 26px -12px rgba(47,111,214,.75)}
+.dmglogin .lforgot{text-align:center;font-size:11px;color:var(--dmgblue);font-weight:600;margin-top:12px}
+.dmglogin .lfoot{text-align:center;font-size:9.5px;color:#9aa2ad;font-family:var(--mono);letter-spacing:.04em;padding:16px 0 18px}
+.dmglogin .lsso{display:flex;align-items:center;gap:8px;margin-top:13px;color:#9aa2ad;font-size:9.5px;font-family:var(--mono)}
+.dmglogin .lsso::before,.dmglogin .lsso::after{content:"";height:1px;flex:1;background:#e7ebf2}
+/* enriched checklist */
+.dmgchk li::before{content:"";width:13px;height:13px;border-radius:50%;background:#fff;border:1.5px solid #cfd3da;box-sizing:border-box;flex:0 0 auto}
+.dmgchk li.on::before{border:0;background:var(--dmggreen) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/9px no-repeat}
+/* enriched work-order summary */
+.dmgwo .sum .st{display:flex;align-items:center;gap:8px}
+.dmgwo .sum .st b{flex:1;min-width:0}
+.dmgwo .sum .pri{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:6px;padding:3px 7px;white-space:nowrap}
+.dmgwo .sum .pri.high{color:#c2410c;background:#fdecdf;border:1px solid #f6d4bd}
+.dmgwo .sum .m{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:7px}
+.dmgwo .sum .m span{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#6b7079;font-family:var(--mono)}
+.dmgwo .sum .m svg{color:#aeb4bf;flex:0 0 auto}
+/* enriched provider card */
+.dmgprov .badge{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.02em;color:#1a7a3d;background:#e6f6ec;border:1px solid #bfe6cb;border-radius:999px;padding:3px 9px 3px 7px;display:inline-flex;align-items:center;gap:4px}
+.dmgprov .stars{display:flex;align-items:center;gap:2px;margin-top:8px}
+.dmgprov .stars svg{color:#f4b740}
+.dmgprov .stars .rv{font-size:10px;font-weight:700;color:#3a3f48;margin-left:4px}
+.dmgprov .stars .rc{font-size:9.5px;color:#9aa2ad;font-family:var(--mono)}
+.dmgprov .attr{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:600;color:#3f5470;background:#eef4fd;border:1px solid #dbe6f9;border-radius:8px;padding:4px 8px}
+.dmgprov .attr svg{color:#7f97bd;flex:0 0 auto}
 .dmgsb{display:flex;justify-content:space-between;align-items:center;padding:9px 17px 2px;font:650 12px var(--bd);letter-spacing:-.02em;color:#0b0c0f}
 .dmgsb .r{display:inline-flex;align-items:center;gap:6px}
 .dmgsb svg{display:block}
@@ -1347,9 +1387,29 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         <div class="dmgproto">
           <div class="aura"></div>
           <div class="dmgphone">
-            <div class="dmgscreen">
+            <div class="dmgscreen authing">
               <div class="notch"></div>
               <div class="dmgstage" id="dmgStage">
+                <!-- PANEL 0 · branded login -->
+                <div class="dmgpanel dmglogin" id="dmgPanelLogin">
+                  <div class="lbg"></div>
+                  <div class="dmgsb"><span>9:41</span><span class="r"><svg width="18" height="11" viewBox="0 0 20 12"><g fill="#0b0c0f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></g></svg><svg width="16" height="11" viewBox="0 0 16 12" fill="#0b0c0f"><path d="M8 3.1c2.35 0 4.5.92 6.1 2.44l-1.45 1.5A6.7 6.7 0 0 0 8 5.2 6.7 6.7 0 0 0 3.35 7.04L1.9 5.54A8.9 8.9 0 0 1 8 3.1z"/><path d="M8 7.05c1.2 0 2.32.5 3.12 1.32L8 11.5 4.88 8.37A4.45 4.45 0 0 1 8 7.05z"/></svg><svg width="25" height="12" viewBox="0 0 26 13"><rect x="1" y="1.6" width="20" height="10" rx="3" fill="none" stroke="#0b0c0f" stroke-width="1.1" opacity=".85"/><rect x="2.8" y="3.3" width="15.4" height="6.6" rx="1.7" fill="#0b0c0f"/><rect x="22.4" y="4.7" width="2" height="3.8" rx="1" fill="#0b0c0f"/></svg></span></div>
+                  <div class="lbrand">
+                    <div class="mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.2a4 4 0 0 0-5.2 5.2l-6.2 6.2L5.4 19l6.2-6.2A4 4 0 0 0 17 8.2l-2.4 2.4-2-2L15 6.2z"/></svg></div>
+                    <div class="wd">DMG</div>
+                    <div class="sub">Field Service Platform</div>
+                  </div>
+                  <div class="lcard">
+                    <div class="lh">Welcome back</div>
+                    <div class="lp">Sign in to manage your jobs</div>
+                    <div class="lfield foc"><span class="li"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span><span class="lv">ryan.lynch@dmg.co</span></div>
+                    <div class="lfield"><span class="li"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="lv">••••••••••</span><span class="lr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg></span></div>
+                    <div class="lbtn"><span class="lo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span>Sign in</div>
+                    <div class="lforgot">Forgot password?</div>
+                    <div class="lsso">or continue with SSO</div>
+                  </div>
+                  <div class="lfoot">Secured by DMG · v2.4</div>
+                </div>
                 <!-- PANEL A · profile / onboarding -->
                 <div class="dmgpanel" id="dmgPanelA">
                   <div class="dmgsb"><span>9:41</span><span class="r">
@@ -1424,11 +1484,15 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
                   <div class="dmghdr"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></span><div class="dmgttl" style="font-size:14px">Work order</div><div class="sp"></div></div>
                   <div class="dmgdiv"></div>
                   <div class="dmgwo">
-                    <div class="sum"><b>Rooftop HVAC — Unit 4</b><div class="m">1200 Harbor Blvd · Priority: High · WO-4821</div></div>
+                    <div class="sum">
+                      <div class="st"><b>Rooftop HVAC · Unit 4</b><span class="pri high">High</span></div>
+                      <div class="m"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>1200 Harbor Blvd</span><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0l-7-7A2 2 0 0 1 3 12.2V5a2 2 0 0 1 2-2h7.2a2 2 0 0 1 1.4.6l7 7a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg>WO-4821</span></div>
+                    </div>
                     <div class="dmgsec">Matched provider</div>
                     <div class="dmgprov">
-                      <div class="top"><span class="av">MR</span><span class="nm">Marco Ruiz</span><span class="badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>Licensed</span></div>
-                      <div class="attrs"><span class="attr">HVAC · Class A</span><span class="attr">Zone 3</span><span class="attr">★ 4.9</span><span class="attr">12 min out</span></div>
+                      <div class="top"><span class="av">MR</span><span class="nm">Marco Ruiz</span><span class="badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l7 3v6c0 4.4-3 8.3-7 9.5C8 19.3 5 15.4 5 11V5l7-3z"/><path d="M9 11.5l2 2 4-4"/></svg>Licensed</span></div>
+                      <div class="stars"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17.8 5.9 20.4l1.5-6.8L2.2 9l6.9-.7z"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17.8 5.9 20.4l1.5-6.8L2.2 9l6.9-.7z"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17.8 5.9 20.4l1.5-6.8L2.2 9l6.9-.7z"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17.8 5.9 20.4l1.5-6.8L2.2 9l6.9-.7z"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17.8 5.9 20.4l1.5-6.8L2.2 9l6.9-.7z"/></svg><span class="rv">4.9</span><span class="rc">· 128 jobs</span></div>
+                      <div class="attrs"><span class="attr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 14h5"/></svg>HVAC · Class A</span><span class="attr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Zone 3</span><span class="attr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>12 min out</span></div>
                     </div>
                     <div class="dmgbtn"><span class="lo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span class="d0">Dispatch</span><span class="d1">Dispatched</span></div>
                   </div>
@@ -1459,7 +1523,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
               tabs=root.querySelectorAll('#dmgTabs .dmgtab'), calls={};
           root.querySelectorAll('.dmgcallout').forEach(function(c){calls[c.dataset.call]=c;});
           var reduce=matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
-          function go(n){ stage.style.transform='translateX(-'+(n*33.333)+'%)'; }
+          var scr=root.querySelector('.dmgscreen');
+          function go(n){ stage.style.transform='translateX(-'+(n*25)+'%)'; scr.classList.toggle('authing', n===0); }
           function tab(name){ tabs.forEach(function(t){t.classList.toggle('on',t.dataset.tab===name);}); }
           function move(x,y){ cur.classList.remove('off'); cur.style.left=x+'px'; cur.style.top=y+'px'; }
           function park(){ cur.classList.add('off'); }
@@ -1467,27 +1532,29 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           function show(id){ if(calls[id]) calls[id].classList.add('show'); }
           function hide(id){ if(calls[id]) calls[id].classList.remove('show'); }
           function hideAll(){ Object.keys(calls).forEach(function(k){calls[k].classList.remove('show');}); }
-          if(reduce){ go(0); tab('profile'); panelA.classList.add('added'); show('a1'); show('a2'); show('a3'); park(); return; }
+          if(reduce){ go(1); tab('profile'); panelA.classList.add('added'); show('a1'); show('a2'); show('a3'); park(); return; }
           var timers=[]; function at(t,fn){ timers.push(setTimeout(fn,t)); }
           function run(){
             timers.forEach(clearTimeout); timers=[];
             go(0); tab('profile'); panelA.classList.remove('added'); panelC.classList.remove('dispatched'); hideAll(); park();
-            at(700,function(){show('a1');});
-            at(2000,function(){show('a2');});
-            at(3100,function(){move(150,316);});
-            at(3750,function(){tapAt(150,316); panelA.classList.add('added');});
-            at(4250,function(){show('a3');});
-            at(5700,function(){hide('a1');hide('a2');hide('a3');move(46,522);});
-            at(6250,function(){tapAt(46,522); go(1); tab('jobs');});
-            at(7100,function(){show('b1'); park();});
-            at(8400,function(){hide('b1'); move(135,142);});
-            at(9000,function(){tapAt(135,142); go(2);});
-            at(9850,function(){show('c1'); park();});
-            at(11150,function(){hide('c1'); move(135,335);});
-            at(11750,function(){tapAt(135,335); panelC.classList.add('dispatched');});
-            at(13500,function(){move(225,522);});
-            at(14100,function(){tapAt(225,522);});
-            at(14800,function(){run();});
+            at(1000,function(){move(135,440);});                              // login: Sign in
+            at(1650,function(){tapAt(135,440); go(1); tab('profile');});      // enter app
+            at(2600,function(){show('a1');});
+            at(3800,function(){show('a2');});
+            at(4900,function(){move(150,316);});
+            at(5550,function(){tapAt(150,316); panelA.classList.add('added');});
+            at(6050,function(){show('a3');});
+            at(7400,function(){hide('a1');hide('a2');hide('a3');move(46,522);});
+            at(7950,function(){tapAt(46,522); go(2); tab('jobs');});
+            at(8800,function(){show('b1'); park();});
+            at(10100,function(){hide('b1'); move(135,142);});
+            at(10700,function(){tapAt(135,142); go(3);});
+            at(11550,function(){show('c1'); park();});
+            at(12900,function(){hide('c1'); move(135,335);});
+            at(13500,function(){tapAt(135,335); panelC.classList.add('dispatched');});
+            at(15300,function(){park(); go(0);});                             // sign out → back to login
+            at(15950,function(){panelA.classList.remove('added'); panelC.classList.remove('dispatched'); hideAll();});
+            at(17100,function(){run();});
           }
           var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(); io.disconnect();}});},{threshold:.2});
           io.observe(root);
