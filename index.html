@@ -888,8 +888,36 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;background:linear-gradient(180deg,#111114,#0b0b0d);border:1px solid #232327;border-radius:14px;padding:26px 14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)">
         <figure style="margin:0;text-align:center">
           <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6a6a72">Before</div>
-          <img src="https://bvconuycpdvgzbvbkijl.supabase.co/storage/v1/object/public/sizes/8924a0-mail/dynamic/200/color.webp" alt="A PDF, emailed once" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" style="width:100%;max-width:108px;height:auto;margin:0 auto;display:block;filter:grayscale(.55) drop-shadow(0 12px 18px rgba(0,0,0,.45))"/><span style="display:none;font-size:72px;line-height:1;text-align:center">&#9993;&#65039;</span>
-          <figcaption style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4">A static PDF.<br/>Sent once, stale on arrival.</figcaption>
+          <svg viewBox="0 0 140 132" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:130px;height:auto;margin:0 auto;display:block;filter:drop-shadow(0 12px 16px rgba(0,0,0,.45))">
+            <defs>
+              <linearGradient id="rpTop" x1="0" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#3f8f89"/><stop offset="1" stop-color="#2c6e69"/></linearGradient>
+              <linearGradient id="rpL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f4b"/><stop offset="1" stop-color="#163a37"/></linearGradient>
+              <linearGradient id="rpR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a635e"/><stop offset="1" stop-color="#1c4844"/></linearGradient>
+              <linearGradient id="rpHand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#47978f"/><stop offset="1" stop-color="#245b56"/></linearGradient>
+              <radialGradient id="rpDial" cx="42%" cy="36%" r="72%"><stop offset="0" stop-color="#f4ecd6"/><stop offset="1" stop-color="#d6c8a4"/></radialGradient>
+              <radialGradient id="rpSh" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+            </defs>
+            <ellipse cx="70" cy="115" rx="48" ry="11" fill="url(#rpSh)"/>
+            <path d="M24 74 L70 97 L70 111 L24 88 Z" fill="url(#rpL)"/>
+            <path d="M116 74 L70 97 L70 111 L116 88 Z" fill="url(#rpR)"/>
+            <path d="M70 52 L116 74 L70 97 L24 74 Z" fill="url(#rpTop)"/>
+            <path d="M70 55 L104 72 L70 89 L36 72 Z" fill="#ffffff" opacity=".07"/>
+            <ellipse cx="72" cy="77" rx="21" ry="10.5" fill="#163a37"/>
+            <ellipse cx="72" cy="76.4" rx="18.4" ry="9.1" fill="url(#rpDial)"/>
+            <ellipse cx="72" cy="76.4" rx="6.2" ry="3.1" fill="#c4a66c"/>
+            <ellipse cx="72" cy="76" rx="3.1" ry="1.5" fill="#8a713f"/>
+            <g fill="#2c6e69"><ellipse cx="72" cy="70.6" rx="1.9" ry="1"/><ellipse cx="80" cy="72.4" rx="1.9" ry="1"/><ellipse cx="84.4" cy="76" rx="1.9" ry="1"/><ellipse cx="80.4" cy="80.3" rx="1.9" ry="1"/><ellipse cx="72" cy="82.1" rx="1.9" ry="1"/><ellipse cx="63.6" cy="80.3" rx="1.9" ry="1"/><ellipse cx="59.6" cy="76" rx="1.9" ry="1"/></g>
+            <path d="M54.5 71 l3 1.6 v2 l-3 -1.6 z" fill="#c4a66c"/>
+            <path d="M40 56 l6 3 v5 l-6 -3 z" fill="#163a37"/>
+            <path d="M94 56 l6 3 v5 l-6 -3 z" fill="#163a37"/>
+            <path d="M44 50 q26 -14 52 -1" fill="none" stroke="url(#rpHand)" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 47.6 q26 -14 52 -1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity=".18"/>
+            <ellipse cx="37" cy="50" rx="8" ry="9.2" fill="url(#rpHand)"/>
+            <ellipse cx="101" cy="49" rx="8" ry="9.2" fill="#2a635e"/>
+            <ellipse cx="35.5" cy="49" rx="3.4" ry="4" fill="#143734"/>
+            <ellipse cx="102.5" cy="48" rx="3.4" ry="4" fill="#143734"/>
+          </svg><span style="display:none"></span>
+          <figcaption style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4">The old way.<br/>Static, dated, one-way.</figcaption>
         </figure>
         <svg viewBox="0 0 40 24" fill="none" stroke="#c4a66c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:22px"><path d="M4 12h30M26 5l8 7-8 7"/></svg>
         <figure style="margin:0;text-align:center">
@@ -898,7 +926,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           <figcaption style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4">A living system —<br/>tracked, editable, AI-packaged.</figcaption>
         </figure>
       </div>
-      <div class="snapcap">Emailed PDF to living system — the same leap, one generation apart. Names redacted.</div>
+      <div class="snapcap">Rotary to smartphone — the same leap, one generation apart. Names redacted.</div>
       <button class="launch" data-launch="tools/ds-deck/index.html" data-label="Brand system · living delivery deck" data-note="Redacted client work · live web system">Open the deck <span class="hint">↗ live build</span></button>
     </div>
   </div>
