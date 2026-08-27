@@ -199,18 +199,18 @@ a{color:inherit}
 .ds .dscta{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:20px}
 /* three-piece index: storybook · full system · rationale */
 /* design-system tabbed viewer */
-.ds .dsviewer{margin-top:22px;scroll-margin-top:84px;width:100vw;position:relative;left:50%;transform:translateX(-50%);padding:0 clamp(14px,3.5vw,40px);box-sizing:border-box}
-.ds .dstabs{display:flex;gap:2px;border-bottom:1px solid var(--l1);flex-wrap:wrap;max-width:1360px;width:100%;margin:0 auto}
+.ds .dsviewer{margin-top:22px;scroll-margin-top:84px}
+.ds .dstabs{display:flex;gap:2px;border-bottom:1px solid var(--l1);flex-wrap:wrap}
 .ds .dstab{position:relative;background:none;border:0;font-family:var(--mn);font-size:12px;letter-spacing:.01em;color:var(--t3);padding:12px 17px;cursor:pointer;transition:color .2s;white-space:nowrap}
 .ds .dstab:hover{color:var(--t1)}
 .ds .dstab.on{color:var(--t0)}
 .ds .dstab.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--g);border-radius:2px}
-.ds .dspane{margin:16px auto 0;max-width:1360px;border:1px solid var(--l1);border-radius:12px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
+.ds .dspane{margin-top:16px;border:1px solid var(--l1);border-radius:12px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
 .ds .dsphead{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#131316;border-bottom:1px solid var(--l0);font-family:var(--mn);font-size:10px;color:var(--t2)}
 .ds .dsphead .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
 .ds .dsphead .dot.r{background:#ff5f57}.ds .dsphead .dot.y{background:#febc2e}.ds .dsphead .dot.g{background:#28c840}
 .ds .dsphead .u{margin-left:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ds .dsframes{position:relative;height:min(88vh,1040px);background:#0b0b0d}
+.ds .dsframes{position:relative;height:min(84vh,940px);background:#0b0b0d}
 .ds .dsf{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .ds .dsf.on{opacity:1;pointer-events:auto}
 @media(max-width:680px){.ds .dstab{padding:10px 12px;font-size:11px}.ds .dsframes{height:min(78vh,760px)}}
@@ -686,6 +686,7 @@ footer .big{font-family:var(--serif);font-weight:400;font-size:clamp(40px,8vw,88
 footer .big a{text-decoration:none;border-bottom:2px solid var(--accent)}
 footer .big a:hover{color:var(--accent)}
 footer .row{display:flex;justify-content:space-between;align-items:center;margin-top:44px;flex-wrap:wrap;gap:16px}
+footer .flinks{display:inline-flex;gap:24px;flex-wrap:wrap;align-items:center}
 footer .row a{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
 footer .row a:hover{color:var(--accent)}
 footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
@@ -801,7 +802,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 
 <nav class="wrap nav">
   <div class="brand">RYAN&nbsp;LYNCH <span>// designer // creative</span></div>
-  <ul><li><a href="#work">Work</a></li><li><a href="#contact">Contact</a></li></ul>
+  <ul><li><a href="#work">My Work</a></li><li><a href="#contact">Contact</a></li></ul>
 </nav>
 <!-- HERO (screen 1) -->
 <header class="hero" id="top">
@@ -1375,7 +1376,11 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
 <footer id="contact" class="wrap">
   <div class="big">Let's make something<br/>worth shipping. <a href="mailto:hello@ryanlynch.design">Say hi ↗</a></div>
   <div class="row">
-    <a href="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/6a0f8de5935a6cb38849cdc4_RL_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+    <span class="flinks">
+      <a href="mailto:hello@ryanlynch.design">hello@ryanlynch.design ↗</a>
+      <a href="https://www.linkedin.com/in/ryanlynch" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://cdn.prod.website-files.com/67ee008eb3496b99ffa91832/6a0f8de5935a6cb38849cdc4_RL_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+    </span>
     <span class="sig">Ryan Lynch · Santa Cruz, CA</span>
   </div>
 </footer>
