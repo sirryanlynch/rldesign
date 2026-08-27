@@ -226,6 +226,12 @@ a{color:inherit}
 .baglow.warm::before{background:radial-gradient(closest-side,rgba(196,166,108,.28),transparent 72%)}
 .baglow.cool::before{background:radial-gradient(closest-side,rgba(120,132,240,.28),transparent 72%)}
 .baglow img{position:relative;z-index:1;display:block;margin:0 auto;filter:drop-shadow(0 22px 26px rgba(0,0,0,.6))}
+/* no-AI note + wide brand feature */
+.ainote{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--muted);margin-top:16px;border:1px solid var(--line);border-radius:999px;padding:8px 15px}
+.ainote::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:0 0 auto}
+.tsheet{margin:8px 0 16px}
+.tsheet img{width:100%;height:auto;display:block;border-radius:11px;border:1px solid var(--line)}
+.tsheet figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 /* brand — system cards */
@@ -1312,20 +1318,26 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     </div>
     <div class="tabpanel" id="panel-brand" role="tabpanel" aria-labelledby="tab-brand" hidden>
       <p class="paneltext">Brand direction and the systems beneath it, from creative identity to design systems that keep a product coherent.</p>
-      <div class="systemgrid">
-        <div class="syscard reveal">
-          <div class="swatches"><span style="background:#C4A66C"></span><span style="background:#8B7340"></span><span style="background:#232323"></span><span style="background:#6366F1"></span><span style="background:#EDEDED"></span></div>
-          <div class="sysmeta"><div class="kicker">Design System</div><h3>B2B Banking app</h3><p>Tokens, components, and states for a multi-tenant banking platform. This is what engineering builds against.</p></div>
-          <button class="launch" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Live design-system reference">Open the design system <span class="hint">↗ live</span></button>
-        </div>
-        <div class="syscard reveal">
-          <div class="swatches"><span style="background:#1E2030"></span><span style="background:#3893CD"></span><span style="background:#5C4BB9"></span><span style="background:#56BDED"></span><span style="background:#F4F5F7"></span></div>
-          <div class="sysmeta"><div class="kicker">Rationale</div><h3>Design Rationale Deck</h3><p>The clickable case for the system. Decisions, tradeoffs, information architecture, and the reasoning behind each pattern.</p></div>
-          <button class="launch" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="Rationale microsite">Open the rationale <span class="hint">↗ live</span></button>
-        </div>
-      </div>
       <div class="piece reveal">
       <div class="no">01</div>
+      <div class="pc">
+        <div class="ph" id="b2b-brand"><div><h3>B2B Banking</h3><div class="role">Brand identity and the design system beneath it — tokens, components, and the rationale deck that makes the case engineering builds against.</div></div></div>
+        <div class="systemgrid">
+          <div class="syscard reveal">
+            <div class="swatches"><span style="background:#C4A66C"></span><span style="background:#8B7340"></span><span style="background:#232323"></span><span style="background:#6366F1"></span><span style="background:#EDEDED"></span></div>
+            <div class="sysmeta"><div class="kicker">Design System</div><h3>B2B Banking app</h3><p>Tokens, components, and states for a multi-tenant banking platform. This is what engineering builds against.</p></div>
+            <button class="launch" data-launch="tools/bankiq-design-system/index.html" data-label="B2B Banking app · Design System" data-note="Live design-system reference">Open the design system <span class="hint">↗ live</span></button>
+          </div>
+          <div class="syscard reveal">
+            <div class="swatches"><span style="background:#1E2030"></span><span style="background:#3893CD"></span><span style="background:#5C4BB9"></span><span style="background:#56BDED"></span><span style="background:#F4F5F7"></span></div>
+            <div class="sysmeta"><div class="kicker">Rationale</div><h3>Design Rationale Deck</h3><p>The clickable case for the system. Decisions, tradeoffs, information architecture, and the reasoning behind each pattern.</p></div>
+            <button class="launch" data-launch="tools/bankiq-rationale/index.html" data-label="B2B Banking app · Design Rationale" data-note="Rationale microsite">Open the rationale <span class="hint">↗ live</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="piece reveal">
+      <div class="no">02</div>
       <div class="pc">
         <div class="ph" id="cruz-foam"><div><h3>Cruz Foam</h3><div class="role">Creative Director, tapped for Special Projects. Brand DNA, product development, comms, and web for the materials-science company replacing plastic foam.</div><span class="sptag">Special Projects</span></div></div>
         <div class="gallery">
@@ -1336,6 +1348,26 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         </div>
         <div class="vidpane" style="margin-top:18px"><iframe src="https://player.vimeo.com/video/962674218?title=0&byline=0&portrait=0" title="Cruz Foam brand film" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
         <div class="vidcap">Brand film · Cruz Foam</div>
+        <div class="ainote">100% of this work was made without the use of AI.</div>
+      </div>
+    </div>
+      <div class="piece reveal">
+      <div class="no">03</div>
+      <div class="pc">
+        <div class="ph" id="timber"><div><h3>Timber Surf Co</h3><div class="role">Brand identity, product-line architecture, and content for a Santa Cruz wood-surfboard maker — three construction sub-brands (Splinter Series, TECHxTILE, Corky), collateral, booth, and the visual language.</div><span class="sptag">Brand · Product</span></div></div>
+        <figure class="tsheet reveal"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
+        <figure class="tsheet reveal"><img src="assets/img/timber-line.jpg" alt="Timber Surf Co board line — Splinter Series, TECHxTILE, Corky" loading="lazy"/><figcaption>Board-line architecture — three construction sub-brands, one system.</figcaption></figure>
+        <div class="gallery">
+          <img src="assets/img/timber-g7.jpg" alt="Cedar fish surfboard by Timber Surf Co" loading="lazy"/>
+          <img src="assets/img/timber-g6.jpg" alt="Shaping a Timber board in the workshop" loading="lazy"/>
+          <img src="assets/img/timber-g5.jpg" alt="Wood inlay detail on a Timber board" loading="lazy"/>
+          <img src="assets/img/timber-g4.jpg" alt="Timber boards at an adaptive surf event, Santa Cruz" loading="lazy"/>
+          <img src="assets/img/timber-g8.jpg" alt="Timber Surf Co trade-show booth" loading="lazy"/>
+          <img src="assets/img/timber-g3.jpg" alt="Boards curing in the Timber workshop" loading="lazy"/>
+          <img src="assets/img/timber-g2.jpg" alt="Sunset surf with a Timber wood board" loading="lazy"/>
+          <img src="assets/img/timber-g1.jpg" alt="Timber Surf Co apparel — Surf Wood hoodie" loading="lazy"/>
+        </div>
+        <div class="ainote">100% of this work was made without the use of AI.</div>
       </div>
     </div>
     </div>
@@ -1347,7 +1379,6 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         <figure class="reveal"><img src="assets/img/bunker-diy.jpg" alt="Shaping a Timber board" loading="lazy"/><figcaption>Timber, shaping by hand, and the DIY build kit.</figcaption></figure>
         <figure class="reveal"><img src="assets/img/timber-boards.jpg" alt="Finished Timber boards" loading="lazy"/><figcaption>Finished boards, reclaimed wood.</figcaption></figure>
         <figure class="feature reveal"><div class="vidpane"><iframe src="https://player.vimeo.com/video/393731995?title=0&byline=0&portrait=0" title="Timber film" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><figcaption><b>Timber, in motion.</b> The build, and the boards in the wild.</figcaption></figure>
-        <figure class="reveal placeholder"><div class="ph-note">Gov. Gavin Newsom holding a Timber board<br/><span>add photo → drop into assets/img</span></div></figure>
       </div>
     </div>
   </div>
