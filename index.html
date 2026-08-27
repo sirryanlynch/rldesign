@@ -236,10 +236,10 @@ a{color:inherit}
 .thero>img{display:block;width:100%;height:auto}
 .thero .theroh{position:absolute;top:0;left:0;right:0;padding:30px 30px 64px;border-radius:11px 11px 0 0;background:linear-gradient(180deg,rgba(8,10,14,.62) 0%,rgba(8,10,14,.3) 45%,transparent 100%);pointer-events:none;text-align:center;transition:opacity .4s ease}
 .thero.playing .theroh{opacity:0}
-.thero .therovid{position:absolute;inset:0;z-index:2;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease}
+.thero .therovid{position:absolute;inset:0;z-index:2;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s ease}
 .thero .therovid.on{opacity:1;visibility:visible}
 .thero .tvscrim{position:absolute;inset:0;background:rgba(6,8,12,.5)}
-.thero .tvplayer{position:absolute;inset:0}
+.thero .tvplayer{position:absolute;inset:clamp(30px,6vw,80px);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px -26px rgba(0,0,0,.7)}
 .thero .tvplayer iframe{display:block;width:100%;height:100%;border:0}
 .thero .tvclose{position:absolute;top:12px;right:12px;z-index:4;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(10,12,16,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s}
 .thero .tvclose:hover{background:rgba(10,12,16,.9);border-color:#fff;transform:scale(1.06)}
@@ -1791,10 +1791,10 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   var hero=document.getElementById('theroHero'); if(!hero) return;
   var vid=document.getElementById('theroVid'), frame=document.getElementById('tvFrame'), closeB=document.getElementById('tvClose');
   var SRC='https://player.vimeo.com/video/393731995?autoplay=1&muted=1&title=0&byline=0&portrait=0&controls=1';
-  var closed=false, playing=false;
+  var closed=false, playing=false, openTimer=null;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function open(){ if(closed||playing) return; playing=true; frame.src=SRC; vid.classList.add('on'); hero.classList.add('playing'); }
-  function stop(){ playing=false; vid.classList.remove('on'); hero.classList.remove('playing'); frame.src='about:blank'; }
+  function open(){ if(closed||playing||openTimer) return; openTimer=setTimeout(function(){ openTimer=null; playing=true; frame.src=SRC; vid.classList.add('on'); hero.classList.add('playing'); },1200); }
+  function stop(){ if(openTimer){clearTimeout(openTimer);openTimer=null;} playing=false; vid.classList.remove('on'); hero.classList.remove('playing'); frame.src='about:blank'; }
   closeB.addEventListener('click',function(e){ e.preventDefault(); closed=true; stop(); });
   if(reduce) return;
   new IntersectionObserver(function(es){ es.forEach(function(e){
