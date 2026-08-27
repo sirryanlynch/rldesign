@@ -232,8 +232,17 @@ a{color:inherit}
 .tsheet{margin:8px 0 16px}
 .tsheet img{width:100%;height:auto;display:block;border-radius:11px;border:1px solid var(--line)}
 .tsheet figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
-.thero{position:relative}
-.thero .theroh{position:absolute;top:0;left:0;right:0;padding:30px 30px 64px;border-radius:11px 11px 0 0;background:linear-gradient(180deg,rgba(8,10,14,.62) 0%,rgba(8,10,14,.3) 45%,transparent 100%);pointer-events:none;text-align:center}
+.thero{position:relative;overflow:hidden;border-radius:11px}
+.thero>img{display:block;width:100%;height:auto}
+.thero .theroh{position:absolute;top:0;left:0;right:0;padding:30px 30px 64px;border-radius:11px 11px 0 0;background:linear-gradient(180deg,rgba(8,10,14,.62) 0%,rgba(8,10,14,.3) 45%,transparent 100%);pointer-events:none;text-align:center;transition:opacity .4s ease}
+.thero.playing .theroh{opacity:0}
+.thero .therovid{position:absolute;inset:0;z-index:2;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease}
+.thero .therovid.on{opacity:1;visibility:visible}
+.thero .tvscrim{position:absolute;inset:0;background:rgba(6,8,12,.5)}
+.thero .tvplayer{position:absolute;inset:0}
+.thero .tvplayer iframe{display:block;width:100%;height:100%;border:0}
+.thero .tvclose{position:absolute;top:12px;right:12px;z-index:4;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(10,12,16,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s}
+.thero .tvclose:hover{background:rgba(10,12,16,.9);border-color:#fff;transform:scale(1.06)}
 .thero .tht{font-family:'Montserrat',var(--disp);font-weight:200;letter-spacing:.3em;font-size:clamp(22px,3.6vw,44px);color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.55);text-indent:.3em}
 .thero .ths{font-family:'Montserrat',var(--disp);font-weight:300;letter-spacing:.18em;text-transform:uppercase;font-size:clamp(10px,1.4vw,13px);color:rgba(255,255,255,.88);margin-top:10px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
 @media(max-width:640px){.thero .theroh{padding:18px 16px 42px}}
@@ -831,7 +840,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <h1 class="reveal">Ryan Lynch,<br/><em>designer &amp; maker.</em></h1>
     </div>
     <div class="statement">
-      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch"></canvas></div>
+      <div class="portrait reveal"><canvas id="heroCanvas" width="1000" height="1000" aria-label="Ryan Lynch" title="oh, Hi!"></canvas></div>
       <div class="fxpanel reveal"><canvas class="fx" id="heroFX"></canvas></div>
     </div>
   </div>
@@ -1360,7 +1369,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="no">03</div>
       <div class="pc">
         <div class="ph" id="timber"><div><h3>Timber Surf Co</h3><div class="role">Brand identity, product-line architecture, and content for a Santa Cruz wood-surfboard maker — three construction sub-brands (Splinter Series, TECHxTILE, Corky), collateral, booth, and the visual language.</div><span class="sptag">Brand · Product</span></div></div>
-        <figure class="tsheet thero reveal"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><div class="theroh"><div class="tht">TIMBER SURF CO</div><div class="ths">High-performance wooden surfboards</div></div><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
+        <figure class="tsheet thero reveal" id="theroHero"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><div class="theroh"><div class="tht">TIMBER SURF CO</div><div class="ths">High-performance wooden surfboards</div></div><div class="therovid" id="theroVid"><div class="tvscrim"></div><div class="tvplayer"><iframe id="tvFrame" title="Timber Surf Co film" allow="autoplay; fullscreen; picture-in-picture"></iframe></div><button class="tvclose" id="tvClose" title="Close" aria-label="Close video">&#10005;</button></div><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
         <figure class="tsheet reveal"><img src="assets/img/timber-line.jpg" alt="Timber Surf Co board line — Splinter Series, TECHxTILE, Corky" loading="lazy"/><figcaption>Board-line architecture — three construction sub-brands, one system.</figcaption></figure>
         <div class="gallery">
           <img src="assets/img/timber-g7.jpg" alt="Cedar fish surfboard by Timber Surf Co" loading="lazy"/>
@@ -1763,6 +1772,23 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   function ready(){ if(++n<2) return; ctx.drawImage(ht,0,0,W,H); requestAnimationFrame(loop); }
   ht.onload=ready; og.onload=ready;
   ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
+})();
+</script>
+<!-- Timber hero: contained video that autoplays on scroll, pausable + closable -->
+<script>
+(function(){
+  var hero=document.getElementById('theroHero'); if(!hero) return;
+  var vid=document.getElementById('theroVid'), frame=document.getElementById('tvFrame'), closeB=document.getElementById('tvClose');
+  var SRC='https://player.vimeo.com/video/393731995?autoplay=1&muted=1&title=0&byline=0&portrait=0&controls=1';
+  var closed=false, playing=false;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function open(){ if(closed||playing) return; playing=true; frame.src=SRC; vid.classList.add('on'); hero.classList.add('playing'); }
+  function stop(){ playing=false; vid.classList.remove('on'); hero.classList.remove('playing'); frame.src='about:blank'; }
+  closeB.addEventListener('click',function(e){ e.preventDefault(); closed=true; stop(); });
+  if(reduce) return;
+  new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ open(); } else if(playing){ stop(); }
+  }); },{threshold:.55}).observe(hero);
 })();
 </script>
 </body>
