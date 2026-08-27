@@ -199,21 +199,25 @@ a{color:inherit}
 .ds .dscta{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:20px}
 /* three-piece index: storybook · full system · rationale */
 /* design-system tabbed viewer */
-.ds .dsviewer{margin-top:22px;scroll-margin-top:84px}
-.ds .dstabs{display:flex;gap:2px;border-bottom:1px solid var(--l1);flex-wrap:wrap}
+.ds .dsviewer{margin-top:22px;scroll-margin-top:84px;width:100vw;position:relative;left:50%;transform:translateX(-50%);padding:0 clamp(14px,3.5vw,40px);box-sizing:border-box}
+.ds .dstabs{display:flex;gap:2px;border-bottom:1px solid var(--l1);flex-wrap:wrap;max-width:1360px;width:100%;margin:0 auto}
 .ds .dstab{position:relative;background:none;border:0;font-family:var(--mn);font-size:12px;letter-spacing:.01em;color:var(--t3);padding:12px 17px;cursor:pointer;transition:color .2s;white-space:nowrap}
 .ds .dstab:hover{color:var(--t1)}
 .ds .dstab.on{color:var(--t0)}
 .ds .dstab.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--g);border-radius:2px}
-.ds .dspane{margin-top:16px;border:1px solid var(--l1);border-radius:12px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
+.ds .dspane{margin:16px auto 0;max-width:1360px;border:1px solid var(--l1);border-radius:12px;overflow:hidden;background:#0b0b0d;box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
 .ds .dsphead{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#131316;border-bottom:1px solid var(--l0);font-family:var(--mn);font-size:10px;color:var(--t2)}
 .ds .dsphead .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
 .ds .dsphead .dot.r{background:#ff5f57}.ds .dsphead .dot.y{background:#febc2e}.ds .dsphead .dot.g{background:#28c840}
 .ds .dsphead .u{margin-left:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ds .dsframes{position:relative;height:74vh;max-height:840px;background:#0b0b0d}
+.ds .dsframes{position:relative;height:min(88vh,1040px);background:#0b0b0d}
 .ds .dsf{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .ds .dsf.on{opacity:1;pointer-events:auto}
-@media(max-width:680px){.ds .dstab{padding:10px 12px;font-size:11px}.ds .dsframes{height:64vh}}
+@media(max-width:680px){.ds .dstab{padding:10px 12px;font-size:11px}.ds .dsframes{height:min(78vh,760px)}}
+/* responsive video pane (Vimeo embeds) */
+.vidpane{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 26px 56px -30px rgba(0,0,0,.8)}
+.vidpane iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vidcap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 /* brand — system cards */
@@ -1349,6 +1353,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
           <img src="assets/img/cf-packaging.jpg" alt="Cruz Foam protective packaging render" loading="lazy"/>
           <img src="assets/img/cf-web.jpg" alt="Cruz Foam website design" loading="lazy"/>
         </div>
+        <div class="vidpane" style="margin-top:18px"><iframe src="https://player.vimeo.com/video/962674218?title=0&byline=0&portrait=0" title="Cruz Foam brand film" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="vidcap">Brand film · Cruz Foam</div>
       </div>
     </div>
     </div>
@@ -1359,6 +1365,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
         <figure class="reveal"><img src="assets/img/bunker-workshop.jpg" alt="Trailer build in the workshop" loading="lazy"/><figcaption>Fabrication and build, the messy middle.</figcaption></figure>
         <figure class="reveal"><img src="assets/img/bunker-diy.jpg" alt="Shaping a Timber board" loading="lazy"/><figcaption>Timber, shaping by hand, and the DIY build kit.</figcaption></figure>
         <figure class="reveal"><img src="assets/img/timber-boards.jpg" alt="Finished Timber boards" loading="lazy"/><figcaption>Finished boards, reclaimed wood.</figcaption></figure>
+        <figure class="feature reveal"><div class="vidpane"><iframe src="https://player.vimeo.com/video/393731995?title=0&byline=0&portrait=0" title="Timber film" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><figcaption><b>Timber, in motion.</b> The build, and the boards in the wild.</figcaption></figure>
         <figure class="reveal placeholder"><div class="ph-note">Gov. Gavin Newsom holding a Timber board<br/><span>add photo → drop into assets/img</span></div></figure>
       </div>
     </div>
