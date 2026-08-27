@@ -7,7 +7,7 @@
 <meta name="description" content="UX leader and Creative Director. Case studies, internal tools, and the systems behind them, all in one place." />
 <!-- design system fonts (used by the on-page Storybook wall) -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%230e0e0e'/%3E%3Ctext%20x='16'%20y='22'%20font-family='Georgia,serif'%20font-size='17'%20fill='%23c8ff3d'%20text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
 <!-- social share -->
 <meta property="og:type" content="website" />
@@ -232,6 +232,11 @@ a{color:inherit}
 .tsheet{margin:8px 0 16px}
 .tsheet img{width:100%;height:auto;display:block;border-radius:11px;border:1px solid var(--line)}
 .tsheet figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+.thero{position:relative}
+.thero .theroh{position:absolute;top:0;left:0;right:0;padding:30px 30px 64px;border-radius:11px 11px 0 0;background:linear-gradient(180deg,rgba(8,10,14,.62) 0%,rgba(8,10,14,.3) 45%,transparent 100%);pointer-events:none;text-align:center}
+.thero .tht{font-family:'Montserrat',var(--disp);font-weight:200;letter-spacing:.3em;font-size:clamp(22px,3.6vw,44px);color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.55);text-indent:.3em}
+.thero .ths{font-family:'Montserrat',var(--disp);font-weight:300;letter-spacing:.18em;text-transform:uppercase;font-size:clamp(10px,1.4vw,13px);color:rgba(255,255,255,.88);margin-top:10px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+@media(max-width:640px){.thero .theroh{padding:18px 16px 42px}}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 /* brand — system cards */
@@ -1355,7 +1360,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="no">03</div>
       <div class="pc">
         <div class="ph" id="timber"><div><h3>Timber Surf Co</h3><div class="role">Brand identity, product-line architecture, and content for a Santa Cruz wood-surfboard maker — three construction sub-brands (Splinter Series, TECHxTILE, Corky), collateral, booth, and the visual language.</div><span class="sptag">Brand · Product</span></div></div>
-        <figure class="tsheet reveal"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
+        <figure class="tsheet thero reveal"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><div class="theroh"><div class="tht">TIMBER SURF CO</div><div class="ths">High-performance wooden surfboards</div></div><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
         <figure class="tsheet reveal"><img src="assets/img/timber-line.jpg" alt="Timber Surf Co board line — Splinter Series, TECHxTILE, Corky" loading="lazy"/><figcaption>Board-line architecture — three construction sub-brands, one system.</figcaption></figure>
         <div class="gallery">
           <img src="assets/img/timber-g7.jpg" alt="Cedar fish surfboard by Timber Surf Co" loading="lazy"/>
