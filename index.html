@@ -210,6 +210,8 @@ a{color:inherit}
 .ds .dsphead .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
 .ds .dsphead .dot.r{background:#ff5f57}.ds .dsphead .dot.y{background:#febc2e}.ds .dsphead .dot.g{background:#28c840}
 .ds .dsphead .u{margin-left:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds .dsfs{margin-left:auto;flex:0 0 auto;font-family:var(--mn);font-size:10px;color:var(--t2);background:none;border:1px solid var(--l1);border-radius:6px;padding:5px 11px;cursor:pointer;white-space:nowrap;transition:color .18s,border-color .18s,background .18s}
+.ds .dsfs:hover{color:var(--g);border-color:var(--la);background:rgba(196,166,108,.08)}
 .ds .dsframes{position:relative;height:min(84vh,940px);background:#0b0b0d}
 .ds .dsf{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .ds .dsf.on{opacity:1;pointer-events:auto}
@@ -218,6 +220,12 @@ a{color:inherit}
 .vidpane{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 26px 56px -30px rgba(0,0,0,.8)}
 .vidpane iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vidcap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+/* floating before/after product renders */
+.baglow{position:relative;display:block;text-align:center}
+.baglow::before{content:"";position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);width:90%;height:78%;border-radius:50%;filter:blur(30px);z-index:0;background:radial-gradient(closest-side,rgba(150,168,190,.30),transparent 72%);pointer-events:none}
+.baglow.warm::before{background:radial-gradient(closest-side,rgba(196,166,108,.28),transparent 72%)}
+.baglow.cool::before{background:radial-gradient(closest-side,rgba(120,132,240,.28),transparent 72%)}
+.baglow img{position:relative;z-index:1;display:block;margin:0 auto;filter:drop-shadow(0 22px 26px rgba(0,0,0,.6))}
 .ds .dsopen.gho{background:var(--b3);color:var(--t0);border:1px solid var(--la);box-shadow:0 8px 20px -10px rgba(0,0,0,.6);justify-content:center}
 .ds .dsopen.gho:hover{background:rgba(196,166,108,.14);color:var(--g);border-color:rgba(196,166,108,.55);transform:translateY(-1px)}
 /* brand — system cards */
@@ -893,41 +901,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;background:linear-gradient(180deg,#111114,#0b0b0d);border:1px solid #232327;border-radius:14px;padding:26px 14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)">
         <figure style="margin:0;text-align:center">
           <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6a6a72">Before</div>
-          <svg viewBox="0 0 140 132" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:130px;height:auto;margin:0 auto;display:block;filter:drop-shadow(0 12px 16px rgba(0,0,0,.45))">
-            <defs>
-              <linearGradient id="rpTop" x1="0" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#3f8f89"/><stop offset="1" stop-color="#2c6e69"/></linearGradient>
-              <linearGradient id="rpL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f4b"/><stop offset="1" stop-color="#163a37"/></linearGradient>
-              <linearGradient id="rpR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a635e"/><stop offset="1" stop-color="#1c4844"/></linearGradient>
-              <linearGradient id="rpHand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#47978f"/><stop offset="1" stop-color="#245b56"/></linearGradient>
-              <radialGradient id="rpDial" cx="42%" cy="36%" r="72%"><stop offset="0" stop-color="#f4ecd6"/><stop offset="1" stop-color="#d6c8a4"/></radialGradient>
-              <radialGradient id="rpSh" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-            </defs>
-            <ellipse cx="70" cy="115" rx="48" ry="11" fill="url(#rpSh)"/>
-            <path d="M24 74 L70 97 L70 111 L24 88 Z" fill="url(#rpL)"/>
-            <path d="M116 74 L70 97 L70 111 L116 88 Z" fill="url(#rpR)"/>
-            <path d="M70 52 L116 74 L70 97 L24 74 Z" fill="url(#rpTop)"/>
-            <path d="M70 55 L104 72 L70 89 L36 72 Z" fill="#ffffff" opacity=".07"/>
-            <ellipse cx="72" cy="77" rx="21" ry="10.5" fill="#163a37"/>
-            <ellipse cx="72" cy="76.4" rx="18.4" ry="9.1" fill="url(#rpDial)"/>
-            <ellipse cx="72" cy="76.4" rx="6.2" ry="3.1" fill="#c4a66c"/>
-            <ellipse cx="72" cy="76" rx="3.1" ry="1.5" fill="#8a713f"/>
-            <g fill="#2c6e69"><ellipse cx="72" cy="70.6" rx="1.9" ry="1"/><ellipse cx="80" cy="72.4" rx="1.9" ry="1"/><ellipse cx="84.4" cy="76" rx="1.9" ry="1"/><ellipse cx="80.4" cy="80.3" rx="1.9" ry="1"/><ellipse cx="72" cy="82.1" rx="1.9" ry="1"/><ellipse cx="63.6" cy="80.3" rx="1.9" ry="1"/><ellipse cx="59.6" cy="76" rx="1.9" ry="1"/></g>
-            <path d="M54.5 71 l3 1.6 v2 l-3 -1.6 z" fill="#c4a66c"/>
-            <path d="M40 56 l6 3 v5 l-6 -3 z" fill="#163a37"/>
-            <path d="M94 56 l6 3 v5 l-6 -3 z" fill="#163a37"/>
-            <path d="M44 50 q26 -14 52 -1" fill="none" stroke="url(#rpHand)" stroke-width="9" stroke-linecap="round"/>
-            <path d="M44 47.6 q26 -14 52 -1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity=".18"/>
-            <ellipse cx="37" cy="50" rx="8" ry="9.2" fill="url(#rpHand)"/>
-            <ellipse cx="101" cy="49" rx="8" ry="9.2" fill="#2a635e"/>
-            <ellipse cx="35.5" cy="49" rx="3.4" ry="4" fill="#143734"/>
-            <ellipse cx="102.5" cy="48" rx="3.4" ry="4" fill="#143734"/>
-          </svg><span style="display:none"></span>
+          <span class="baglow warm"><img src="assets/img/ba-rotary.png" alt="Retro rotary telephone" loading="lazy" style="width:100%;max-width:152px;height:auto"/></span>
           <figcaption style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4">The old way.<br/>Static, dated, one-way.</figcaption>
         </figure>
         <svg viewBox="0 0 40 24" fill="none" stroke="#c4a66c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:22px"><path d="M4 12h30M26 5l8 7-8 7"/></svg>
         <figure style="margin:0;text-align:center">
           <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c4a66c">After</div>
-          <img src="https://bvconuycpdvgzbvbkijl.supabase.co/storage/v1/object/public/sizes/1fded0-mobile/dynamic/200/color.webp" alt="A living, tracked app" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" style="width:100%;max-width:108px;height:auto;margin:0 auto;display:block;filter:drop-shadow(0 14px 22px rgba(99,102,241,.4))"/><span style="display:none;font-size:72px;line-height:1;text-align:center">&#128241;</span>
+          <span class="baglow cool"><img src="assets/img/ba-iphones.png" alt="Modern smartphones" loading="lazy" style="width:100%;max-width:120px;height:auto"/></span>
           <figcaption style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4">A living system —<br/>tracked, editable, AI-packaged.</figcaption>
         </figure>
       </div>
@@ -1030,7 +1010,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
               <button class="dstab" role="tab" aria-selected="false" data-i="3">Live prototype</button>
             </div>
             <div class="dspane">
-              <div class="dsphead"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u" id="dsPaneU">bankiq · rationale deck</span></div>
+              <div class="dsphead"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="u" id="dsPaneU">bankiq · rationale deck</span><button class="dsfs" id="dsFs" title="Open fullscreen">⤢ Fullscreen</button></div>
               <div class="dsframes">
                 <iframe class="dsf on" data-src="tools/bankiq-rationale/index.html" title="B2B Banking · Design Rationale" loading="lazy"></iframe>
                 <iframe class="dsf" data-src="tools/bankiq-design-system/index.html" title="B2B Banking · Design System" loading="lazy"></iframe>
@@ -1435,6 +1415,8 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     tabs.forEach(function(t,i){ t.addEventListener('click',function(){ activate(i); }); });
     window.rlDsTab=function(i){ activate(i); };
     // load the first build once the section scrolls into view
+    var fsBtn=document.getElementById('dsFs');
+    if(fsBtn) fsBtn.addEventListener('click',function(){ var f=wrap.querySelector('.dsf.on'), u=document.getElementById('dsPaneU'); if(f&&window.rlModal) window.rlModal(f.getAttribute('data-src'), u?u.textContent.replace(/^bankiq · /,'B2B Banking · '):'B2B Banking'); });
     var seen=false;
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting&&!seen){ seen=true; load(0); } }); },{threshold:.15}).observe(wrap);
   })();
