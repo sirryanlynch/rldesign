@@ -1771,6 +1771,20 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   ht.src='assets/img/hero-halftone.png'; og.src='assets/img/hero-og.png';
 })();
 </script>
+<!-- nav anchors: deterministic scroll (past the sticky quote) -->
+<script>
+(function(){
+  document.querySelectorAll('.nav a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(a.getAttribute('href')); if(!t) return;
+      e.preventDefault();
+      var y=t.getBoundingClientRect().top+window.pageYOffset-70;
+      window.scrollTo({top:y,behavior:'smooth'});
+      if(history.replaceState) history.replaceState(null,'',a.getAttribute('href'));
+    });
+  });
+})();
+</script>
 <!-- Timber hero: contained video that autoplays on scroll, pausable + closable -->
 <script>
 (function(){
