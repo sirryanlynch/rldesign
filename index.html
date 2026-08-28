@@ -238,7 +238,7 @@ a{color:inherit}
 .thero.playing .theroh{opacity:0}
 .thero .therovid{position:absolute;inset:0;z-index:2;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s ease}
 .thero .therovid.on{opacity:1;visibility:visible}
-.thero .tvscrim{position:absolute;inset:0;background:rgba(6,8,12,.5)}
+.thero .tvscrim{position:absolute;inset:0;background:#07090d}
 .thero .tvplayer{position:absolute;inset:clamp(30px,6vw,80px);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px -26px rgba(0,0,0,.7)}
 .thero .tvplayer iframe{display:block;width:100%;height:100%;border:0}
 .thero .tvclose{position:absolute;top:12px;right:12px;z-index:4;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(10,12,16,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s}
@@ -1369,7 +1369,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
       <div class="no">03</div>
       <div class="pc">
         <div class="ph" id="timber"><div><h3>Timber Surf Co</h3><div class="role">Brand identity, product-line architecture, and content for a Santa Cruz wood-surfboard maker — three construction sub-brands (Splinter Series, TECHxTILE, Corky), collateral, booth, and the visual language.</div><span class="sptag">Brand · Product</span></div></div>
-        <figure class="tsheet thero reveal" id="theroHero"><img src="assets/img/timber-newsom.jpg" alt="A Timber board gifted to HRH Crown Prince Haakon of Norway by Gov. Gavin Newsom" loading="lazy"/><div class="theroh"><div class="tht">TIMBER SURF CO</div><div class="ths">High-performance wooden surfboards</div></div><div class="therovid" id="theroVid"><div class="tvscrim"></div><div class="tvplayer"><iframe id="tvFrame" title="Timber Surf Co film" allow="autoplay; fullscreen; picture-in-picture"></iframe></div><button class="tvclose" id="tvClose" title="Close" aria-label="Close video">&#10005;</button></div><figcaption>A Timber board — gifted by Gov. Gavin Newsom to HRH Crown Prince Haakon of Norway.</figcaption></figure>
+        <figure class="tsheet thero reveal" id="theroHero"><img src="assets/img/timber-newsom.jpg" alt="A surfer carrying a Timber wood surfboard on the Santa Cruz coast" loading="lazy"/><div class="theroh"><div class="tht">TIMBER SURF CO</div><div class="ths">High-performance wooden surfboards</div></div><div class="therovid" id="theroVid"><div class="tvscrim"></div><div class="tvplayer"><iframe id="tvFrame" title="Timber Surf Co film" allow="autoplay; fullscreen; picture-in-picture"></iframe></div><button class="tvclose" id="tvClose" title="Close" aria-label="Close video">&#10005;</button></div><figcaption>A Timber board headed for the water — the Santa Cruz coast.</figcaption></figure>
         <figure class="tsheet reveal"><img src="assets/img/timber-line.jpg" alt="Timber Surf Co board line — Splinter Series, TECHxTILE, Corky" loading="lazy"/><figcaption>Board-line architecture — three construction sub-brands, one system.</figcaption></figure>
         <div class="gallery">
           <img src="assets/img/timber-g7.jpg" alt="Cedar fish surfboard by Timber Surf Co" loading="lazy"/>
@@ -1388,14 +1388,17 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     <div class="tabpanel" id="panel-bunker" role="tabpanel" aria-labelledby="tab-bunker" hidden>
       <p class="paneltext">The Bunker, where the work ends in sawdust. An offroad teardrop trailer — designed, engineered, and built from the frame up, then driven into the ground.</p>
       <div class="bunker">
-        <figure class="feature reveal"><img src="assets/img/trailer-2.jpg" alt="Offroad teardrop trailer in the field" loading="lazy"/><figcaption><b>Offroad teardrop trailer</b> — designed, engineered, and built from the frame up, then driven into the ground.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/bunker-workshop.jpg" alt="Trailer build in the workshop" loading="lazy"/><figcaption>Fabrication in the garage, the messy middle.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/trailer-6.jpg" alt="Wiring and cabinetry inside the build" loading="lazy"/><figcaption>Wiring and cabinetry, done by hand.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/bunker-teardrop.jpg" alt="Teardrop shell coming together" loading="lazy"/><figcaption>The shell, coming together.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/trailer-3.jpg" alt="Teardrop galley kitchen" loading="lazy"/><figcaption>The galley, dialed for the road.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/trailer-1.jpg" alt="Teardrop trailer, built to travel" loading="lazy"/><figcaption>Small footprint, everywhere ambitions.</figcaption></figure>
-        <figure class="feature reveal"><img src="assets/img/trailer-4.jpg" alt="Teardrop camped off the pavement" loading="lazy"/><figcaption><b>Field-tested.</b> From Baja to the Utah backcountry, where the pavement ends.</figcaption></figure>
-        <figure class="reveal"><img src="assets/img/trailer-5.jpg" alt="Teardrop on a remote camp" loading="lazy"/><figcaption>Home, wherever it lands.</figcaption></figure>
+        <figure class="feature reveal"><img src="assets/img/trailer-sketch.jpg" alt="Hand-drawn design sketch of the teardrop trailer" loading="lazy"/><figcaption><b>It started as a pencil sketch.</b> One offroad teardrop — designed, engineered, and built from the frame up.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-chassis.jpg" alt="Welded steel trailer frame and tongue" loading="lazy"/><figcaption>The steel tongue and frame, welded from scratch.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-shell.jpg" alt="Plywood shell panel with door cutout" loading="lazy"/><figcaption>Plywood skin — cut, curved, and fitted panel by panel.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/bunker-workshop.jpg" alt="Trailer build in the workshop" loading="lazy"/><figcaption>Fabrication in the garage — the messy middle.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-crew.jpg" alt="Building the trailer with a friend" loading="lazy"/><figcaption>Built with a friend and a lot of glue.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-6.jpg" alt="Wiring and cabinetry inside the build" loading="lazy"/><figcaption>Wiring and cabinetry, all done by hand.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-interior.jpg" alt="Finished teardrop cabin interior" loading="lazy"/><figcaption>The cabin, finished — a bed and a place to land.</figcaption></figure>
+        <figure class="feature reveal"><img src="assets/img/trailer-2.jpg" alt="Teardrop galley open on a Baja beach" loading="lazy"/><figcaption><b>The galley, dialed for the road.</b> First light on a Baja beach.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-3.jpg" alt="Teardrop parked in a palm grove" loading="lazy"/><figcaption>Parked in a palm grove, kitchen lit at dusk.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/trailer-5.jpg" alt="Teardrop on a remote canyon camp" loading="lazy"/><figcaption>Home, wherever it lands.</figcaption></figure>
+        <figure class="reveal"><img src="assets/img/bunker-teardrop.jpg" alt="Teardrop in the desert, where the pavement ends" loading="lazy"/><figcaption>Where the pavement ends.</figcaption></figure>
       </div>
     </div>
   </div>
