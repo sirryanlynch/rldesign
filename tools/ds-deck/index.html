@@ -253,6 +253,10 @@ body.reorder .nav-item{cursor:grab}
 .slide:not(.cover-slide){display:flex;flex-direction:column;justify-content:safe center}
 .slide:not(.cover-slide)>.kicker{align-self:flex-start}
 .slide:not(.cover-slide)>*{flex:0 0 auto}
+/* fit-to-height wrapper: scales a slide's content down proportionally so nothing scrolls off */
+.slide>.fitwrap{display:flex;flex-direction:column;width:100%}
+.slide:not(.cover-slide)>.fitwrap>*{flex:0 0 auto}
+.slide:not(.cover-slide)>.fitwrap>.kicker{align-self:flex-start}
 .slide.active{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition-delay:0s,0s,0s}
 .slide::-webkit-scrollbar,.index::-webkit-scrollbar{width:7px}
 .slide::-webkit-scrollbar-thumb,.index::-webkit-scrollbar-thumb{background:rgba(140,132,200,.3);border-radius:4px}
@@ -4217,8 +4221,31 @@ setTimeout(()=>pw.focus(),900);
 /* ---- deck nav ---- */
 let slides=[], navItems=[], dotEls=[], N=0, cur=0;
 const idx=document.getElementById('index'), dots=document.getElementById('dots');
+/* wrap each non-cover slide's content so it can be scaled to fit the stage */
+function wrapFit(s){
+  if(s.classList.contains('cover-slide')) return null;
+  let w=s.querySelector(':scope > .fitwrap');
+  if(!w){ w=document.createElement('div'); w.className='fitwrap';
+    while(s.firstChild) w.appendChild(s.firstChild); s.appendChild(w); }
+  return w;
+}
+/* shrink a slide's content proportionally until it fits the stage height (no scroll) */
+function fitSlide(s){
+  if(!s || s.classList.contains('cover-slide')) return;
+  const w=s.querySelector(':scope > .fitwrap'); if(!w) return;
+  w.style.zoom='';                                  // reset to natural size to measure
+  const cs=getComputedStyle(s);
+  const avail=s.clientHeight - parseFloat(cs.paddingTop||0) - parseFloat(cs.paddingBottom||0);
+  const nat=w.scrollHeight;
+  if(!avail || !nat) return;
+  let k=avail/nat;
+  if(k>=0.995){ w.style.zoom=''; return; }          // already fits
+  w.style.zoom=Math.max(k,0.5);                      // proportional shrink, floor for legibility
+}
+function fitAll(){ if(slides) slides.forEach(fitSlide); }
 function buildNav(){
   slides=[...document.querySelectorAll('.slide')];
+  slides.forEach(wrapFit);
   N=slides.length;
   document.getElementById('tot').textContent=N;
   idx.innerHTML='<h4>Sections</h4>';
@@ -4243,12 +4270,18 @@ function go(i){
   document.getElementById('prev').disabled=(i===0);
   document.getElementById('next').disabled=(i===N-1);
   slides[i].scrollTop=0;
+  requestAnimationFrame(()=>fitSlide(slides[i]));
   if(navItems[i]) navItems[i].scrollIntoView({block:'nearest'});
   armBelt(slides[i]);
   if(window.__deckTrack) window.__deckTrack.slide(i, slides[i].dataset.title);
   if(window.RV) RV.render();
 }
 buildNav();
+addEventListener('resize',()=>{ if(slides&&slides[cur]) fitSlide(slides[cur]); });
+addEventListener('load',fitAll);
+if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(fitAll); }
+setTimeout(fitAll,350);
+setTimeout(()=>{ if(slides&&slides[cur]) fitSlide(slides[cur]); },1300);
 
 /* ---- engagement tracking ---------------------------------------- */
 (function(){
