@@ -117,8 +117,8 @@ a{color:inherit}
   .quotestage{height:124vh}
   .quote blockquote{font-size:clamp(22px,6.4vw,34px);max-width:24ch}
   .quote .qglyph{font-size:clamp(120px,32vw,200px)}
-  .worktabs .tabbar{gap:0}
-  .worktabs .tab{padding:12px 11px;font-size:11px}
+  .worktabs .tabbar{gap:3px}
+  .worktabs .tab{padding:14px 14px;font-size:14px}
   .piece{grid-template-columns:1fr;gap:0}
   .piece .no{padding:24px 0 0}
   .bunker img{height:240px}
@@ -164,7 +164,8 @@ a{color:inherit}
 .anchornav a:hover{color:var(--ink);border-color:var(--line-2)}
 /* work tabs */
 .worktabs .tabbar{display:flex;gap:4px;flex-wrap:wrap;margin:30px 0 6px;border-bottom:1px solid var(--line)}
-.worktabs .tab{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:13px 15px;margin-bottom:-1px;cursor:pointer;transition:color .2s,border-color .2s}
+.worktabs .tabbar{gap:6px}
+.worktabs .tab{font-family:var(--mono);font-size:clamp(15px,1.7vw,21px);letter-spacing:.02em;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:18px 26px;margin-bottom:-1px;cursor:pointer;transition:color .2s,border-color .2s}
 .worktabs .tab:hover{color:var(--ink-2)}
 .worktabs .tab.is-on{color:var(--ink);border-bottom-color:var(--accent)}
 .tabpanel{padding-top:10px}
@@ -1014,7 +1015,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   </div>
     </div>
     <div class="tabpanel is-on" id="panel-ux" role="tabpanel" aria-labelledby="tab-ux">
-      <p class="paneltext">Product and interface design, from a facilities-maintenance SaaS to vehicle interiors and flight hardware. It starts with the system underneath.</p>
+      <p class="paneltext">Product and interface design, from a B2B banking platform and a facilities-maintenance SaaS to the design studio at Tesla. Software or hardware, it starts with the system underneath.</p>
 
       <div class="piece">
       <div class="no">01</div>
@@ -1688,6 +1689,13 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     setP(1);
   }
   function skip(){ if(phase==='playing'&&skipArmed) finish(); }
+  // force the quote to a resolved state so a nav jump past it can't re-trigger the pin/lock
+  window.__resolveQuote=function(){
+    phase='done'; skipArmed=false; locked=false;
+    if(unlockT){ clearTimeout(unlockT); unlockT=null; }
+    if(holdOn){ holdOn=false; window.removeEventListener('scroll',holdScroll); }
+    q.classList.add('play'); bg.classList.add('deckrun'); setP(1);
+  };
 
   var lastY=window.scrollY||0;
   window.addEventListener('scroll', function(){
@@ -1788,6 +1796,7 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
     a.addEventListener('click',function(e){
       var t=document.querySelector(a.getAttribute('href')); if(!t) return;
       e.preventDefault();
+      if(window.__resolveQuote) window.__resolveQuote();   // release the pinned-quote lock so the jump lands cleanly
       var y=t.getBoundingClientRect().top+window.pageYOffset-70;
       window.scrollTo({top:y,behavior:'smooth'});
       if(history.replaceState) history.replaceState(null,'',a.getAttribute('href'));
