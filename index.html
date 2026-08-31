@@ -738,6 +738,15 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   .scrollcue{display:block;position:absolute;left:22px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);margin:0;z-index:3;font-size:10px}
 }
 </style>
+<!-- Google Analytics 4 — geo (city/region/country) is captured automatically per event -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LEWQL8HQT2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LEWQL8HQT2', {transport_type:'beacon'});
+  window.__track = function(name, params){ try{ gtag('event', name, params||{}); }catch(e){} };
+</script>
 </head>
 <body>
 <!-- private-portfolio password gate (client-side; deters, not hard security) -->
@@ -1819,6 +1828,53 @@ footer .sig{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
   new IntersectionObserver(function(es){ es.forEach(function(e){
     if(e.isIntersecting){ open(); } else if(playing){ stop(); }
   }); },{threshold:.55}).observe(hero);
+})();
+</script>
+<!-- click tracking → GA4 (each event carries city/region/country automatically) -->
+<script>
+(function(){
+  var track = window.__track || function(){};
+  function clean(s){ return (s||'').replace(/\s+/g,' ').trim().slice(0,90); }
+  // which section of the page a click happened in (nearest ancestor with an id)
+  function section(el){ var n=el.closest('[id]'); return n ? n.id : 'page'; }
+  // which work tab is currently open
+  function activeTab(){ var t=document.querySelector('.worktabs .tab.is-on'); return t ? clean(t.textContent) : ''; }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href]');
+    if(a){
+      var href = a.getAttribute('href') || '';
+      var text = clean(a.textContent) || clean(a.getAttribute('aria-label'));
+      if(/\.pdf($|\?)/i.test(href))            track('file_download', {file_name: href.split('/').pop(), link_text: text, section: section(a)});
+      else if(/^mailto:/i.test(href))          track('contact_click', {method:'email', link_url: href.replace(/^mailto:/i,''), section: section(a)});
+      else if(/^https?:/i.test(href) && a.hostname !== location.hostname)
+                                               track('outbound_click', {link_url: href, link_domain: a.hostname, link_text: text, section: section(a)});
+      else if(/^#/.test(href))                 track('nav_click', {target: href, link_text: text});
+      return;
+    }
+    var tab = e.target.closest('.worktabs .tab');
+    if(tab){ track('work_tab', {tab: clean(tab.textContent)}); return; }
+
+    var dstab = e.target.closest('.dstab');
+    if(dstab){ track('ds_view', {view: clean(dstab.textContent), tab: activeTab()}); return; }
+
+    var fs = e.target.closest('.dsfs, #dsFs');
+    if(fs){ track('ds_fullscreen', {tab: activeTab()}); return; }
+
+    var fig = e.target.closest('.bunker figure, .gallery img, .tsheet, figure');
+    if(fig){
+      var cap = fig.querySelector ? clean((fig.querySelector('figcaption')||{}).textContent) : '';
+      track('image_click', {section: section(fig), caption: cap});
+      return;
+    }
+
+    var card = e.target.closest('[data-track]');
+    if(card){ track('content_click', {content_id: card.getAttribute('data-track'), section: section(card)}); return; }
+  }, true);
+
+  // Timber film play (fired from that section's own logic isn't wired to GA, so catch it here)
+  var tvBtn = document.getElementById('tvClose');
+  if(tvBtn){ tvBtn.addEventListener('click', function(){ track('video_close', {video:'timber_film'}); }); }
 })();
 </script>
 </body>
